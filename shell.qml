@@ -69,6 +69,26 @@ Scope {
             anchors.fill: parent
             color: "#000000"
             // z: 0
+            Image {
+                id: backgroundTexture
+                z: 0
+                anchors.fill: parent
+                fillMode: Image.PreserveAspectFit
+                source: Qt.resolvedUrl("./LogoutMenuTextureBackground.png")
+                visible: true
+                opacity: 0.1
+            }
+            MultiEffect {
+                id: mymm
+                blurEnabled: true
+                blur: 1.0
+                blurMax: 10
+                source: backgroundTexture
+                anchors.fill: backgroundTexture
+                brightness: 0
+                colorization: 1.0
+                colorizationColor: itemsContainer.selectedBaseColor
+            }
 
             Item {
                 id: itemsContainer
@@ -76,7 +96,7 @@ Scope {
                 // Could use these to mess with stuff a little more flexibly?
                 // anchors.horizontalCenterOffset: 50
                 // anchors.verticalCenterOffset: 10
-                property string selectedButton: ""
+                property string selectedButton: "LOCK"
 
                 property var selectedBaseColor: {
                     if (selectedButton === "LOCK") {
@@ -109,83 +129,11 @@ Scope {
                     process: shutdownProcess
                 }
 
-                BigFirstLetterText {
-                    text: itemsContainer.selectedButton
-                    basePixelSize: 100
-                    firstLetterMultiplier: 5
-                    rotation: 90
-                    x: 500
-                    y: -500
-                    z: -1
-                    color: itemsContainer.selectedBaseColor
-                }
-
-                BigFirstLetterText {
-                    text: itemsContainer.selectedButton
-                    basePixelSize: 100
-                    firstLetterMultiplier: 5
-                    rotation: 0
-                    x: -500
-                    z: -1
-                    color: itemsContainer.selectedBaseColor
-                }
-
-                BigFirstLetterText {
-                    text: itemsContainer.selectedButton
-                    basePixelSize: 100
-                    firstLetterMultiplier: 5
-                    x: 500
-                    y: -500
-                    z: -1
-                    color: itemsContainer.selectedBaseColor
-                }
+                ShutdownMenuBackgroundLock { text: itemsContainer.selectedButton }
+                ShutdownMenuBackgroundReboot { text: itemsContainer.selectedButton }
+                ShutdownMenuBackgroundShutdown { text: itemsContainer.selectedButton }
                 
             }
-        }
-    }
-
-    component BigFirstLetterText: Text {
-        id: myself
-        // These are going to need to be controlled on a per-instance basis so we
-        // DO NOT set them as part of this custom component
-        // rotation: 90
-        // z: 0
-
-        required property string text
-        required property int basePixelSize
-        required property real firstLetterMultiplier
-
-
-        function getText() {
-            
-            if (!text) {
-                return ""
-            }
-            const first = text[0];
-            const rest = text.substring(1);
-            const bigLetterSize = basePixelSize * firstLetterMultiplier;
-
-            return `<span style='font-size: ${bigLetterSize}px;'>${first}</span>` + 
-            `<span>${rest}</span>`;
-        }
-
-        MultiEffect {
-            blurEnabled: true
-            blur: 1.0
-            blurMax: 10
-            source: myText
-            anchors.fill: myText
-        }
-
-        Text {
-            id: myText
-            font {
-                family: fontSansSerif.font.family
-                pixelSize: basePixelSize
-            }
-            color: myself.color
-            text: myself.getText(myself.text, basePixelSize)
-            textFormat: Text.RichText
         }
     }
 
@@ -202,6 +150,7 @@ Scope {
             property bool hovered: false
             y: myself.yOffset
             x: myself.xOffset
+            z: 1
             implicitWidth: 800
             implicitHeight: 300
             anchors.horizontalCenterOffset: 50
@@ -248,7 +197,8 @@ Scope {
                 }
                 onExited: {
                     parent.hovered = false;
-                    itemsContainer.selectedButton = "";
+                    // Do NOT clear the selectedButton text, to enforce
+                    // the invariant that "some menu item is always selected"
                 }
             }
         }

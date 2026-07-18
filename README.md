@@ -14,6 +14,25 @@ A Cowboy Bebop title sequence inspired Quickshell.
 - "Destroy" shutdown menu background text
     - Can be done with shader effect onto MultiEffect maskSource or a shader
     - I learned via experimentation that mask images get stretched so they don't work great
+- Check and reduce memory usage, use LazyLoaders and such
+
+## Plans
+
+### Always-On Widgets
+This is largely based on my personal taste. Undecided where these will be placed
+- **Date and Time**
+- **Notifications**: These just need to be styled appropriately
+- **Current Workspace Number**: Not sure what the cleanest way to have this is
+- **Volume Percent**: Optionally, what's currently playing
+
+### Submenu/New Layer Widgets
+These things need dedicated menus or layers.
+- **App Launcher**: Considering doing something fun with one of those scrolling text sections
+- **Lock Screen**: Considering one of the sections with black bars against bright background and yellow text in rectangles
+- **Calendar**: Section from opening with colored squares may look very nice
+- **Audio Control/Setup**: To control which output device is used, etc
+- **System Stats**: CPU/RAM etc. Not sure what this will look like yet
+- **Theming Menu**: Wallpaper, colors, options
 
 - Create other widgets:
     - Lock Screen

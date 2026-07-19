@@ -49,10 +49,10 @@ RowLayout {
             }
 
             MouseArea {
-                anchors.fill: parent
-                // Switch this once I switch Hyprland to Lua, Lua version is commented:
-                // onClicked: Hyprland.dispatch("hl.dsp.focus({ workspace = " + (parent.index + 1) + "})")
-                onClicked: Hyprland.dispatch("workspace " + (parent.index + 1))
+                anchors.fill: wsButton
+                // Lua version is uncommented. If hyprland config is old switch to that other one
+                onClicked: Hyprland.dispatch("hl.dsp.focus({ workspace = " + (parent.index + 1) + "})")
+                // onClicked: Hyprland.dispatch("workspace " + (parent.index + 1))
             }
         }
     }

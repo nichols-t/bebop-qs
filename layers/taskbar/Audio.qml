@@ -1,0 +1,98 @@
+import Quickshell
+import Quickshell.Services.Pipewire
+import Quickshell.Services.Mpris
+import QtQuick
+import QtQuick.Layouts
+import ".."
+import "../.."
+
+// TODO some kind of image background or something
+RowLayout {
+    id: root
+    implicitHeight: Config.taskbar.taskbarHeight
+    spacing: 0
+
+    property var itemsColor: Theme.colors.backgroundHighlight
+    property var itemsPixelSize: Theme.fonts.defaultFontSize
+    property var sink: Pipewire.defaultAudioSink
+
+    readonly property bool ready: sink && sink.ready
+    readonly property bool muted: ready && sink.audio.muted
+    readonly property int vol: ready ? Math.round(sink.audio.volume * 100) : 0
+
+    // Used for track information
+    // https://quickshell.org/docs/v0.3.0/types/Quickshell.Services.Mpris/MprisPlayer/
+    property var mpris: Mpris.players.values[0] || null
+
+    readonly property int audioLevel: {
+        // Got from https://www.nerdfonts.com/cheat-sheet
+        if (!ready || muted || vol === 0)
+            return 0;
+        if (vol < 34)
+            return 1;
+        if (vol < 67)
+            return 2;
+        return 3;
+    }
+
+    RowLayout {
+        spacing: 2
+        Repeater {
+            id: repeater
+            model: 3
+            Rectangle {
+                required property int index
+                //  (inverse index) < audio level
+                visible: repeater.model - (index + 1) < root.audioLevel
+                color: Config.taskbar.audio.barsColor;
+                implicitHeight: 20
+                implicitWidth: 8
+            }
+        }
+    }
+
+    Rectangle {
+        implicitWidth: 50
+        implicitHeight: Config.taskbar.taskbarHeight
+        color: "transparent"
+        Text {
+            id: audioText
+            anchors.centerIn: parent
+            text: {
+                if (!root.ready)
+                    return "-";
+                if (root.muted)
+                    return "muted";
+
+                if (mpris.playbackState !== MprisPlaybackState.Playing) {
+                    return root.vol + "%";
+                }
+
+                // TODO: Not sure if I want this, and if I do, probably to the left of the bars
+                // var title = mpris.trackTitle || "[untitled]";
+                // var artist = mpris.trackArtist || "[unknown]";
+
+                // return title + " BY " + artist + " @ " + root.vol + "%";
+                return root.vol + "%";
+            }
+
+            font {
+                family: Config.fontTypewriter.font.family
+                pixelSize: 18
+                bold: true
+                capitalization: Font.AllUppercase
+            }
+            color: Config.taskbar.audio.textColor
+        }
+    }
+
+    // TODO this feels like a hack to move the RowLayout a little bit leftwards - is there a cleaner way?
+    Rectangle {
+        implicitWidth: 20
+        color: "transparent"
+    }
+
+    PwObjectTracker {
+        objects: [root.sink]
+    }
+}

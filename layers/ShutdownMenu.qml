@@ -42,7 +42,12 @@ Scope {
         id: shutdownMenuWindow
         visible: false
         color: "transparent"
-        WlrLayershell.layer: WlrLayer.Top
+        Component.onCompleted: {
+            if (this.WlrLayershell != null) {
+                this.WlrLayershell.layer = WlrLayer.Top;
+                this.WlrLayershell.namespace = "shutdownMenu"
+            }
+        }
         WlrLayershell.exclusionMode: ExclusionMode.Ignore
         WlrLayershell.keyboardFocus: WlrKeyboardFocus.Exclusive
         anchors {
@@ -232,6 +237,7 @@ Scope {
             onTriggered: {
                 process.startDetached();
                 shutdownMenuWindow.visible = false;
+                goodbyeMessage.visible = false;
                 if (shouldQuit) {
                     Qt.quit()
                 }

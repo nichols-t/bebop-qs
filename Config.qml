@@ -33,6 +33,18 @@ Singleton {
         "taskbarHeight": 30,
         "clock": {
             "textColor": "#e1e1e1"
+        },
+        "audio": {
+            "textColor": "#e1e1e1",
+            "barsColor": "cyan"
+        },
+        "workspaces": {
+            "textColorActive": "#e1e1e1",
+            "textColorInactive": "black",
+            "textColorWithWindows": "#aaaaaa",
+            "backgroundColorActive": "black",
+            "backgroundColorInactive": "#aaaaaa",
+            "backgroundColorWithWindows": "black"
         }
     }
 }

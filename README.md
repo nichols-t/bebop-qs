@@ -17,6 +17,7 @@ A Cowboy Bebop title sequence inspired Quickshell.
 - Check and reduce memory usage, use LazyLoaders and such
 - Better system for Taskbar/other SVG creation
     - What I have right now could be more flexible and also look better
+    - QtQuick.Shapes to draw shapes directly??
 
 ## Plans
 

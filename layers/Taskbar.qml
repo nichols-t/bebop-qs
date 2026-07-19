@@ -27,6 +27,7 @@ Scope {
         //   anchors.left: parent
         // }
 
+        LayerParts.Workspaces {}
          Item { Layout.fillWidth: true }
 
         // RowLayout {
@@ -36,12 +37,9 @@ Scope {
         // 
         // }
 
-        LayerParts.Clock {
-          // anchors.right: parent
-          // implicitHeight: Config.taskbar.taskbarHeight
-          // implicitWidth: 280
-          // Layout.alignment: Qt.AlignVCenter | Qt.AlignRight
-        }
+        LayerParts.Audio {}
+
+        LayerParts.Clock {}
 
       }
 

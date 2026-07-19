@@ -2,9 +2,11 @@
 
 A Cowboy Bebop title sequence inspired Quickshell.
 
+## Using
+1. Use this repo as your quickshell directory
+2. Symlink the `quickshell.lua` file into your hyprland config directory and `require` it from your config
+
 ## TODOs
-- Figure out how to disable hyprland zoom-in on creation (for shutdown menu)
-    - probably a windowrule I can set with Lua or something
 - Set up correctly for multiple monitors
 - Find a better sans-serif font for shutdown menu background text
 - Juice up background text in shutdown menu till it looks right
@@ -18,33 +20,46 @@ A Cowboy Bebop title sequence inspired Quickshell.
 - Better system for Taskbar/other SVG creation
     - What I have right now could be more flexible and also look better
     - QtQuick.Shapes to draw shapes directly??
+- Finish larger widgets and menus (see below)
 
 ## Plans
 
 ### Always-On Widgets
 This is largely based on my personal taste. Undecided where these will be placed
-- **Date and Time**
+- **Date and Time**:
+    - Unsure on appearance
+    - Functionality done
 - **Notifications**: These just need to be styled appropriately
+    - Not started
 - **Current Workspace Number**: Not sure what the cleanest way to have this is
+    - Unsure on appearance
+    - Functionality done
 - **Volume Percent**: Optionally, what's currently playing
+    - Unsure on appearance
+    - Functionality done
 
 ### Submenu/New Layer Widgets
 These things need dedicated menus or layers.
-- **App Launcher**: Considering doing something fun with one of those scrolling text sections
-- **Lock Screen**: Considering one of the sections with black bars against bright background and yellow text in rectangles
-- **Calendar**: Section from opening with colored squares may look very nice
-- **Audio Control/Setup**: To control which output device is used, etc
-- **System Stats**: CPU/RAM etc. Not sure what this will look like yet
+- **App Launcher**:
+    - May use one of those scrolling text sections, but not sure if this is functional enough
+    - Not started
+- **Lock Screen**:
+    - Considering one of the sections with black bars against bright background and yellow text in rectangles
+    - Not started
+- **Calendar**:
+    - Section from opening with colored squares may look very nice
+- **Audio Control/Setup**: Popup menu to control which devices used, etc. would be cool.
+    - Unsure on appearance yet
+    - Not started
+- **System Stats**: CPU/RAM etc
+    - Unsure on appearance yet
+    - Not started
 - **Theming Menu**: Wallpaper, colors, options
-
-- Create other widgets:
-    - Lock Screen
-    - Clock/Calendar
-    - Notification styling
-    - Workspace switching/display
-    - Audio Display (and switching?)
-    - System stats menu?
-
+    - Control of settings from GUI
+    - Not started
+- **Shutdown Menu**:
+    - Inspired by the episode title shot from the opening
+    - Mostly done, but needs additional juice
 
 ## Acknowledgements, Inspirations
 - Cowboy Bebop, obviously

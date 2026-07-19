@@ -15,6 +15,8 @@ A Cowboy Bebop title sequence inspired Quickshell.
     - Can be done with shader effect onto MultiEffect maskSource or a shader
     - I learned via experimentation that mask images get stretched so they don't work great
 - Check and reduce memory usage, use LazyLoaders and such
+- Better system for Taskbar/other SVG creation
+    - What I have right now could be more flexible and also look better
 
 ## Plans
 
@@ -41,3 +43,12 @@ These things need dedicated menus or layers.
     - Workspace switching/display
     - Audio Display (and switching?)
     - System stats menu?
+
+
+## Acknowledgements, Inspirations
+- Cowboy Bebop, obviously
+
+For particular "how do I do *xyz* in quickshell, I tended to look at
+- [Linux Antiquity](https://github.com/diinki/linux-antiquity/tree/main/configs/quickshell)
+- [Persona 3 Quickshell](https://github.com/Yujonpradhananga/Persona-Quickshell)
+For examples. So thanks to the creators of these projects!

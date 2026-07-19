@@ -5,6 +5,7 @@ import Quickshell
 import QtQuick
 
 Singleton {
+    // TODO: Separate these colors into their specific menu sub-parts when necessary.
     readonly property var colors: {
         "menuItemSelected": "#e1e1e1",
         "menuItemUnselected": "#aaaaaaaa",
@@ -16,5 +17,22 @@ Singleton {
         "lock": "#005a17",
         "reboot": "#d6c23d",
         "shutdown": "#46009b"
+    }
+
+    readonly property var fontTypewriter: FontLoader {
+        id: fontTypewriter
+        source: "./fonts/SpecialElite-Regular.ttf"
+    }
+
+    readonly property var fontSerif: FontLoader {
+        id: fontSerif
+        source: "./fonts/Cormorant-VariableFont_wght.ttf"
+    }
+
+    readonly property var taskbar: {
+        "taskbarHeight": 30,
+        "clock": {
+            "textColor": "#e1e1e1"
+        }
     }
 }

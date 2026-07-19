@@ -7,24 +7,11 @@ import QtQuick.Effects
 import QtQuick.Controls
 import Quickshell.Hyprland
 import ".."
-import "./shutdownMenu" as MenuParts
+import "./shutdownMenu" as LayerParts
 
 Scope {
     id: root
-    property bool shouldShow: false
     property var targetScreen: null
-    property bool contentVisible: false
-
-    // Need to load our fonts!!
-    FontLoader {
-        id: fontTypewriter
-        source: "../fonts/SpecialElite-Regular.ttf"
-    }
-
-    FontLoader {
-        id: fontSerif
-        source: "../fonts/Cormorant-VariableFont_wght.ttf"
-    }
 
     Process {
         id: shutdownProcess
@@ -42,7 +29,18 @@ Scope {
         running: false
     }
 
+    
+
+    IpcHandler {
+        target: "shutdownMenu"
+        function showShutdownMenu() {
+            shutdownMenuWindow.visible = true;
+        }
+    }
+
     PanelWindow {
+        id: shutdownMenuWindow
+        visible: false
         color: "transparent"
         WlrLayershell.layer: WlrLayer.Top
         WlrLayershell.exclusionMode: ExclusionMode.Ignore
@@ -54,12 +52,12 @@ Scope {
             right: true
         }
         HyprlandFocusGrab {
-        id: grab
-        windows: [ itemsContainer ]
+            id: grab
+            windows: [itemsContainer]
         }
 
         // This rectangle loaded as a goodbye message
-        MenuParts.ShutdownMenuGoodbye {
+        LayerParts.ShutdownMenuGoodbye {
             id: goodbyeMessage
             visible: false // Becomes visible only when clicked
             z: 128
@@ -90,7 +88,6 @@ Scope {
                 colorizationColor: itemsContainer.selectedBaseColor
             }
 
-
             Item {
                 id: itemsContainer
                 focus: true
@@ -103,11 +100,11 @@ Scope {
                     // close: Escape
                     if (event.key === Qt.Key_Escape) {
                         event.accepted = true;
-                        Qt.quit();
+                        shutdownMenuWindow.visible = false
                     }
                     // execute: enter
                     if (event.key === Qt.Key_Return) {
-                        selectedBtnItem.clicked()
+                        selectedBtnItem.clicked();
                     }
 
                     // navigate: arrow keys
@@ -138,7 +135,6 @@ Scope {
                     }
                 }
 
-
                 property var selectedBaseColor: {
                     if (selectedBtnItem === btnLock) {
                         return Config.colors.lock;
@@ -151,12 +147,35 @@ Scope {
                     }
                 }
 
+                Text {
+                    id: menuTitleText
+                    text: "POWER MENU #1"
+                    color: Config.colors.menuItemSelected
+
+                    font {
+                        family: Config.fontTypewriter.font.family
+                        pixelSize: 60
+                    }
+                    y: btnLock.yOffset - 100
+                    x: btnLock.xOffset - 100
+                    visible: false
+                }
+
+                MultiEffect {
+                    blurEnabled: true
+                    blur: 1.0
+                    blurMax: 8
+                    source: menuTitleText
+                    anchors.fill: menuTitleText
+                }
+
                 // wonder if this is smarter way: https://doc.qt.io/qt-6/qml-qtquick-controls-buttongroup.html
                 LogoutClickableButtonItem {
                     id: btnLock
                     text: "LOCK"
                     yOffset: -400
                     xOffset: -400
+                    shouldQuit: false
                     process: logoutProcess
                 }
                 LogoutClickableButtonItem {
@@ -176,9 +195,15 @@ Scope {
 
                 // We load each background, but they're only displayed when the text
                 // actually matches
-                MenuParts.ShutdownMenuBackgroundLock { text: itemsContainer.selectedBtnItem.text }
-                MenuParts.ShutdownMenuBackgroundReboot { text: itemsContainer.selectedBtnItem.text }
-                MenuParts.ShutdownMenuBackgroundShutdown { text: itemsContainer.selectedBtnItem.text }
+                LayerParts.ShutdownMenuBackgroundLock {
+                    text: itemsContainer.selectedBtnItem.text
+                }
+                LayerParts.ShutdownMenuBackgroundReboot {
+                    text: itemsContainer.selectedBtnItem.text
+                }
+                LayerParts.ShutdownMenuBackgroundShutdown {
+                    text: itemsContainer.selectedBtnItem.text
+                }
             }
         }
     }
@@ -188,8 +213,8 @@ Scope {
         required property string text
         required property int yOffset
         required property int xOffset
-        required property var action
         required property var process
+        property bool shouldQuit: true
         property bool selected: {
             return itemsContainer.selectedBtnItem === myself;
         }
@@ -201,10 +226,15 @@ Scope {
         // Show goodbye message before executing process
         Timer {
             id: goodbyeTimer
-            interval: 1200; running: false; repeat: false
+            interval: 1200
+            running: false
+            repeat: false
             onTriggered: {
                 process.startDetached();
-                Qt.quit();
+                shutdownMenuWindow.visible = false;
+                if (shouldQuit) {
+                    Qt.quit()
+                }
             }
         }
 
@@ -231,7 +261,7 @@ Scope {
                 }
 
                 font {
-                    family: fontTypewriter.font.family
+                    family: Config.fontTypewriter.font.family
                     pixelSize: 100
                 }
                 visible: false
@@ -247,7 +277,7 @@ Scope {
             MouseArea {
                 anchors.fill: parent
                 onClicked: {
-                    myself.clicked()
+                    myself.clicked();
                 }
                 hoverEnabled: true
                 onEntered: {

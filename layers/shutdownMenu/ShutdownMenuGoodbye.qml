@@ -18,7 +18,7 @@ Rectangle {
         anchors.right: parent.right
         visible: false
         font {
-            family: fontSerif.font.family
+            family: Config.fontSerif.font.family
             pixelSize: 50
             italic: true
         }

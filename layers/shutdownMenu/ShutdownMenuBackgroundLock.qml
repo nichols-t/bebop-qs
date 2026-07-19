@@ -18,7 +18,7 @@ ShutdownMenuBackground {
         x: -400
         y: -200
         color: textColor
-        font.family: fontTypewriter.font.family
+        font.family: Config.fontTypewriter.font.family
         font.pixelSize: 100
         font.letterSpacing: 50
     }
@@ -38,7 +38,7 @@ ShutdownMenuBackground {
         id: backgroundText1
         rawText: parent.text
         font.pixelSize: 100
-        font.family: fontSerif.font.family
+        font.family: Config.fontSerif.font.family
         visible: false // Only blurred MultiEffect is visible
         rotation: 90
         x: 500
@@ -62,7 +62,7 @@ ShutdownMenuBackground {
         x: -1400
         y: -1500
         color: textColor
-        font.family: fontSerif.font.family
+        font.family: Config.fontSerif.font.family
         font.pixelSize: 500
     }
     MultiEffect {

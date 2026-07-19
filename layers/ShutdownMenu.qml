@@ -12,6 +12,7 @@ import "./shutdownMenu" as LayerParts
 Scope {
     id: root
     property var targetScreen: null
+    required property var modelData
 
     Process {
         id: shutdownProcess
@@ -29,23 +30,24 @@ Scope {
         running: false
     }
 
-    
-
     IpcHandler {
-        target: "shutdownMenu"
+        target: `shutdownMenu-${modelData.name}`
         function showShutdownMenu() {
-            shutdownMenuWindow.visible = true;
+            if (Hyprland.focusedMonitor?.name === modelData.name) {
+                shutdownMenuWindow.visible = true;
+            }
         }
     }
 
     PanelWindow {
         id: shutdownMenuWindow
+        screen: root.modelData
         visible: false
         color: "transparent"
         Component.onCompleted: {
             if (this.WlrLayershell != null) {
                 this.WlrLayershell.layer = WlrLayer.Top;
-                this.WlrLayershell.namespace = "shutdownMenu"
+                this.WlrLayershell.namespace = "shutdownMenu";
             }
         }
         WlrLayershell.exclusionMode: ExclusionMode.Ignore
@@ -105,7 +107,7 @@ Scope {
                     // close: Escape
                     if (event.key === Qt.Key_Escape) {
                         event.accepted = true;
-                        shutdownMenuWindow.visible = false
+                        shutdownMenuWindow.visible = false;
                     }
                     // execute: enter
                     if (event.key === Qt.Key_Return) {
@@ -213,6 +215,8 @@ Scope {
         }
     }
 
+    // TODO should this be in a separate file
+    // TODO should this be a Button? Does that automatically give us arrow key controls?
     component LogoutClickableButtonItem: Item {
         id: myself
         required property string text
@@ -239,7 +243,7 @@ Scope {
                 shutdownMenuWindow.visible = false;
                 goodbyeMessage.visible = false;
                 if (shouldQuit) {
-                    Qt.quit()
+                    Qt.quit();
                 }
             }
         }

@@ -6,17 +6,20 @@ import ".."
 import "../.."
 
 RowLayout {
+    id: root
     spacing: 7
 
     Repeater {
         model: 6
     
+        // TODO maybe it should be hex and not rectangle?
         Rectangle {
             id: wsButton
+            // TODO fix and add to theme
+            border.color: '#5c517a'
+            radius: 4
             required property int index
 
-            // If I need to check "workspace has windows or I am on it",
-            // it's this commented line:
             property var hasWindows: Hyprland.workspaces.values.find(w => w.id === index + 1)
             property bool isActive: Hyprland.focusedWorkspace?.id === (index + 1)
         
@@ -53,6 +56,13 @@ RowLayout {
                 // Lua version is uncommented. If hyprland config is old switch to that other one
                 onClicked: Hyprland.dispatch("hl.dsp.focus({ workspace = " + (parent.index + 1) + "})")
                 // onClicked: Hyprland.dispatch("workspace " + (parent.index + 1))
+                hoverEnabled: true
+                onEntered: {
+                    wsButton.border.width = 2
+                }
+                onExited: {
+                    wsButton.border.width = 0
+                }
             }
         }
     }

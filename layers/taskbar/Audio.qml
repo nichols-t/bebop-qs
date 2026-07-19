@@ -28,25 +28,23 @@ RowLayout {
         // Got from https://www.nerdfonts.com/cheat-sheet
         if (!ready || muted || vol === 0)
             return 0;
-        if (vol < 34)
-            return 1;
-        if (vol < 67)
-            return 2;
-        return 3;
+        else
+            // Done so that 0-20 = 1 bar, 20 - 40 = 2 bar, etc.
+            return Math.floor(vol / 20) + 1
     }
 
     RowLayout {
         spacing: 2
         Repeater {
             id: repeater
-            model: 3
+            model: 5
             Rectangle {
                 required property int index
                 //  (inverse index) < audio level
                 visible: repeater.model - (index + 1) < root.audioLevel
                 color: Config.taskbar.audio.barsColor;
                 implicitHeight: 20
-                implicitWidth: 8
+                implicitWidth: 4
             }
         }
     }

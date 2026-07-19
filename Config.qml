@@ -36,15 +36,15 @@ Singleton {
         },
         "audio": {
             "textColor": "#e1e1e1",
-            "barsColor": "cyan"
+            "barsColor": "#78eae7"
         },
         "workspaces": {
-            "textColorActive": "#e1e1e1",
-            "textColorInactive": "black",
+            "textColorActive": "#1b1835",
+            "textColorInactive": "#aaaaaa",
             "textColorWithWindows": "#aaaaaa",
-            "backgroundColorActive": "black",
-            "backgroundColorInactive": "#aaaaaa",
-            "backgroundColorWithWindows": "black"
+            "backgroundColorActive": "#28bddf",
+            "backgroundColorInactive": "#1b1835",
+            "backgroundColorWithWindows": "#6e7bad"
         }
     }
 }

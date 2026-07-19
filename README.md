@@ -13,6 +13,8 @@ A Cowboy Bebop title sequence inspired Quickshell.
     - Note that low blurMax and high blurMultiplier makes an interesting effect
 - Consider if there is a more flexible way to position shutdown menu background text
     - i.e. a way bound by screen edge rather than x/y??
+    - Consider if `ListView` is better semantics for arrow key behavior
+    - I think the screens thing needs to be figured out before I can send the current screen to the lock widgets?
 - "Destroy" shutdown menu background text
     - Can be done with shader effect onto MultiEffect maskSource or a shader
     - I learned via experimentation that mask images get stretched so they don't work great

@@ -7,9 +7,13 @@ import ".."
 import "../.."
 
 Rectangle {
+  id: root
   color: "transparent"
   implicitHeight: Config.taskbar.taskbarHeight
   implicitWidth: clockText.implicitWidth + 10
+  function clicked() {
+    clockText.text = "ligma"
+  }
 
   Image {
       id: backgroundImage
@@ -33,5 +37,12 @@ Rectangle {
     }
     anchors.centerIn: parent
     color: Config.taskbar.clock.textColor
+  }
+
+  MouseArea {
+    anchors.fill: root
+    onClicked: {
+      calendar.shouldShow = true
+    }
   }
 }

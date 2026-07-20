@@ -29,6 +29,11 @@ Singleton {
         source: "./fonts/Cormorant-VariableFont_wght.ttf"
     }
 
+    readonly property var fontBlocky: FontLoader {
+        id: fontBlocky
+        source: ".//home/ty/code/bebop/fonts/Bevan-Regular.ttf"
+    }
+
     readonly property var powerMenu: {
         "menuTitleText": "Power Menu #1"
     }

@@ -13,7 +13,7 @@ Singleton {
     Qt.formatDateTime(clock.date, "ddd MMM d hh:mm AP t yyyy")
   }
 
-  SystemClock {
+  readonly property var clock: SystemClock {
     id: clock
     // Minutes bc I'm not bothering to display seconds
     precision: SystemClock.Minutes

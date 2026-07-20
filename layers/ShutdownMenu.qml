@@ -11,7 +11,6 @@ import "./shutdownMenu" as LayerParts
 
 Scope {
     id: root
-    property var targetScreen: null
     // This is the screen from Quickshell.screens
     required property var modelData
 

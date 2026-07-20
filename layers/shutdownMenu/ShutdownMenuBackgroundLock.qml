@@ -56,6 +56,37 @@ ShutdownMenuBackground {
         anchors.fill: backgroundText1
     }
 
+    Text {
+        id: firstLetter1
+        text: parent.text[0]
+        visible: false // Only blurred MultiEffect is visible
+        anchors.centerIn: parent
+        anchors.horizontalCenterOffset: -screen.width / 6
+        anchors.verticalCenterOffset: -screen.height / 6
+        color: textColor
+        font.family: Config.fontSerif.font.family
+        font.pixelSize: screen.width / 2
+        font.bold: true
+    }
+    MultiEffect {
+        id: firstLetter1Mf
+        blurEnabled: true
+        blur: 1.0
+        blurMax: 16
+        blurMultiplier: screen.width / 20
+        source: firstLetter1
+        anchors.fill: firstLetter1
+        visible: false
+    }
+    MultiEffect {
+        blurEnabled: true
+        blur: 1.0
+        blurMax: 8
+        opacity: 0.9
+        source: firstLetter1Mf
+        anchors.fill: firstLetter1Mf
+    }
+
     Widgets.BigFirstLetterText {
         id: backgroundText2
         rawText: parent.text

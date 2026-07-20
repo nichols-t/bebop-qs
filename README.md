@@ -13,7 +13,7 @@ A Cowboy Bebop title sequence inspired Quickshell.
     - May be good to set "blur layers" in config and use those to calculate blur elements less manually
     - Set an `anchor` and `x/y` or centerIn and `vertical/horizontalCenterOffset`
 - Consider if `ListView` is better semantics for arrow key behavior
-- Consider if there's a better multi-monitor IPC solution
+- Consider if there's a better multi-monitor IPC solution than what I did
 - "Destroy" shutdown menu background text
     - Can be done with shader effect onto MultiEffect maskSource or a shader
     - I learned via experimentation that mask images get stretched so they don't work great
@@ -28,15 +28,16 @@ A Cowboy Bebop title sequence inspired Quickshell.
 ### Always-On Widgets
 This is largely based on my personal taste. Undecided where these will be placed
 - **Date and Time**:
-    - Unsure on appearance
+    - Unsure on appearance, but base version is styled
     - Functionality done
 - **Notifications**: These just need to be styled appropriately
-    - Not started
+    - Unsure on appearance, crappy version styled
+    - Functionality done
 - **Current Workspace Number**: Not sure what the cleanest way to have this is
-    - Unsure on appearance
+    - Prototype appearance is done, need to evaluate some of the surrounding box shape
     - Functionality done
 - **Volume Percent**: Optionally, what's currently playing
-    - Unsure on appearance
+    - Prototype appearance is done, need to evaluate some of the surrounding box shape
     - Functionality done
 
 ### Submenu/New Layer Widgets
@@ -45,10 +46,12 @@ These things need dedicated menus or layers.
     - May use one of those scrolling text sections, but not sure if this is functional enough
     - Not started
 - **Lock Screen**:
-    - Considering one of the sections with black bars against bright background and yellow text in rectangles
+    - Going to do some SVG lock icon like the one screenshot ref, but black
     - Not started
 - **Calendar**:
-    - Section from opening with colored squares may look very nice
+    - Section from opening with colored squares
+    - Considering `.ics` integration or weather integration
+    - Base functionality done, but no integrations and some styles still pending
 - **Audio Control/Setup**: Popup menu to control which devices used, etc. would be cool.
     - Unsure on appearance yet
     - Not started
@@ -60,7 +63,7 @@ These things need dedicated menus or layers.
     - Not started
 - **Shutdown Menu**:
     - Inspired by the episode title shot from the opening
-    - Mostly done, but needs additional juice
+    - Mostly done, but needs some additional juice to finish it up
 
 ## Acknowledgements, Inspirations
 - Cowboy Bebop, obviously

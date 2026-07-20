@@ -22,7 +22,7 @@ Scope {
         id: panel
         screen: root.modelData
         visible: root.shouldShow
-	    color: "transparent"
+        color: "transparent"
         Component.onCompleted: {
             if (this.WlrLayershell != null) {
                 this.WlrLayershell.layer = WlrLayer.Top;
@@ -36,7 +36,7 @@ Scope {
             top: true
             left: true
             bottom: true
-           right: true
+            right: true
         }
         HyprlandFocusGrab {
             id: grab
@@ -44,11 +44,11 @@ Scope {
         }
 
         Rectangle {
-          //  anchors.fill: parent
+            id: rectangle
+            //  anchors.fill: parent
             width: modelData.width
             height: modelData.height
-            id: rectangle
-            color: "black"
+            color: Config.calendar.backgroundColor
             visible: true
 
             MonthGrid {
@@ -63,23 +63,14 @@ Scope {
                     id: dayRect
                     width: root.modelData.width / 12
                     height: root.modelData.width / 12
-                    // TODO theme this more interestingly and add it to the theme proper
                     color: {
+                        shouldShow; // flag it to re-randomize whenever it runs
                         if (grid.month !== month) {
-                            return "#d2d6d3"
+                            return Config.calendar.backgroundColorDayOutOfRange;
                         }
-                        // TODO idiotic to put this definition in a repeated function call
-                        // make it config property
-                        const colors = [
-                            "#3954f0",
-                            "#d7dbf8",
-                            "#fefefe",
-                            "#b1bdf8",
-                            "#a4aef8"
-                        ];
                         // TODO not sure randomness here is interseting - maybe fix a pattern
-                        const randIdx = Math.floor(Math.random() * colors.length);
-                        return colors[randIdx];
+                        const randIdx = Math.floor(Math.random() * Config.calendar.backgroundColorsDays.length);
+                        return Config.calendar.backgroundColorsDays[randIdx];
                     }
 
                     Text {
@@ -91,25 +82,55 @@ Scope {
                         }
                         text: `${Qt.formatDateTime(date, 'ddd')} ${Qt.formatDateTime(date, 'MMM')} ${day}, ${year}`
                         font.bold: today
-                        font.variableAxes: { "wght": 700}
+                        font.variableAxes: {
+                            "wght": 700
+                        }
                         font.letterSpacing: 2
                         font.family: Config.fontBlocky.font.family
-                        font.pixelSize: 22
-                        font.italic: Math.random() > 0.5
-                        x: Math.random() * 10 - 5
-                        y: Math.random() * 10 - 5
-                        rotation: Math.random() * 15 - 7.5
+                        font.pixelSize: Config.calendar.fontSizeDays
+                        font.italic: shouldShow ? Math.random() > Config.calendar.fontDaysItalicThreshold : false
+                        x: {
+                            if (shouldShow) {
+                                const range = Config.calendar.dayTextXOffsetRange;
+                                return Math.random() * range - range/2;
+                            } else {
+                                return 0
+                            }
+                        }
+                        y: {
+                            if (shouldShow) {
+                                const range = Config.calendar.dayTextYOffsetRange;
+                                return Math.random() * range - range/2;
+                            } else {
+                                return 0
+                            }
+                        }
+                        rotation: {
+                            if (shouldShow) {
+                                const range = Config.calendar.dayTextRotationRange;
+                                return Math.random() * range - range/2;
+                            } else {
+                                return 0
+                            }
+                        }
                         z: dayRect.z + 1
                         color: "black"
                         anchors.top: parent
                         anchors.horizontalCenter: parent.horizontalCenter
-                        // TODO parameterize randomness better
-                        anchors.horizontalCenterOffset: Math.floor(Math.random() * 50 - 25)
+                        anchors.horizontalCenterOffset: {
+                            if (shouldShow) {
+                                const range = Config.calendar.dayTextXOffsetRange;
+                                return Math.random() * range - range /2;
+                            } else {
+                                return 0
+                            }
+                        }
                     }
                 }
             }
 
             // TODO mess with baseline per-letter for this? maybe not perfect 90 deg rotation?
+            //  TODO use a different (thinner) font here maybe??
             Text {
                 text: `${Qt.formatDateTime(Time.clock.date, 'MMMM')} ${Qt.formatDateTime(Time.clock.date, 'yyyy')}`
                 rotation: 90
@@ -117,7 +138,9 @@ Scope {
                 font.pixelSize: modelData.width / 24
                 font.family: Config.fontBlocky.font.family
                 font.bold: true
-                font.variableAxes: { "wght": 900}
+                font.variableAxes: {
+                    "wght": 700
+                }
                 y: implicitWidth
                 color: "white"
             }
@@ -129,7 +152,7 @@ Scope {
             MouseArea {
                 anchors.fill: parent
                 onClicked: {
-                    root.shouldShow = false
+                    root.shouldShow = false;
                     // panel.visible = false
                 }
             }

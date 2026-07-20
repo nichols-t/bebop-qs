@@ -9,7 +9,7 @@ PanelWindow {
     required property var modelData
     screen: modelData
 
-    color: "transparent" // TODO theme
+    color: Config.taskbar.backgroundColor
     anchors {
         top: true
         left: true
@@ -19,6 +19,7 @@ PanelWindow {
     implicitHeight: Config.taskbar.taskbarHeight
 
     RowLayout {
+        spacing: 0
         anchors.fill: parent
 
         LayerParts.Workspaces {}
@@ -26,7 +27,4 @@ PanelWindow {
         LayerParts.Audio {}
         LayerParts.Clock {}
     }
-
-    // TODO: Not sure if this belongs here or separately
-    //qWidgets.Notifications {}
 }

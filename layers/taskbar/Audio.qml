@@ -31,7 +31,19 @@ RowLayout {
             return Math.floor(vol / 20) + 1
     }
 
+    Rectangle {
+        anchors.fill: parent
+        anchors.leftMargin: 0 // can use to move box leftwards
+        anchors.rightMargin: -10
+        color: Config.taskbar.audio.backgroundColor
+        // TODO make it spicier
+        implicitWidth: 10
+        implicitHeight: Config.taskbar.taskbarHeight
+    }
+
     RowLayout {
+        anchors.top: parent.top
+        anchors.bottom: parent.bottom
         spacing: 2
         Repeater {
             id: repeater
@@ -39,8 +51,13 @@ RowLayout {
             Rectangle {
                 required property int index
                 //  (inverse index) < audio level
-                visible: repeater.model - (index + 1) < root.audioLevel
-                color: Config.taskbar.audio.barsColor;
+                //visible: repeater.model - (index + 1) < root.audioLevel
+                color: {
+                    if (repeater.model - (index + 1) >= root.audioLevel) {
+                        return "transparent"
+                    }
+                    return Config.taskbar.audio.barsColor;
+                }
                 implicitHeight: 20
                 implicitWidth: 4
             }
@@ -48,7 +65,7 @@ RowLayout {
     }
 
     Rectangle {
-        implicitWidth: 50
+        implicitWidth: audioText.font.pixelSize * 6
         implicitHeight: Config.taskbar.taskbarHeight
         color: "transparent"
         Text {
@@ -60,8 +77,8 @@ RowLayout {
                 if (root.muted)
                     return "muted";
 
-                if (mpris.playbackState !== MprisPlaybackState.Playing) {
-                    return root.vol + "%";
+                if (mpris?.playbackState !== MprisPlaybackState.Playing) {
+                    return root.vol + "% VOL";
                 }
 
                 // TODO: Not sure if I want this, and if I do, probably to the left of the bars
@@ -69,7 +86,7 @@ RowLayout {
                 // var artist = mpris.trackArtist || "[unknown]";
 
                 // return title + " BY " + artist + " @ " + root.vol + "%";
-                return root.vol + "%";
+                return root.vol + "% VOL";
             }
 
             font {
@@ -80,12 +97,6 @@ RowLayout {
             }
             color: Config.taskbar.audio.textColor
         }
-    }
-
-    // TODO this feels like a hack to move the RowLayout a little bit leftwards - is there a cleaner way?
-    Rectangle {
-        implicitWidth: 20
-        color: "transparent"
     }
 
     PwObjectTracker {

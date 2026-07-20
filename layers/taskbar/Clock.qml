@@ -8,22 +8,9 @@ import "../.."
 
 Rectangle {
   id: root
-  color: "transparent"
+  color: Config.taskbar.clock.backgroundColor
   implicitHeight: Config.taskbar.taskbarHeight
   implicitWidth: clockText.implicitWidth + 10
-  function clicked() {
-    clockText.text = "ligma"
-  }
-
-  Image {
-      id: backgroundImage
-      z: 0
-      anchors.leftMargin: -25
-      anchors.fill: parent
-      fillMode: Image.PreserveAspectFit
-      source: Qt.resolvedUrl("../../assets/taskbarBackground.svg")
-      visible: true // Only the colorized MultiEffect is visible
-  }
 
   Text {
     id: clockText

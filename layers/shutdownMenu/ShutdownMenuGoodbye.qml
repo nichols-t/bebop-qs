@@ -21,8 +21,8 @@ Rectangle {
             family: Config.fontSerif.font.family
             pixelSize: 50
             italic: true
+            bold: true
         }
-        // TODO take color from theme?
         color: Config.colors.menuItemSelected
         text: "SEE YOU SPACE COWBOY... "
     }

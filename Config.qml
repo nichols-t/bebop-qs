@@ -38,22 +38,44 @@ Singleton {
         "menuTitleText": "Power Menu #1"
     }
 
+    readonly property var calendar: {
+        "backgroundColor": "black",
+        "backgroundColorDayOutOfRange": "#d2d6d3",
+        // Background color for a Day, selected at random from this list
+        "backgroundColorsDays": ["#3954f0", "#d7dbf8", "#fefefe", "#b1bdf8", "#a4aef8"],
+        "fontSizeDays": 22,
+        // Probability that a given Day's label will be italicized
+        "fontDaysItalicThreshold": 0.5,
+        "dayTextXOffsetRange": 10,
+        "dayTextYOffsetRange": 10,
+        "dayTextRotationRange": 15
+    }
+
     readonly property var taskbar: {
         "taskbarHeight": 30,
+        "backgroundColor": "transparent",
         "clock": {
-            "textColor": "#e1e1e1"
+            "textColor": "#e1e1e1",
+            "backgroundColor": "#1b1835"
         },
         "audio": {
             "textColor": "#e1e1e1",
-            "barsColor": "#78eae7"
+            "barsColor": '#4f65ef',
+            "backgroundColor": "#1b1835"
         },
+        // TODO theme dark mid light border
+        // 641c1a a21e1d cf2d1d 250000 reds
+        // 6a0b50 bc128d e27abd 2f0020 purples
+        // 5f5702 a49e02 eae104 0d0000 yellows
         "workspaces": {
             "textColorActive": "#1b1835",
             "textColorInactive": "#aaaaaa",
-            "textColorWithWindows": "#aaaaaa",
-            "backgroundColorActive": "#28bddf",
-            "backgroundColorInactive": "#1b1835",
-            "backgroundColorWithWindows": "#6e7bad"
+            "textColorWithWindows": "#cccccc",
+            "backgroundColorActive": "#cf2d1d",
+            "backgroundColorInactive": "#641c1a",
+            "backgroundColorWithWindows": "#a21e1d",
+            "borderColor": "#250000",
+            "fontSize": 16
         }
     }
 }

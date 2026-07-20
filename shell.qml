@@ -14,6 +14,8 @@ Scope {
                shouldShow: false
                modelData: perMonitor.modelData
             }
+
+            Layers.Notifications{ modelData: perMonitor.modelData }
         }
     }
 }

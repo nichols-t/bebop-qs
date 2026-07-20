@@ -8,20 +8,18 @@ import "../../widgets" as Widgets
 ShutdownMenuBackground {
     anchors.fill: parent
     visible: text === "SHUTDOWN"
-    property string textColor: Config.colors.shutdown
 
     Text {
         id: textTypewriterWide
         text: parent.text
         visible: false // Only blurred MultiEffect is visible
-        x: -400
-        y: 200
+        anchors.centerIn: parent
+        anchors.horizontalCenterOffset: screen.width / 10
+        anchors.verticalCenterOffset: screen.height / 10
         color: textColor
-        font {
-            family: Config.fontTypewriter.font.family
-            pixelSize: 100
-            letterSpacing: 50
-        }
+        font.family: Config.fontTypewriter.font.family
+        font.pixelSize: screen.height / 15
+        font.letterSpacing: 50
     }
     MultiEffect {
         blurEnabled: true
@@ -32,16 +30,15 @@ ShutdownMenuBackground {
         anchors.fill: textTypewriterWide
     }
 
-
     Widgets.BigFirstLetterText {
         id: backgroundText1
         rawText: parent.text
-        font.pixelSize: 300
+        font.pixelSize: screen.width / 8
         font.family: Config.fontSerif.font.family
         visible: false // Only blurred MultiEffect is visible
         rotation: 90
-        x: -350
-        y: -600
+        anchors.left: parent
+        x: -screen.width / 4
         color: textColor
     }
     MultiEffect {
@@ -50,7 +47,6 @@ ShutdownMenuBackground {
         blur: 1.0
         rotation: backgroundText1.rotation
         blurMax: 16
-        blurMultiplier: 2
         source: backgroundText1
         anchors.fill: backgroundText1
     }
@@ -58,12 +54,13 @@ ShutdownMenuBackground {
     Widgets.BigFirstLetterText {
         id: backgroundText2
         rawText: parent.text
-        font.pixelSize: 100
+        font.pixelSize: screen.height / 20
         font.family: Config.fontSerif.font.family
         visible: false // Only blurred MultiEffect is visible
-        x: -1000
-        y: -500
         color: textColor
+        anchors.centerIn: parent
+        anchors.horizontalCenterOffset: screen.width / 2 - implicitWidth
+        anchors.verticalCenterOffset: screen.height / 2 - (implicitHeight / 4)
     }
     MultiEffect {
         blurEnabled: true

@@ -12,8 +12,6 @@ RowLayout {
     implicitHeight: Config.taskbar.taskbarHeight
     spacing: 0
 
-    property var itemsColor: Theme.colors.backgroundHighlight
-    property var itemsPixelSize: Theme.fonts.defaultFontSize
     property var sink: Pipewire.defaultAudioSink
 
     readonly property bool ready: sink && sink.ready

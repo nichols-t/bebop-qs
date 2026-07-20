@@ -8,20 +8,18 @@ import "../../widgets" as Widgets
 ShutdownMenuBackground {
     anchors.fill: parent
     visible: text === "REBOOT"
-    property string textColor: Config.colors.reboot
 
     Text {
         id: textTypewriterWide
         text: parent.text
         visible: false // Only blurred MultiEffect is visible
-        x: -400
-        y: -00
+        anchors.centerIn: parent
+        // anchors.horizontalCenterOffset: -screen.width / 20
+        // anchors.verticalCenterOffset: -screen.height / 10
         color: textColor
-        font {
-            family: Config.fontTypewriter.font.family
-            pixelSize: 100
-            letterSpacing: 50
-        }
+        font.family: Config.fontTypewriter.font.family
+        font.pixelSize: screen.height / 15
+        font.letterSpacing: 50
     }
     MultiEffect {
         blurEnabled: true
@@ -36,12 +34,13 @@ ShutdownMenuBackground {
     Widgets.BigFirstLetterText {
         id: backgroundText1
         rawText: parent.text
-        font.pixelSize: 250
+        font.pixelSize: screen.height / 8
         font.family: Config.fontSerif.font.family
         visible: false // Only blurred MultiEffect is visible
         rotation: -90
-        x: -200
-        y: -1000
+        anchors.centerIn: parent
+        anchors.horizontalCenterOffset: screen.width / 4
+        anchors.verticalCenterOffset: -screen.height / 6
         color: textColor
     }
     MultiEffect {
@@ -57,11 +56,11 @@ ShutdownMenuBackground {
     Widgets.BigFirstLetterText {
         id: backgroundText2
         rawText: parent.text
-        font.pixelSize: 500
+        font.pixelSize: screen.height / 3
         font.family: Config.fontSerif.font.family
         visible: false // Only blurred MultiEffect is visible
-        x: -1400
-        y: -1500
+        anchors.bottom: parent
+        y: -screen.height / 2
         color: textColor
     }
     MultiEffect {

@@ -12,6 +12,7 @@ import "./shutdownMenu" as LayerParts
 Scope {
     id: root
     property var targetScreen: null
+    // This is the screen from Quickshell.screens
     required property var modelData
 
     Process {
@@ -71,6 +72,7 @@ Scope {
         }
 
         // Overall rectangle forms the base background of the items
+        // TODO: Maybe this should be a ListItem of Buttons instead??
         Rectangle {
             anchors.fill: parent
             color: "#000000"
@@ -156,7 +158,7 @@ Scope {
 
                 Text {
                     id: menuTitleText
-                    text: "POWER MENU #1"
+                    text: Config.powerMenu.menuTitleText
                     color: Config.colors.menuItemSelected
 
                     font {
@@ -200,17 +202,23 @@ Scope {
                     process: shutdownProcess
                 }
 
-                // We load each background, but they're only displayed when the text
-                // actually matches
-                LayerParts.ShutdownMenuBackgroundLock {
-                    text: itemsContainer.selectedBtnItem.text
-                }
-                LayerParts.ShutdownMenuBackgroundReboot {
-                    text: itemsContainer.selectedBtnItem.text
-                }
-                LayerParts.ShutdownMenuBackgroundShutdown {
-                    text: itemsContainer.selectedBtnItem.text
-                }
+            }
+            // We load each background, but they're only displayed when the text
+            // actually matches
+            LayerParts.ShutdownMenuBackgroundLock {
+                text: itemsContainer.selectedBtnItem.text
+                screen: root.modelData
+                textColor: Config.colors.lock
+            }
+            LayerParts.ShutdownMenuBackgroundReboot {
+                text: itemsContainer.selectedBtnItem.text
+                screen: root.modelData
+                textColor: Config.colors.reboot
+            }
+            LayerParts.ShutdownMenuBackgroundShutdown {
+                text: itemsContainer.selectedBtnItem.text
+                screen: root.modelData
+                textColor: Config.colors.shutdown
             }
         }
     }

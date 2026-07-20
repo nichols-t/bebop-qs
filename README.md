@@ -7,14 +7,13 @@ A Cowboy Bebop title sequence inspired Quickshell.
 2. Symlink the `quickshell.lua` file into your hyprland config directory and `require` it from your config
 
 ## TODOs
-- Set up correctly for multiple monitors
 - Find a better sans-serif font for shutdown menu background text
 - Juice up background text in shutdown menu till it looks right
     - Note that low blurMax and high blurMultiplier makes an interesting effect
-- Consider if there is a more flexible way to position shutdown menu background text
-    - i.e. a way bound by screen edge rather than x/y??
-    - Consider if `ListView` is better semantics for arrow key behavior
-    - I think the screens thing needs to be figured out before I can send the current screen to the lock widgets?
+    - May be good to set "blur layers" in config and use those to calculate blur elements less manually
+    - Set an `anchor` and `x/y` or centerIn and `vertical/horizontalCenterOffset`
+- Consider if `ListView` is better semantics for arrow key behavior
+- Consider if there's a better multi-monitor IPC solution
 - "Destroy" shutdown menu background text
     - Can be done with shader effect onto MultiEffect maskSource or a shader
     - I learned via experimentation that mask images get stretched so they don't work great

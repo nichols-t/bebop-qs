@@ -6,20 +6,19 @@ import "../.."
 import "../../widgets" as Widgets
 
 ShutdownMenuBackground {
-    id: shutdownBackground
     anchors.fill: parent
     visible: text === "LOCK"
-    property string textColor: Config.colors.lock
 
     Text {
         id: textTypewriterWide
         text: parent.text
         visible: false // Only blurred MultiEffect is visible
-        x: -400
-        y: -200
+        anchors.centerIn: parent
+        anchors.horizontalCenterOffset: -screen.width / 20
+        anchors.verticalCenterOffset: -screen.height / 10
         color: textColor
         font.family: Config.fontTypewriter.font.family
-        font.pixelSize: 100
+        font.pixelSize: screen.height / 15
         font.letterSpacing: 50
     }
     MultiEffect {
@@ -33,16 +32,18 @@ ShutdownMenuBackground {
 
 
     // ! Note that the MultiEffect needs to be rotated the same as the text.
-    // This feels clumsy
+    // This feels clumsy, but makes sense because it's a wholly separate element
+    // so it's rendered first (apparently)
     Widgets.BigFirstLetterText {
         id: backgroundText1
         rawText: parent.text
-        font.pixelSize: 100
+        font.pixelSize: screen.height / 15
         font.family: Config.fontSerif.font.family
         visible: false // Only blurred MultiEffect is visible
         rotation: 90
-        x: 500
-        y: -500
+        anchors.centerIn: parent
+        anchors.horizontalCenterOffset: screen.width / 4
+        anchors.verticalCenterOffset: screen.height / 10
         color: textColor
     }
     MultiEffect {
@@ -59,11 +60,11 @@ ShutdownMenuBackground {
         id: backgroundText2
         rawText: parent.text
         visible: false // Only blurred MultiEffect is visible
-        x: -1400
-        y: -1500
+        anchors.bottom: parent
+        y: -(screen.height / 3) * 1.25
         color: textColor
         font.family: Config.fontSerif.font.family
-        font.pixelSize: 500
+        font.pixelSize: screen.height / 3
     }
     MultiEffect {
         blurEnabled: true

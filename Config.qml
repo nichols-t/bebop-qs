@@ -8,7 +8,7 @@ Singleton {
     // TODO: Separate these colors into their specific menu sub-parts when necessary.
     readonly property var colors: {
         "menuItemSelected": "#e1e1e1",
-        "menuItemUnselected": "#aaaaaaaa",
+        "menuItemUnselected": "#aaaaaa",
         // Note: "The biggest trap is often related to nested opacity.
         // In QML, a child Item inherits the effective opacity of its parent.
         // This means the child's own opacity property is multiplied by the parent's effective opacity."
@@ -27,6 +27,10 @@ Singleton {
     readonly property var fontSerif: FontLoader {
         id: fontSerif
         source: "./fonts/Cormorant-VariableFont_wght.ttf"
+    }
+
+    readonly property var powerMenu: {
+        "menuTitleText": "Power Menu #1"
     }
 
     readonly property var taskbar: {

@@ -51,6 +51,12 @@ Singleton {
         "dayTextRotationRange": 15
     }
 
+    readonly property var systemInfo: {
+        "backgroundColor": "black",
+        "accentColor": "#226499",
+        "textColor": "#fabb3f"
+    }
+
     readonly property var taskbar: {
         "taskbarHeight": 30,
         "backgroundColor": "transparent",

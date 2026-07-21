@@ -9,6 +9,9 @@ import Quickshell.Hyprland
 import ".."
 import "../utils"
 
+// TODO interactivity: What should happen when we click on a day?
+// If we have an ics integration then this would have obvious use, but I am
+// not 100% sure how trivial that's going to be
 Scope {
     id: root
     // This is the screen from Quickshell.screens
@@ -31,6 +34,7 @@ Scope {
         }
 
         WlrLayershell.exclusionMode: ExclusionMode.Ignore
+        // TODO can put this back now maybe?
         //WlrLayershell.keyboardFocus: WlrKeyboardFocus.Exclusive
         anchors {
             top: true

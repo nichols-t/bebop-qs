@@ -9,7 +9,7 @@ import QtQuick.Shapes
 // TODO not convinced this is good yet
 Rectangle {
     id: root
-    color: Config.taskbar.workspaces.backgroundColorWithWindows;
+    color: "transparent"
     anchors.left: parent
     // Want it to stop before the end of the workspace buttons so that
     // it covers the left side gap but does not appear on the right
@@ -25,11 +25,12 @@ Rectangle {
         z: 2
 
         Repeater {
-            model: 6
+            model: 6 // TODO how to control this more dynamically? Some people use different number of workspaces
 
             Rectangle {
                 id: wsButton
-                Layout.topMargin: -Config.taskbar.taskbarHeight - border.width - 2
+                clip: true
+                Layout.topMargin: isActive ? -Config.taskbar.taskbarHeight /2 : -Config.taskbar.taskbarHeight
                 radius: 2
                 color: {
                     // TODO there is an interesting effect in the credits where it inverts
@@ -42,12 +43,9 @@ Rectangle {
                         return Config.taskbar.workspaces.backgroundColorInactive;
                     }
                 }
-                y: -100
                 border.width: 2
-                border.color: "#250000"
-                // TODO more interesting to rotate on index here, but need to figure out
-                // how I can do that properly...
-                rotation: 35
+                border.color: Config.taskbar.workspaces.borderColor
+                z: isActive ? 3 : 2
                 required property var modelData
                 required property int index
                 property var hasWindows: Hyprland.workspaces.values.find(w => w.id === index + 1)
@@ -55,26 +53,26 @@ Rectangle {
 
                 property bool isHovered: false
                 // Creates a shape that is the right size for bounds of a regular hexagon
-                height: Config.taskbar.taskbarHeight * 2
-                width: Config.taskbar.taskbarHeight
+                height: Config.taskbar.taskbarHeight * 1.5
+                width: Config.taskbar.taskbarHeight * 1.5
 
                 Text {
                     id: label
                     anchors.bottom: parent.bottom
                     anchors.horizontalCenter: parent.horizontalCenter
-                    anchors.horizontalCenterOffset: 4
-                    anchors.bottomMargin: 2
-                    rotation: -wsButton.rotation
+                    anchors.bottomMargin: 1
                     text: index + 1
+                    z: 1
                     // If the weight is wrong it just doesn't load, so just read weight directly from the
                     // file that we imported
                     font {
                         family: Config.fontTypewriter.font.family
                         bold: isActive
-                        pixelSize: Config.taskbar.workspaces.fontSize +( isActive ? 1 : 0)
+                        pixelSize: Config.taskbar.workspaces.fontSize
                     }
 
                     color: {
+                        return Config.taskbar.workspaces.textColorWithWindows;
                         if (isActive)
                             return Config.taskbar.workspaces.textColorActive;
                         if (hasWindows)
@@ -82,6 +80,31 @@ Rectangle {
                         return Config.taskbar.workspaces.textColorInactive;
                     }
                 }
+
+                Rectangle {
+                    width: wsButton.width / 4
+                    height: wsButton.height / 2
+                    anchors.centerIn: parent
+                    anchors.horizontalCenterOffset: width + 1
+                    anchors.verticalCenterOffset: index % 2 === 0 ? 10 : 0
+                    border.width: 2
+                    border.color: Config.taskbar.workspaces.borderColor
+                    color: wsButton.color
+                    z: 0
+                } 
+                Rectangle {
+                    width: wsButton.width / 4
+                    height: wsButton.height / 2
+                    anchors.centerIn: parent
+                    anchors.horizontalCenterOffset: -width - 1
+                    anchors.verticalCenterOffset: index % 2 === 0 ? 0 : 10
+                    // anchors.horizontalCenterOffset: -Config.taskbar.taskbarHeight / 2
+                    border.width: 2
+                    border.color: Config.taskbar.workspaces.borderColor
+                    color: wsButton.color
+                    z: 0
+                }
+
                 MouseArea {
                     anchors.fill: wsButton
                     // Lua version is uncommented. If hyprland config is old switch to that other one
@@ -97,17 +120,5 @@ Rectangle {
                 }
             }
         }
-    }
-
-    Rectangle {
-        width: Config.taskbar.taskbarHeight
-        height: Config.taskbar.taskbarHeight * 1.41
-        anchors.right: parent.right
-        anchors.rightMargin: -width /2.5 - 3
-        anchors.topMargin: -Config.taskbar.taskbarHeight / 2
-        anchors.top: parent.top
-        rotation: 35
-        color: Config.taskbar.workspaces.backgroundColorWithWindows
-        z: 1
     }
 }

@@ -10,11 +10,12 @@ Rectangle {
   id: root
   color: Config.taskbar.clock.backgroundColor
   implicitHeight: Config.taskbar.taskbarHeight
-  implicitWidth: clockText.implicitWidth + 10
+  implicitWidth: 50
 
   Text {
-    id: clockText
-    text: Time.time
+    id: sysText
+    text: "SYS" // TODO better text or icon or some shit
+    anchors.centerIn: parent
     font {
         // TODO: Should I use this font or find a more "plain"/"computer" one like
         // the in-universe UIs use?
@@ -22,7 +23,6 @@ Rectangle {
         pixelSize: 18
         bold: true
     }
-    anchors.centerIn: parent
     color: Config.taskbar.clock.textColor
   }
 
@@ -30,7 +30,7 @@ Rectangle {
     anchors.fill: root
     cursorShape: Qt.PointingHandCursor
     onClicked: {
-      calendar.shouldShow = true
+      systemInfo.shouldShow = true
     }
   }
 }

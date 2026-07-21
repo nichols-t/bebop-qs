@@ -88,7 +88,7 @@ Scope {
                 blurEnabled: true
                 blur: 1.0
                 blurMax: 10
-                opacity: 1 // backgroundTexture.opacity
+                opacity: 0.5 // backgroundTexture.opacity
                 source: backgroundTexture
                 anchors.fill: backgroundTexture
                 brightness: 0
@@ -286,13 +286,14 @@ Scope {
             MultiEffect {
                 blurEnabled: true
                 blur: 1.0
-                blurMax: 8
+                blurMax: 4
                 source: myText
                 anchors.fill: myText
             }
 
             MouseArea {
                 anchors.fill: parent
+                cursorShape: Qt.PointingHandCursor
                 onClicked: {
                     myself.clicked();
                 }

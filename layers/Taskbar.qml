@@ -26,5 +26,6 @@ PanelWindow {
         Item { Layout.fillWidth: true }
         LayerParts.Audio {}
         LayerParts.Clock {}
+        LayerParts.SystemInfoButton {}
     }
 }

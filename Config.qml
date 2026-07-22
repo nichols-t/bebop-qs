@@ -24,6 +24,11 @@ Singleton {
         source: "./fonts/SpecialElite-Regular.ttf"
     }
 
+    readonly property var fontSansSerif: FontLoader {
+        id: fontSansSerif
+        source: "./fonts/Montserrat-VariableFont_wght.ttf"
+    }
+
     readonly property var fontSerif: FontLoader {
         id: fontSerif
         source: "./fonts/Cormorant-VariableFont_wght.ttf"
@@ -70,6 +75,7 @@ Singleton {
             "backgroundColor": "#1b1835"
         },
         // TODO theme dark mid light border
+        // TODO these also need a new "hover color" above the lightest shade
         // 641c1a a21e1d cf2d1d 250000 reds
         // 6a0b50 bc128d e27abd 2f0020 purples
         // 5f5702 a49e02 eae104 0d0000 yellows
@@ -78,6 +84,7 @@ Singleton {
             "textColorInactive": "#aaaaaa",
             "textColorWithWindows": "#cccccc",
             "backgroundColorActive": "#cf2d1d",
+            "backgroundColorHovered": '#de5c5c',
             "backgroundColorInactive": "#641c1a",
             "backgroundColorWithWindows": "#a21e1d",
             "borderColor": "#250000",

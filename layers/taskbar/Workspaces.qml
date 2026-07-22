@@ -13,8 +13,6 @@ Rectangle {
     anchors.left: parent
     // Want it to stop before the end of the workspace buttons so that
     // it covers the left side gap but does not appear on the right
-    // TODO trig it to be exact?? Not sure how correct this is, figure out later perhaps
-    //implicitWidth: rows.width - Config.taskbar.taskbarHeight * Math.cos(35 * (Math.PI/180)) + 3
     implicitWidth: rows.width
     radius: 2
     z: 0
@@ -41,6 +39,15 @@ Rectangle {
                         return Config.taskbar.workspaces.backgroundColorWithWindows;
                     } else {
                         return Config.taskbar.workspaces.backgroundColorInactive;
+                    }
+                }
+                property var hoverColor: {
+                    if (isActive) {
+                        return Config.taskbar.workspaces.backgroundColorHovered;
+                    } else if (hasWindows) {
+                        return Config.taskbar.workspaces.backgroundColorActive;
+                    } else {
+                        return Config.taskbar.workspaces.backgroundColorWithWindows;
                     }
                 }
                 border.width: 2
@@ -89,9 +96,10 @@ Rectangle {
                     anchors.verticalCenterOffset: index % 2 === 0 ? 10 : 0
                     border.width: 2
                     border.color: Config.taskbar.workspaces.borderColor
-                    color: wsButton.color
+                    // TODO theme this to be "shade + 1" instead of going straight to hovered
+                    color: wsButton.isHovered ? wsButton.hoverColor : wsButton.color
                     z: 0
-                } 
+                }
                 Rectangle {
                     width: wsButton.width / 4
                     height: wsButton.height / 2
@@ -101,7 +109,7 @@ Rectangle {
                     // anchors.horizontalCenterOffset: -Config.taskbar.taskbarHeight / 2
                     border.width: 2
                     border.color: Config.taskbar.workspaces.borderColor
-                    color: wsButton.color
+                    color: wsButton.isHovered ? wsButton.hoverColor : wsButton.color
                     z: 0
                 }
 
@@ -111,6 +119,7 @@ Rectangle {
                     onClicked: Hyprland.dispatch("hl.dsp.focus({ workspace = " + (parent.index + 1) + "})")
                     // onClicked: Hyprland.dispatch("workspace " + (parent.index + 1))
                     hoverEnabled: true
+                    cursorShape: Qt.PointingHandCursor
                     onEntered: {
                         wsButton.isHovered = true;
                     }

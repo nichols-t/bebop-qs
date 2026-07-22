@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   width="100mm"
+   height="50mm"
+   viewBox="0 0 100 50"
+   version="1.1"
+   id="svg1"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <defs
+     id="defs1">
+    <clipPath
+       clipPathUnits="userSpaceOnUse"
+       id="clipPath3">
+      <g
+         id="g7"
+         display="none">
+        <rect
+           style="fill:#000000;stroke:#000000;stroke-width:0.564999;stroke-linecap:round;stroke-linejoin:bevel"
+           id="rect4"
+           width="1"
+           height="2"
+           x="7.5"
+           y="30"
+           d="m 7.5,30 h 1 v 2 h -1 z" />
+        <rect
+           style="fill:#000000;stroke:#000000;stroke-width:0.564999;stroke-linecap:round;stroke-linejoin:bevel"
+           id="rect5"
+           width="1"
+           height="2"
+           x="7.5"
+           y="25"
+           d="m 7.5,25 h 1 v 2 h -1 z" />
+        <rect
+           style="fill:#000000;stroke:#000000;stroke-width:0.564999;stroke-linecap:round;stroke-linejoin:bevel"
+           id="rect6"
+           width="1"
+           height="2"
+           x="91.5"
+           y="30"
+           d="m 91.5,30 h 1 v 2 h -1 z" />
+        <rect
+           style="fill:#000000;stroke:#000000;stroke-width:0.564999;stroke-linecap:round;stroke-linejoin:bevel"
+           id="rect7"
+           width="1"
+           height="2"
+           x="91.5"
+           y="25"
+           d="m 91.5,25 h 1 v 2 h -1 z" />
+      </g>
+      <path
+         id="lpe_path-effect7"
+         class="powerclip"
+         d="M 2.7175005,9.7175005 H 97.282499 V 40.282499 H 2.7175005 Z M 7.5,30 v 2 h 1 v -2 z m 0,-5 v 2 h 1 v -2 z m 84,5 v 2 h 1 v -2 z m 0,-5 v 2 h 1 v -2 z" />
+    </clipPath>
+  </defs>
+  <g
+     id="layer1">
+    <path
+       style="fill:#000000;stroke:#000000;stroke-width:0.564999;stroke-linecap:round;stroke-linejoin:bevel"
+       id="rect1"
+       width="84"
+       height="20"
+       x="8"
+       y="15"
+       clip-path="url(#clipPath3)"
+       d="M 8,32 H 8.5 V 30 H 8 V 27 H 8.5 V 25 H 8 V 15 h 84 v 10 h -0.5 v 2 H 92 v 3 h -0.5 v 2 H 92 v 3 H 8 Z" />
+    <rect
+       style="fill:#000000;stroke:#000000;stroke-width:0.384888;stroke-linecap:round;stroke-linejoin:bevel"
+       id="rect3"
+       width="35.897614"
+       height="3.1801112"
+       x="9.1023884"
+       y="34.409946" />
+    <rect
+       style="fill:#000000;stroke:#000000;stroke-width:0.430931;stroke-linecap:round;stroke-linejoin:bevel"
+       id="rect3-3"
+       width="45"
+       height="3.1801112"
+       x="46"
+       y="34.409946" />
+  </g>
+</svg>

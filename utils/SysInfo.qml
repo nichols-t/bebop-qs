@@ -7,22 +7,36 @@ import QtQuick
 Singleton {
     id: root
     property bool active: false
+
     readonly property real cpuUsage: _cpuUsage
     property string cpuText: (_cpuUsage * 100).toFixed(2) + "%"
     property real _cpuUsage: 0
+    property string cpuName: ""
+    property real cpuMhz: 0
+    property string cpuArch: ""
     property real _lastCpuIdle: 0
     property real _lastCpuTotal: 0
+
     property real _memTotal: 0
     property real _memUsed: 0
     readonly property real memUsage: _memTotal > 0 ? _memUsed / _memTotal : 0
     readonly property string memText: (_memUsed / 1073741824).toFixed(1) + " / " + (_memTotal / 1073741824).toFixed(1) + " GB"
+    
+    property real _swapTotal: 0
+    property real _swapFree: 0
+    readonly property real swapUsage: _swapTotal > 0 ? (_swapTotal - _swapFree) / _swapTotal : 0;
+    readonly property string swapText: ((_swapTotal - _swapFree) / 1073741824).toFixed(1) + " / " + (_swapTotal / 1073741824).toFixed(1) + " GB"
+    property real numMemDevices: 0
+
     // Based on https://stackoverflow.com/questions/1332861/how-can-i-determine-the-current-cpu-utilization-from-the-shell,
     // it looks like the /proc/stat is the best way to get CPU stuff
     property real _diskUsed: 0
     property real _diskTotal: 1
     readonly property real diskUsage: _diskTotal > 0 ? _diskUsed / _diskTotal : 0
     readonly property string diskText: (_diskUsed / 1073741824).toFixed(1) + " / " + (_diskTotal / 1073741824).toFixed(1) + " GB"
+
     property string osName: ""
+
     property real _gpuMemTotal: 0
     property real _gpuMemFree: 0
     property real gpuMemUsage: _gpuMemTotal > 0 ? (_gpuMemTotal - _gpuMemFree) / _gpuMemTotal : 0
@@ -62,10 +76,40 @@ Singleton {
             const t = text();
             const total = parseInt(t.match(/MemTotal:\s+(\d+)/)?.[1] ?? 0);
             const avail = parseInt(t.match(/MemAvailable:\s+(\d+)/)?.[1] ?? 0);
+            const swapTotal = parseInt(t.match(/SwapTotal:\s+(\d+)/)?.[1] ?? 0);
+            const swapAvail = parseInt(t.match(/SwapFree:\s+(\d+)/)?.[1] ?? 0);
+
             if (total > 0) {
                 root._memTotal = total * 1024;
                 root._memUsed = (total - avail) * 1024;
+                root._swapTotal = swapTotal * 1024;
+                root._swapFree = swapAvail * 1024;
             }
+        }
+    }
+
+    Process {
+        id: cpuNameProc
+        command: ["sh", "-c", "lscpu | grep 'Model name:' | xargs | cut -d ' ' -f3-"]
+        running: true
+        stdout: SplitParser {
+            onRead: data => root.cpuName = data.trim()
+        }
+    }
+    Process {
+        id: cpuMhzProc
+        command: ["sh", "-c", "lscpu | grep 'CPU max MHz:' | xargs | cut -d ':' -f2- | tr -d ' '"]
+        running: true
+        stdout: SplitParser {
+            onRead: data => root.cpuMhz = Number(data.trim())
+        }
+    }
+    Process {
+        id: cpuArchProc
+        command: ["sh", "-c", "lscpu | grep 'Architecture:' | xargs | cut -d ' ' -f2"]
+        running: true
+        stdout: SplitParser {
+            onRead: data => root.cpuArch = data.trim()
         }
     }
 
@@ -89,6 +133,7 @@ Singleton {
             }
         }
     }
+
     Process {
         id: osProc
         command: ["sh", "-c", ". /etc/os-release && echo $PRETTY_NAME"]
@@ -106,7 +151,6 @@ Singleton {
             onRead: data => root._gpuTemp = Number(data.trim())
         }
     }
-
     Process {
         id: gpuDriverProc
         running: true
@@ -115,7 +159,6 @@ Singleton {
             onRead: data => root.gpuDriver = data.trim()
         }
     }
-
     Process {
         id: gpuMemFreeProc
         running: true
@@ -124,7 +167,6 @@ Singleton {
             onRead: data => root._gpuMemFree = Number(data.trim())
         }
     }
-
     Process {
         id: gpuMemTotalProc
         running: true
@@ -133,7 +175,6 @@ Singleton {
             onRead: data => root._gpuMemTotal = Number(data.trim())
         }
     }
-
     Process {
         id: gpuPowerProc
         running: true
@@ -142,7 +183,6 @@ Singleton {
             onRead: data => root.gpuPower = data.trim()
         }
     }
-
     Process {
         id: gpuNameProc
         running: true
@@ -171,12 +211,16 @@ Singleton {
             if (dfShell.running)
                 dfShell.write("df -B1 / | awk 'NR==2{print $1\" \"$2\" \"$3}'; echo '@@END@@'\n");
 
+            // TODO don't run all of these at this interval
             gpuTempProc.running = true
             gpuDriverProc.running = true
             gpuMemFreeProc.running = true
             gpuMemTotalProc.running = true
             gpuPowerProc.running = true
             gpuNameProc.running = true
+            cpuNameProc.running = true
+            cpuMhzProc.running = true
+            cpuArchProc.running = true
         }
     }
 }

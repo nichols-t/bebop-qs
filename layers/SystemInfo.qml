@@ -8,12 +8,10 @@ import QtQuick.Effects
 import QtQuick.Controls
 import Quickshell.Hyprland
 import ".."
+import "./systemInfoMenu" as LayerParts
 import "../utils"
 
-// TODO: Need to re-evaluate the "macro" formatting (i.e. "GPU block as a whole"), etc.
-// as I think I need to place things a little bit differently
-// TODO tweak text size and line thickness, maybe
-// TODO Interactivity? Maybe if you click a metric it shows you more detail on the right?
+// TODO interactivity and SVGs - MouseAreas are set up but right side is not
 Scope {
     id: root
     required property var modelData
@@ -29,7 +27,15 @@ Scope {
             bottom: true
             right: true
         }
+        // Center offset for "row headings" of this page
+        property var rowHeadingHorizontalOffset: -modelData.width * 0.1
+        property var sectionVerticalSpaceHeight: modelData.height * 0.05
         WlrLayershell.exclusionMode: ExclusionMode.Ignore
+        WlrLayershell.keyboardFocus: WlrKeyboardFocus.Exclusive
+        
+        // determines which (if any) detail screens are shown on the right
+        property string showDetails: ""
+
         Connections {
             target: root
             function onShouldShowChanged() {
@@ -47,292 +53,106 @@ Scope {
         // TODO unsure if it is needed
         HyprlandFocusGrab {
             id: grab
-            windows: [fullscreenRect]
+            windows: [blackRect]
         }
 
         Rectangle {
-            id: fullscreenRect
+            id: blackRect
             //  anchors.fill: parent
-            width: modelData.width
+            width: modelData.width * 0.6
             height: modelData.height
             color: Config.calendar.backgroundColor
             visible: true
+            // Needs to be focused to get key press event
+            focus: true
+            Keys.onPressed: event => {
+                // close: Escape
+                if (event.key === Qt.Key_Escape) {
+                    event.accepted = true;
+                    root.shouldShow = false;
+                }
+            }
 
             ColumnLayout {
-                anchors.centerIn: parent
-                WrapperRectangle {
-                    anchors.centerIn: parent
-                    anchors.horizontalCenterOffset: -modelData.width * 0.2
-                    anchors.verticalCenterOffset: -modelData.height * 0.4
-                    border.width: 4
-                    radius: 2
-                    color: "transparent"
-                    border.color: Config.systemInfo.textColor
-                    Text {
-                        rightPadding: 30 
-                        leftPadding: 30
-                        text: "SYSTEM STATISTICS "
-                        color: Config.systemInfo.textColor
-                        font.pixelSize: 50
-                    }
-                }
-                WrapperRectangle {
-                    anchors.centerIn: parent
-                    anchors.horizontalCenterOffset: -modelData.width * 0.3
-                    anchors.verticalCenterOffset: -modelData.height * 0.3
-                    border.width: 4
-                    radius: 2
-                    color: "transparent"
-                    border.color: Config.systemInfo.textColor
-                    Text {
-                        rightPadding: 30 
-                        leftPadding: 30
-                        text: SysInfo.osName
-                        color: Config.systemInfo.textColor
-                        font.pixelSize: 50
-                    }
-                }
-                WrapperRectangle {
-                    border.width: 2
-                    radius: 2
-                    color: "transparent"
-                    border.color: Config.systemInfo.textColor
-                    anchors.centerIn: parent
-                    anchors.horizontalCenterOffset: -modelData.width * 0.25
-                    anchors.verticalCenterOffset: -modelData.height * 0.1
-                    RowLayout {
-                        spacing: 0
-                        anchors.centerIn: parent
-                        WrapperRectangle {
-                            color: "transparent"
-                            border.color: Config.systemInfo.textColor
-                            border.width: 1
-                            Text {
-                                rightPadding: 30 
-                                leftPadding: 30
-                                text: "CPU USAGE"
-                                color: Config.systemInfo.textColor
-                                font.pixelSize: 50
-                            }
-                        }
-                        WrapperRectangle {
-                            color: "transparent"
-                            border.color: Config.systemInfo.textColor
-                            border.width: 1
-                            Text {
-                                rightPadding: 30 
-                                leftPadding: 30
-                                text: SysInfo.cpuText
-                                color: Config.systemInfo.textColor
-                                font.pixelSize: 50
-                            }
-                        }
-                    }
-                }
-                WrapperRectangle {
-                    border.width: 2
-                    radius: 2
-                    color: "transparent"
-                    border.color: Config.systemInfo.textColor
-                    anchors.centerIn: parent
-                    anchors.horizontalCenterOffset: -modelData.width * 0.1
-                    anchors.verticalCenterOffset: 0
-                    RowLayout {
-                        spacing: 0
-                        anchors.centerIn: parent
-                        WrapperRectangle {
-                            color: "transparent"
-                            border.color: Config.systemInfo.textColor
-                            border.width: 1
-                            Text {
-                                rightPadding: 30 
-                                leftPadding: 30
-                                text: "RAM USAGE"
-                                color: Config.systemInfo.textColor
-                                font.pixelSize: 50
-                            }
-                        }
-                        WrapperRectangle {
-                            color: "transparent"
-                            border.color: Config.systemInfo.textColor
-                            border.width: 1
-                            Text {
-                                rightPadding: 30 
-                                leftPadding: 30
-                                text: SysInfo.memText
-                                color: Config.systemInfo.textColor
-                                font.pixelSize: 50
-                            }
-                        }
-                    }
-                }
-                WrapperRectangle {
-                    id: gpuTempWrapper
-                    border.width: 2
-                    radius: 2
-                    color: "transparent"
-                    border.color: Config.systemInfo.textColor
-                    anchors.centerIn: parent
-                    anchors.horizontalCenterOffset: -modelData.width * 0.2
-                    anchors.verticalCenterOffset: modelData.height * 0.1
-                    RowLayout {
-                        spacing: 0
-                        anchors.centerIn: parent
-                        WrapperRectangle {
-                            color: "transparent"
-                            border.color: Config.systemInfo.textColor
-                            border.width: 1
-                            Text {
-                                rightPadding: 30 
-                                leftPadding: 30
-                                text: "GPU TEMP"
-                                color: Config.systemInfo.textColor
-                                font.pixelSize: 50
-                            }
-                        }
-                        WrapperRectangle {
-                            color: "transparent"
-                            border.color: Config.systemInfo.textColor
-                            border.width: 1
-                            Text {
-                                rightPadding: 30 
-                                leftPadding: 30
-                                text: SysInfo.gpuTempText
-                                color: Config.systemInfo.textColor
-                                font.pixelSize: 50
-                            }
-                        }
-                    }
-                }
-                WrapperRectangle {
-                    id: gpuDriverWrapper
-                    border.width: 2
-                    radius: 2
-                    color: "transparent"
-                    border.color: Config.systemInfo.textColor
-                    anchors.centerIn: parent
-                    anchors.horizontalCenterOffset: -modelData.width * 0.2
-                    anchors.verticalCenterOffset: modelData.height * 0.1 + gpuTempWrapper.height
-                    RowLayout {
-                        spacing: 0
-                        anchors.centerIn: parent
-                        WrapperRectangle {
-                            color: "transparent"
-                            border.color: Config.systemInfo.textColor
-                            border.width: 1
-                            Text {
-                                rightPadding: 30 
-                                leftPadding: 30
-                                text: "GPU DRIVER VERSION"
-                                color: Config.systemInfo.textColor
-                                font.pixelSize: 50
-                            }
-                        }
-                        WrapperRectangle {
-                            color: "transparent"
-                            border.color: Config.systemInfo.textColor
-                            border.width: 1
-                            Text {
-                                rightPadding: 30 
-                                leftPadding: 30
-                                text: SysInfo.gpuDriver
-                                color: Config.systemInfo.textColor
-                                font.pixelSize: 50
-                            }
-                        }
-                    }
-                }
-                WrapperRectangle {
-                    border.width: 2
-                    radius: 2
-                    color: "transparent"
-                    border.color: Config.systemInfo.textColor
-                    anchors.centerIn: parent
-                    anchors.horizontalCenterOffset: -modelData.width * 0.2
-                    anchors.verticalCenterOffset: modelData.height * 0.1 + gpuTempWrapper.height + gpuDriverWrapper.height
-                    RowLayout {
-                        spacing: 0
-                        anchors.centerIn: parent
-                        WrapperRectangle {
-                            color: "transparent"
-                            border.color: Config.systemInfo.textColor
-                            border.width: 1
-                            Text {
-                                rightPadding: 30 
-                                leftPadding: 30
-                                text: "GPU MEM USAGE"
-                                color: Config.systemInfo.textColor
-                                font.pixelSize: 50
-                            }
-                        }
-                        WrapperRectangle {
-                            color: "transparent"
-                            border.color: Config.systemInfo.textColor
-                            border.width: 1
-                            Text {
-                                rightPadding: 30 
-                                leftPadding: 30
-                                text: SysInfo.gpuMemText
-                                color: Config.systemInfo.textColor
-                                font.pixelSize: 50
-                            }
-                        }
-                    }
-                }
-                WrapperRectangle {
-                    border.width: 2
-                    radius: 2
-                    color: "transparent"
-                    border.color: Config.systemInfo.textColor
-                    anchors.centerIn: parent
-                    anchors.horizontalCenterOffset: -modelData.width * 0.23
-                    anchors.verticalCenterOffset: modelData.height * 0.3
-                    RowLayout {
-                        spacing: 0
-                        anchors.centerIn: parent
-                        WrapperRectangle {
-                            color: "transparent"
-                            border.color: Config.systemInfo.textColor
-                            border.width: 1
-                            Text {
-                                rightPadding: 30 
-                                leftPadding: 30
-                                text: "DISK USAGE"
-                                color: Config.systemInfo.textColor
-                                font.pixelSize: 50
-                            }
-                        }
-                        WrapperRectangle {
-                            color: "transparent"
-                            border.color: Config.systemInfo.textColor
-                            border.width: 1
-                            Text {
-                                rightPadding: 30 
-                                leftPadding: 30
-                                text: SysInfo.diskText
-                                color: Config.systemInfo.textColor
-                                font.pixelSize: 50
-                            }
-                        }
-                    }
-                }
-            }
-
-            Rectangle {
-                id: yellowSideRect
-                width: fullscreenRect.width * 0.4
-                height: modelData.height
+                id: grid
+                anchors.left: parent.left
                 anchors.right: parent.right
-                color: Config.systemInfo.accentColor
-            }
+                anchors.top: parent.top
+                // TODO put these in properties and maybe configurable
+                anchors.topMargin: modelData.height * 0.05
+                anchors.leftMargin: modelData.width * 0.1
+                anchors.rightMargin: modelData.width * 0.2
+                // Layout.row and Layout.column for where an element goes
+                LayerParts.SectionHeader { text: "SYSTEM STATISTICS" }
+                LayerParts.SectionStat { label: "OS"; value: SysInfo.osName; }
 
-            MouseArea {
-                anchors.fill: parent
-                onClicked: {
-                    root.shouldShow = false;
-                    // panel.visible = false
+                SectionSpacer {}
+                SectionHeaderMouseArea {
+                    LayerParts.SectionHeader { text: "CENTRAL PROCESSING UNIT" }
+                    onClicked: { panel.showDetails = "CPU" }
                 }
+                LayerParts.SectionStat { label: "USAGE"; value: SysInfo.cpuText }
+
+                SectionSpacer {}
+                SectionHeaderMouseArea {
+                    LayerParts.SectionHeader { text: "RANDOM ACCESS MEMORY" }
+                    onClicked: { panel.showDetails = "RAM" }
+                }
+                LayerParts.SectionStat { label: "USAGE"; value: SysInfo.memText; }
+
+                SectionSpacer {}
+                SectionHeaderMouseArea {
+                    LayerParts.SectionHeader { text: "GRAPHICS PROCESSING UNIT" }
+                    onClicked: { panel.showDetails = "GPU" }
+                }
+                LayerParts.SectionStat { label: "TEMP"; value: SysInfo.gpuTempText; }
+                LayerParts.SectionStat { label: "DRIVER VERSION"; value: SysInfo.gpuDriver; }
+                LayerParts.SectionStat { label: "MEM USAGE"; value: SysInfo.gpuMemText; }
+
+                SectionSpacer {}
+                SectionHeaderMouseArea {
+                    LayerParts.SectionHeader { text: "SOLID STATE DRIVE" }
+                    onClicked: { panel.showDetails = "SSD" }
+                }
+                LayerParts.SectionStat { label: "USAGE"; value: SysInfo.diskText; }
             }
+        }
+
+        Rectangle {
+            id: accentRect
+            width: modelData.width * 0.4
+            height: modelData.height
+            anchors.right: parent.right
+            color: Config.systemInfo.accentColor
+            LayerParts.CpuDetails { visible: panel.showDetails === "CPU" }
+            LayerParts.RamDetails { visible: panel.showDetails === "RAM" }
+            LayerParts.GpuDetails { visible: panel.showDetails === "GPU" }
+            LayerParts.DiskDetails { visible: panel.showDetails === "SSD" }
+        }
+        MouseArea {
+            id: closeMouseClick
+            anchors.fill: parent
+            onClicked: {
+                panel.showDetails = ""
+                root.shouldShow = false;
+                // panel.visible = false
+            }
+        }
+    }
+
+    component SectionSpacer: Item {
+        height: panel.sectionVerticalSpaceHeight
+    }
+
+    component SectionHeaderMouseArea: WrapperMouseArea {
+        // TODO: some stronger user feedback on hover
+        hoverEnabled: true
+        cursorShape: Qt.PointingHandCursor
+        onEntered: {
+            closeMouseClick.visible = false;
+        }
+        onExited: {
+            closeMouseClick.visible = true;
         }
     }
 }

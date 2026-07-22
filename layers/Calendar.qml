@@ -34,8 +34,7 @@ Scope {
         }
 
         WlrLayershell.exclusionMode: ExclusionMode.Ignore
-        // TODO can put this back now maybe?
-        //WlrLayershell.keyboardFocus: WlrKeyboardFocus.Exclusive
+        WlrLayershell.keyboardFocus: WlrKeyboardFocus.Exclusive
         anchors {
             top: true
             left: true
@@ -54,6 +53,16 @@ Scope {
             height: modelData.height
             color: Config.calendar.backgroundColor
             visible: true
+
+            // Needs to be focused to get key press event
+            focus: true
+            Keys.onPressed: event => {
+                // close: Escape
+                if (event.key === Qt.Key_Escape) {
+                    event.accepted = true;
+                    root.shouldShow = false;
+                }
+            }
 
             MonthGrid {
                 id: grid
@@ -77,6 +86,20 @@ Scope {
                         return Config.calendar.backgroundColorsDays[randIdx];
                     }
 
+                    MouseArea {
+                        id: dayMouseArea
+                        anchors.fill: parent
+                        hoverEnabled: true
+                        cursorShape: Qt.PointingHandCursor
+                        onEntered: {
+                            backgroundMouseArea.visible = false;
+                            // panel.visible = false
+                        }
+                        onExited: {
+                            backgroundMouseArea.visible = true;
+                        }
+                    }
+
                     Text {
                         property string monthName: {
                             const x = new Date(Time.clock.date);
@@ -96,25 +119,25 @@ Scope {
                         x: {
                             if (shouldShow) {
                                 const range = Config.calendar.dayTextXOffsetRange;
-                                return Math.random() * range - range/2;
+                                return Math.random() * range - range / 2;
                             } else {
-                                return 0
+                                return 0;
                             }
                         }
                         y: {
                             if (shouldShow) {
                                 const range = Config.calendar.dayTextYOffsetRange;
-                                return Math.random() * range - range/2;
+                                return Math.random() * range - range / 2;
                             } else {
-                                return 0
+                                return 0;
                             }
                         }
                         rotation: {
                             if (shouldShow) {
                                 const range = Config.calendar.dayTextRotationRange;
-                                return Math.random() * range - range/2;
+                                return Math.random() * range - range / 2;
                             } else {
-                                return 0
+                                return 0;
                             }
                         }
                         z: dayRect.z + 1
@@ -124,9 +147,9 @@ Scope {
                         anchors.horizontalCenterOffset: {
                             if (shouldShow) {
                                 const range = Config.calendar.dayTextXOffsetRange;
-                                return Math.random() * range - range /2;
+                                return Math.random() * range - range / 2;
                             } else {
-                                return 0
+                                return 0;
                             }
                         }
                     }
@@ -154,6 +177,7 @@ Scope {
             // would be cool to have real calendar integration with Proton or something but that may be hard
             // and less secure
             MouseArea {
+                id: backgroundMouseArea
                 anchors.fill: parent
                 onClicked: {
                     root.shouldShow = false;

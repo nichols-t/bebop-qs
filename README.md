@@ -32,10 +32,12 @@ This is largely based on my personal taste. Undecided where these will be placed
     - Functionality done
 - **Notifications**: These just need to be styled appropriately
     - Unsure on appearance, crappy version styled
+    - Need to style these more effectively in line with my vision
     - Functionality done
 - **Current Workspace Number**: Not sure what the cleanest way to have this is
     - Prototype appearance is done, need to evaluate some of the surrounding box shape
     - Functionality done
+    - Styling done but could be more dynamic
 - **Volume Percent**: Optionally, what's currently playing
     - Prototype appearance is done, need to evaluate some of the surrounding box shape
     - Functionality done
@@ -57,7 +59,7 @@ These things need dedicated menus or layers.
     - Not started
 - **System Stats**: CPU/RAM etc
     - Unsure on appearance yet
-    - Not started
+    - Essentially done, but more stats for certain things would be nice
 - **Theming Menu**: Wallpaper, colors, options
     - Control of settings from GUI
     - Not started

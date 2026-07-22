@@ -7,6 +7,7 @@ A Cowboy Bebop title sequence inspired Quickshell.
 2. Symlink the `quickshell.lua` file into your hyprland config directory and `require` it from your config
 
 ## TODOs
+- SVGs and or fonts carry explicit dependency on 'bebop' as name of dir
 - Find a better sans-serif font for shutdown menu background text
 - Juice up background text in shutdown menu till it looks right
     - Note that low blurMax and high blurMultiplier makes an interesting effect

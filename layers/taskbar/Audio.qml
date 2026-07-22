@@ -28,76 +28,71 @@ RowLayout {
             return 0;
         else
             // Done so that 0-20 = 1 bar, 20 - 40 = 2 bar, etc.
-            return Math.floor(vol / 20) + 1
+            return Math.floor(vol);
     }
 
     Rectangle {
         anchors.fill: parent
-        anchors.leftMargin: 0 // can use to move box leftwards
-        anchors.rightMargin: -10
         color: Config.taskbar.audio.backgroundColor
-        // TODO make it spicier
-        implicitWidth: 10
-        implicitHeight: Config.taskbar.taskbarHeight
     }
 
     RowLayout {
-        anchors.top: parent.top
-        anchors.bottom: parent.bottom
+        anchors.centerIn: parent
         spacing: 2
         Repeater {
             id: repeater
-            model: 5
+            model: 11
             Rectangle {
+                id :r
                 required property int index
-                //  (inverse index) < audio level
-                //visible: repeater.model - (index + 1) < root.audioLevel
-                color: {
-                    if (repeater.model - (index + 1) >= root.audioLevel) {
-                        return "transparent"
+                color: Config.taskbar.audio.barsColor
+                // double this because our "index" is 1/2 what it would have been for a unidirectional thing
+                property real threshold: 2 * 100 / (repeater.model - 1)
+                property bool active: Math.abs(index - (repeater.model - 1) / 2) <= root.audioLevel / threshold
+                implicitHeight: {
+                    if (active) {
+                        return Config.taskbar.taskbarHeight;
+                    } else {
+                        return Config.taskbar.taskbarHeight * 2 / 3;
                     }
-                    return Config.taskbar.audio.barsColor;
                 }
-                implicitHeight: 20
-                implicitWidth: 4
+                implicitWidth: 8
             }
         }
     }
 
-    Rectangle {
-        implicitWidth: audioText.font.pixelSize * 6
-        implicitHeight: Config.taskbar.taskbarHeight
-        color: "transparent"
-        Text {
-            id: audioText
-            anchors.centerIn: parent
-            text: {
-                if (!root.ready)
-                    return "-";
-                if (root.muted)
-                    return "muted";
+    Text {
+        id: audioText
+        anchors.centerIn: parent
+        anchors.verticalCenterOffset: 2
+        text: {
+            return root.audioLevel
+            if (!root.ready)
+                return "-";
+            if (root.muted)
+                return "muted";
 
-                if (mpris?.playbackState !== MprisPlaybackState.Playing) {
-                    return root.vol + "% VOL";
-                }
-
-                // TODO: Not sure if I want this, and if I do, probably to the left of the bars
-                // var title = mpris.trackTitle || "[untitled]";
-                // var artist = mpris.trackArtist || "[unknown]";
-
-                // return title + " BY " + artist + " @ " + root.vol + "%";
+            if (mpris?.playbackState !== MprisPlaybackState.Playing) {
                 return root.vol + "% VOL";
             }
 
-            font {
-                family: Config.fontTypewriter.font.family
-                pixelSize: 18
-                bold: true
-                capitalization: Font.AllUppercase
-            }
-            color: Config.taskbar.audio.textColor
+            // TODO: Not sure if I want this, and if I do, probably to the left of the bars
+            // var title = mpris.trackTitle || "[untitled]";
+            // var artist = mpris.trackArtist || "[unknown]";
+
+            // return title + " BY " + artist + " @ " + root.vol + "%";
+            return root.vol + "% VOL";
         }
+
+        font {
+            family: Config.fontTypewriter.font.family
+            pixelSize: 18
+            bold: true
+            capitalization: Font.AllUppercase
+        }
+        color: Config.taskbar.audio.textColor
     }
+    
 
     PwObjectTracker {
         objects: [root.sink]

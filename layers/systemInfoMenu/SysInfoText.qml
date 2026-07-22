@@ -10,5 +10,5 @@ Text {
     font.family: Config.fontSansSerif.font.family
     font.bold: true
     font.letterSpacing: 2
-    font.pixelSize: 50
+    font.pixelSize: Math.floor(panel.height / 30)
 }

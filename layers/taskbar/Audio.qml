@@ -8,7 +8,7 @@ import ".."
 import "../.."
 
 // TODO some kind of image background or something?
-
+// TODO not entirely happy with the text here
 WrapperRectangle {
     color: Config.taskbar.audio.backgroundColor
     margin: 0
@@ -48,7 +48,7 @@ WrapperRectangle {
                     id: r
                     radius: 2
                     border.width: 1
-                    border.color: "black" // TODO theme me
+                    border.color: Config.taskbar.audio.barsBorderColor
                     required property int index
                     color: Config.taskbar.audio.barsColor
                     // double this because our "index" is 1/2 what it would have been for a unidirectional thing
@@ -76,6 +76,7 @@ WrapperRectangle {
             anchors.centerIn: parent
             color: Config.taskbar.audio.barsColor
             radius: 2
+            visible: false
             Text {
                 id: audioText
                 anchors.centerIn: parent

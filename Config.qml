@@ -73,12 +73,21 @@ Singleton {
         "backgroundColor": "transparent",
         "clock": {
             "textColor": "#e1e1e1",
-            "backgroundColor": "#1b1835"
+            "backgroundColor": "#641c1a"
         },
         "audio": {
+            // TODO previously #4f65ef which is a nice blue
+            // and 1b1835 which is a nice purple
             "textColor": "#e1e1e1",
-            "barsColor": '#4f65ef',
-            "backgroundColor": "#1b1835"
+            "barsColor": '#de5c5c',
+            "barsBorderColor": "#250000", 
+            "backgroundColor": "#641c1a"
+        },
+        "battery": {
+            "textColor": "#e1e1e1",
+            "barsColor": "#de5c5c",
+            "barsBorderColor": '#250000',
+            "backgroundColor": "#641c1a"
         },
         // TODO theme dark mid light border
         // TODO these also need a new "hover color" above the lightest shade

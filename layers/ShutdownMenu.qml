@@ -13,6 +13,7 @@ Scope {
     id: root
     // This is the screen from Quickshell.screens
     required property var modelData
+    required property var lockRoot
 
     Process {
         id: shutdownProcess
@@ -24,10 +25,12 @@ Scope {
         command: ["sh", "-c", "systemctl reboot"]
         running: false
     }
-    Process {
+    Item {
         id: logoutProcess
-        command: ["sh", "-c", "hyprlock --no-fade-in"]
-        running: false
+        function startDetached() {
+            lockRoot.lock()
+        }
+        property bool running: false
     }
 
     IpcHandler {

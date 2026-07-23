@@ -7,8 +7,9 @@ A Cowboy Bebop title sequence inspired Quickshell.
 2. Symlink the `quickshell.lua` file into your hyprland config directory and `require` it from your config
 
 ## TODOs
-- SVGs and or fonts carry explicit dependency on 'bebop' as name of dir
-- Find a better sans-serif font for shutdown menu background text
+- Bluetooth Indicator for taskbar
+- Find a better serif font for shutdown menu background text
+- Make system info more robust/flexible across different hardware/installed tools to read it
 - Juice up background text in shutdown menu till it looks right
     - Note that low blurMax and high blurMultiplier makes an interesting effect
     - May be good to set "blur layers" in config and use those to calculate blur elements less manually
@@ -50,7 +51,10 @@ These things need dedicated menus or layers.
     - Not started
 - **Lock Screen**:
     - Going to do some SVG lock icon like the one screenshot ref, but black
-    - Not started
+    - Actually, maybe do those 4 moving yellow lines around the edges
+    - see https://github.com/end-4/dots-hyprland/pull/2308/changes for fingerprint
+        - but this is slop so who knows
+    - Password login and basic styling done
 - **Calendar**:
     - Section from opening with colored squares
     - Considering `.ics` integration or weather integration

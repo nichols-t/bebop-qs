@@ -7,7 +7,14 @@ Scope {
         Scope {
             id: perMonitor
             required property var modelData
-            Layers.ShutdownMenu { modelData: perMonitor.modelData }
+            Layers.LockScreen {
+                id: lockRoot
+                modelData: perMonitor.modelData
+            }
+            Layers.ShutdownMenu {
+                lockRoot: lockRoot
+                modelData: perMonitor.modelData
+            }
             Layers.Taskbar { modelData: perMonitor.modelData }
             Layers.Calendar {
                id: calendar
@@ -20,7 +27,7 @@ Scope {
                 modelData: perMonitor.modelData
             }
 
-            Layers.Notifications{ modelData: perMonitor.modelData }
+            Layers.Notifications { modelData: perMonitor.modelData }
         }
     }
 }

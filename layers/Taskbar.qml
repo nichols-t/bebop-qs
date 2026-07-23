@@ -24,6 +24,7 @@ PanelWindow {
 
         LayerParts.Workspaces {}
         Item { Layout.fillWidth: true }
+        LayerParts.Battery {}
         LayerParts.Audio {}
         LayerParts.Clock {}
         LayerParts.SystemInfoButton {}

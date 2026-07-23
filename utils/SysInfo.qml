@@ -48,6 +48,9 @@ Singleton {
     property string gpuDriver: ""
     property string gpuPower: ""
 
+    // Battery info
+    property real batteryPercent: 0
+
     FileView {
         id: cpuFile
         path: "/proc/stat"
@@ -192,6 +195,15 @@ Singleton {
         }
     }
 
+    Process {
+        id: batteryProc
+        running: true
+        command: ["sh", "-c", "cat /sys/class/power_supply/BAT0/capacity"]
+        stdout: SplitParser {
+            onRead: data => root.batteryPercent = Number(data.trim())
+        }
+    }
+
     Timer {
         interval: 2000
         repeat: true
@@ -221,6 +233,7 @@ Singleton {
             cpuNameProc.running = true
             cpuMhzProc.running = true
             cpuArchProc.running = true
+            batteryProc.running = true
         }
     }
 }

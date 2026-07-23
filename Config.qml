@@ -36,11 +36,17 @@ Singleton {
 
     readonly property var fontBlocky: FontLoader {
         id: fontBlocky
-        source: ".//home/ty/code/bebop/fonts/Bevan-Regular.ttf"
+        source: "./fonts/Bevan-Regular.ttf"
     }
 
     readonly property var powerMenu: {
         "menuTitleText": "Power Menu #1"
+    }
+
+    readonly property var lockScreen: {
+        "dateTextColor": "#fabb3f",
+        "passwordTextColor": "black",
+        "accentColor": "#a21e1d"
     }
 
     readonly property var calendar: {

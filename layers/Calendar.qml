@@ -142,7 +142,6 @@ Scope {
                         }
                         z: dayRect.z + 1
                         color: "black"
-                        anchors.top: parent
                         anchors.horizontalCenter: parent.horizontalCenter
                         anchors.horizontalCenterOffset: {
                             if (shouldShow) {

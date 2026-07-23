@@ -44,7 +44,7 @@ Singleton {
     }
 
     readonly property var lockScreen: {
-        "dateTextColor": "#fabb3f",
+        "dateTextColor": "#e1e1e1",
         "passwordTextColor": "black",
         "accentColor": "#a21e1d"
     }

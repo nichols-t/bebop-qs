@@ -14,7 +14,7 @@ Rectangle {
 
   Text {
     id: clockText
-    text: Time.time
+    text: Qt.formatDateTime(Time.time, "ddd MMM dd hh:mm AP")
     font {
         // TODO: Should I use this font or find a more "plain"/"computer" one like
         // the in-universe UIs use?

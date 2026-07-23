@@ -10,7 +10,6 @@ import QtQuick.Shapes
 Rectangle {
     id: root
     color: "transparent"
-    anchors.left: parent
     // Want it to stop before the end of the workspace buttons so that
     // it covers the left side gap but does not appear on the right
     implicitWidth: rows.width

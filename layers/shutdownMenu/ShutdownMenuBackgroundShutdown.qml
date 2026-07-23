@@ -37,8 +37,8 @@ ShutdownMenuBackground {
         font.family: Config.fontSerif.font.family
         visible: false // Only blurred MultiEffect is visible
         rotation: 90
-        anchors.left: parent
-        x: -screen.width / 4
+        anchors.left: parent.left
+        anchors.leftMargin: -screen.width / 4
         color: textColor
     }
     MultiEffect {

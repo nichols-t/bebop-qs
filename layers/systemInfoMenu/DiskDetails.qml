@@ -96,17 +96,22 @@ Rectangle {
             anchors.verticalCenterOffset: 0
         }
 
+        property int animHalfDuration: {
+            const rand = Math.floor(Math.random() * root.movingTextDuration - root.movingTextDuration / 2);
+            return root.movingTextDuration + rand;
+        }
+
         SequentialAnimation on anchors.verticalCenterOffset {
             loops: Animation.Infinite
             NumberAnimation {
                 from: -parent.width / 10
                 to: parent.width / 10
-                duration: root.movingTextDuration + Math.random() * 500 - 250;
+                duration: animHalfDuration
             }
             NumberAnimation {
                 from: parent.width / 10
                 to: -parent.width / 10
-                duration: root.movingTextDuration + Math.random() * 500 - 250;
+                duration: animHalfDuration
             }
         }
     }

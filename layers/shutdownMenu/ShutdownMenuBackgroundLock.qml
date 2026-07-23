@@ -43,7 +43,7 @@ ShutdownMenuBackground {
         rotation: 90
         anchors.centerIn: parent
         anchors.horizontalCenterOffset: screen.width / 4
-        anchors.verticalCenterOffset: screen.height / 10
+        anchors.verticalCenterOffset: -screen.height / 10
         color: textColor
     }
     MultiEffect {
@@ -91,8 +91,8 @@ ShutdownMenuBackground {
         id: backgroundText2
         rawText: parent.text
         visible: false // Only blurred MultiEffect is visible
-        anchors.bottom: parent
-        y: -(screen.height / 3) * 1.25
+        anchors.bottom: parent.bottom
+        anchors.bottomMargin: -screen.height / 2
         color: textColor
         font.family: Config.fontSerif.font.family
         font.pixelSize: screen.height / 3

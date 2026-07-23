@@ -34,45 +34,87 @@ Scope {
             id: lockSurface
             // Stuff goes here
             Rectangle {
-                id: backgroundRect;
+                id: backgroundRect
                 anchors.fill: parent
                 color: "black" // TODO color
 
                 WrapperRectangle {
                     color: "transparent"
-                    border.width: 4
-                    border.color: Config.lockScreen.dateTextColor
+                    z: 1
                     anchors {
-                        horizontalCenter: parent.horizontalCenter
+                        //horizontalCenter: parent.horizontalCenter
                         top: parent.top
-                        topMargin: 200
+                        topMargin: parent.height - accentRect.height - 3 * clock.font.pixelSize
+                        left: parent.left
+                        leftMargin: user.font.pixelSize * 2
                     }
-                    Text {
-                        id: clock
-                        rightPadding: 30
-                        leftPadding: 30
-                        // TODO this font does NOT look good here, and I don't know why
-                        font.pixelSize: Math.floor(backgroundRect.height / 15)
-                        font.family: Config.fontSansSerif.font.family
-                        font.bold: false
-                        font.letterSpacing: 2
-                        color: Config.lockScreen.dateTextColor
+                    ColumnLayout {
+                        LayerParts.LockTitleText {
+                            id: user
+                            text: `Log in as ${lockContext.user}`
+                            font.pixelSize: Math.floor(backgroundRect.height / 25)
+                        }
+                        LayerParts.LockTitleText {
+                            id: clock
+                            font.pixelSize: Math.floor(backgroundRect.height / 15)
+                            // updated when the date changes
+                            text: Qt.formatDateTime(Time.time, "hh:mm AP")
+                        }
+                    }
+                }
 
-                        // updated when the date changes
-                        text: {
-                            return Qt.formatDateTime(Time.rawTime, "hh:mm AP")
+                RowLayout {
+                    id: barsRow
+                    z:1
+                    anchors.fill: parent
+                    anchors.topMargin: lockSurface.screen?.height * 0.4
+                    spacing: 0
+                    Repeater {
+                        id: bars
+                        model: 4
+                        Rectangle {
+                            required property int index
+                            // >= if model is even
+                            Layout.alignment: {
+                                if (index < bars.model / 2) {
+                                    return Qt.AlignLeft
+                                } else {
+                                    return Qt.AlignRight
+                                }
+                            }
+                            implicitWidth: {
+                                if (index === 0 || index === bars.model - 1) {
+                                    return lockSurface.screen?.width * 0.02;
+                                } else {
+                                    return lockSurface.screen?.width * 0.01;
+                                }
+                            }
+                            implicitHeight: lockSurface.screen?.height * 0.6
+                            color: "black"
                         }
                     }
                 }
 
                 Rectangle {
+                    id: accentRect
                     width: parent.width
                     height: parent.height * 0.6
                     anchors.bottom: parent.bottom
                     color: Config.lockScreen.accentColor
                 }
 
+                // TODO: This is only needed because center-aligning TextField text
+                // entirely breaks the TextField placeholder - am I doing something wrong there?
+                Text {
+                    id: placeholderFallback
+                    anchors.centerIn: parent
+                    text: passwordBox.placeholderText
+                    color: passwordBox.placeholderTextColor
+                    font: passwordBox.font
+                    visible: passwordBox.text.length === 0
+                }
                 TextField {
+                    z: 2
                     id: passwordBox
                     anchors.centerIn: parent
                     padding: 10
@@ -85,12 +127,20 @@ Scope {
                     horizontalAlignment: Text.AlignHCenter
                     verticalAlignment: Text.AlignVCenter
                     passwordCharacter: '*'
-                    // TODO: can do a cursor delegate to make fancy shapes!
+                    // TODO: Maybe there's a more interesting shape to use?
+                    cursorDelegate: Rectangle {
+                        color: Config.lockScreen.passwordTextColor
+                        width: 4
+                        // TextInput has a cursorVisible property but you can only set it
+                        // in a signal handler; since we're doing a custom cursor component,
+                        // don't bother with that and just control visibility explicitly
+                        visible: passwordBox.focus && passwordBox.text.length > 0
+                    }
                     font.pixelSize: 24
                     background: Rectangle {
-                        color: "transparent"
-                        implicitWidth: 400
-                        implicitHeight: 3 * 24
+                        color: Config.lockScreen.accentColor
+                        implicitWidth: parent.font.pixelSize * 10
+                        implicitHeight: parent.font.pixelSize
                     }
 
                     focus: true
@@ -113,20 +163,6 @@ Scope {
                             passwordBox.text = lockContext.currentText;
                         }
                     }
-                }
-
-                Button {
-                    anchors.centerIn: parent
-                    anchors.verticalCenterOffset: 100
-                    visible: false // Don't know if I want to bother with explicit btn
-                    text: "Unlock"
-                    padding: 10
-
-                    // don't steal focus from the text box
-                    focusPolicy: Qt.NoFocus
-
-                    enabled: !root.context.unlockInProgress && root.context.currentText !== "";
-                    onClicked: root.context.tryUnlock();
                 }
             }
         }

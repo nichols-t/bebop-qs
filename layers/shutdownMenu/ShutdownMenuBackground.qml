@@ -16,7 +16,7 @@ Item {
         id: menuTitleText1
         text: Config.powerMenu.menuTitleText
         color: textColor
-        anchors.top: parent
+        anchors.top: parent.top
         y: screen.height / 20
         x: screen.width / 20
         anchors.verticalCenterOffset: -screen.height / 8
@@ -39,9 +39,9 @@ Item {
         id: menuTitleText2
         text: Config.powerMenu.menuTitleText
         color: textColor
-        anchors.bottom: parent
-        x: screen.width / 4
-        y: screen.height - implicitHeight - screen.height / 20
+        anchors.bottom: parent.bottom
+        anchors.leftMargin: screen.width / 4
+        anchors.rightMargin: screen.height - implicitHeight - screen.height / 20
         font.family: Config.fontTypewriter.font.family
         font.pixelSize: screen.height / 15
         font.letterSpacing: 120
@@ -51,7 +51,7 @@ Item {
     MultiEffect {
         blurEnabled: true
         blur: 1.0
-        opacity: 0.2
+        opacity: 0.4
         blurMax: 8
         blurMultiplier: 1
         source: menuTitleText2

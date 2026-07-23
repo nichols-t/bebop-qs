@@ -90,8 +90,8 @@ ShutdownMenuBackground {
         font.pixelSize: screen.height / 3
         font.family: Config.fontSerif.font.family
         visible: false // Only blurred MultiEffect is visible
-        anchors.bottom: parent
-        y: -screen.height / 2
+        anchors.bottom: parent.bottom
+        anchors.bottomMargin: -screen.height / 2
         color: textColor
     }
     MultiEffect {

@@ -12,6 +12,8 @@ Scope {
 	property string currentText: ""
 	property bool unlockInProgress: false
 	property bool showFailure: false
+	// The user we're dealing with
+	property string user: Quickshell.env("USER")
 
 	// Clear the failure text once the user starts typing.
 	onCurrentTextChanged: showFailure = false;

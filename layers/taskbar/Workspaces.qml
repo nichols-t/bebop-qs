@@ -6,7 +6,6 @@ import ".."
 import "../.."
 import QtQuick.Shapes
 
-// TODO not convinced this is good yet
 Rectangle {
     id: root
     color: "transparent"
@@ -30,8 +29,6 @@ Rectangle {
                 Layout.topMargin: isActive ? -Config.taskbar.taskbarHeight /2 : -Config.taskbar.taskbarHeight
                 radius: 2
                 color: {
-                    // TODO there is an interesting effect in the credits where it inverts
-                    // lighten/darken depending on # of layers... see if I can get that
                     if (isActive) {
                         return Config.taskbar.workspaces.backgroundColorActive;
                     } else if (hasWindows) {
@@ -95,7 +92,6 @@ Rectangle {
                     anchors.verticalCenterOffset: index % 2 === 0 ? 10 : 0
                     border.width: 2
                     border.color: Config.taskbar.workspaces.borderColor
-                    // TODO theme this to be "shade + 1" instead of going straight to hovered
                     color: wsButton.isHovered ? wsButton.hoverColor : wsButton.color
                     z: 0
                 }

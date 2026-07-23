@@ -15,13 +15,9 @@ Rectangle {
   Text {
     id: clockText
     text: Qt.formatDateTime(Time.time, "ddd MMM dd hh:mm AP")
-    font {
-        // TODO: Should I use this font or find a more "plain"/"computer" one like
-        // the in-universe UIs use?
-        family: Config.fontTypewriter.font.family
-        pixelSize: 18
-        bold: true
-    }
+    font.family: Config.fontTypewriter.font.family
+    font.pixelSize: 18
+    font.bold: true
     anchors.centerIn: parent
     color: Config.taskbar.clock.textColor
   }

@@ -78,8 +78,8 @@ WrapperRectangle {
             radius: 2
             Text {
                 id: audioText
-                // TODO it is messed up
                 anchors.centerIn: parent
+                // TODO why is this extra offset needed?
                 anchors.verticalCenterOffset: 2
                 //verticalAlignment: Text.AlignVCenter
                 text: {

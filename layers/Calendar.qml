@@ -81,7 +81,7 @@ Scope {
                         if (grid.month !== month) {
                             return Config.calendar.backgroundColorDayOutOfRange;
                         }
-                        // TODO not sure randomness here is interseting - maybe fix a pattern
+
                         const randIdx = Math.floor(Math.random() * Config.calendar.backgroundColorsDays.length);
                         return Config.calendar.backgroundColorsDays[randIdx];
                     }
@@ -155,8 +155,6 @@ Scope {
                 }
             }
 
-            // TODO mess with baseline per-letter for this? maybe not perfect 90 deg rotation?
-            //  TODO use a different (thinner) font here maybe??
             Text {
                 text: `${Qt.formatDateTime(Time.clock.date, 'MMMM')} ${Qt.formatDateTime(Time.clock.date, 'yyyy')}`
                 rotation: 90

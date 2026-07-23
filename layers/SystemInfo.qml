@@ -11,7 +11,6 @@ import ".."
 import "./systemInfoMenu" as LayerParts
 import "../utils"
 
-// TODO interactivity and SVGs - MouseAreas are set up but right side is not
 Scope {
     id: root
     required property var modelData

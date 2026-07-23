@@ -212,8 +212,20 @@ Singleton {
         onTriggered: {
             cpuFile.reload();
             memFile.reload();
+            gpuMemFreeProc.running = true
         }
     }
+
+    Component.onCompleted: {
+        // These items only really need to read once
+        gpuDriverProc.running = true
+        gpuMemTotalProc.running = true
+        gpuNameProc.running = true
+        cpuNameProc.running = true
+        cpuMhzProc.running = true
+        cpuArchProc.running = true
+    }
+
     Timer {
         id: diskTimer
         interval: 30000
@@ -223,16 +235,8 @@ Singleton {
             if (dfShell.running)
                 dfShell.write("df -B1 / | awk 'NR==2{print $1\" \"$2\" \"$3}'; echo '@@END@@'\n");
 
-            // TODO don't run all of these at this interval
             gpuTempProc.running = true
-            gpuDriverProc.running = true
-            gpuMemFreeProc.running = true
-            gpuMemTotalProc.running = true
             gpuPowerProc.running = true
-            gpuNameProc.running = true
-            cpuNameProc.running = true
-            cpuMhzProc.running = true
-            cpuArchProc.running = true
             batteryProc.running = true
         }
     }

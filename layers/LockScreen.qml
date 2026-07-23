@@ -90,9 +90,18 @@ Scope {
                                 }
                             }
                             implicitHeight: lockSurface.screen?.height * 0.6
-                            color: "black"
+                            color: backgroundRect.color
                         }
                     }
+                }
+
+                Rectangle {
+                    id: bottomLocksRect
+                    width: parent.width
+                    height: parent.height * 0.05
+                    anchors.bottom: parent.bottom
+                    color: "black" // TODO color
+                    z: 2
                 }
 
                 Rectangle {
@@ -103,7 +112,7 @@ Scope {
                     color: Config.lockScreen.accentColor
                 }
 
-                // TODO: This is only needed because center-aligning TextField text
+                // This is only needed because center-aligning TextField text
                 // entirely breaks the TextField placeholder - am I doing something wrong there?
                 Text {
                     id: placeholderFallback
@@ -123,7 +132,7 @@ Scope {
                     color: Config.lockScreen.passwordTextColor
                     font.family: Config.fontTypewriter.font.family
                     font.bold: true
-                    // TODO setting these seemingly broke the placeholder text??
+                    // setting these seemingly broke the placeholder text??
                     horizontalAlignment: Text.AlignHCenter
                     verticalAlignment: Text.AlignVCenter
                     passwordCharacter: '*'

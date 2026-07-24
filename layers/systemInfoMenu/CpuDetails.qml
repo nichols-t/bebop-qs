@@ -59,13 +59,13 @@ Rectangle {
     ColumnLayout {
         anchors.centerIn: parent
         DetailsInfoText {
-            text: SysInfo.cpuName
+            text: SysInfo.cpuModel.cpuName
         }
         DetailsInfoText {
-            text: `Arch: ${SysInfo.cpuArch}`
+            text: `Arch: ${SysInfo.cpuModel.cpuArch}`
         }
         DetailsInfoText {
-            text: `Max Speed: ${SysInfo.cpuMhz.toFixed(0)} Mhz`
+            text: `Max Speed: ${SysInfo.cpuModel.cpuMhz.toFixed(0)} Mhz`
         }
     }
 

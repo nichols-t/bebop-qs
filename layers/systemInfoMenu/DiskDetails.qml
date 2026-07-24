@@ -77,7 +77,7 @@ Rectangle {
         anchors.centerIn: parent
         anchors.verticalCenterOffset: parent.height * 0.1
         DetailsInfoText {
-            text: `Used: ${SysInfo.diskText}`
+            text: `Used: ${SysInfo.diskUsage.diskText}`
         }
     }
 

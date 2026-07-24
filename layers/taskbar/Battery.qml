@@ -18,7 +18,7 @@ WrapperRectangle {
             ColumnLayout {
                 id: batteryBars
                 spacing: 1
-                property int numBarsFilled: Math.ceil(SysInfo.batteryPercent / 25)
+                property int numBarsFilled: Math.ceil(SysInfo.power.batteryPercent / 25)
                 Layout.alignment: Qt.AlignTop
                 Repeater {
                     id: repeater
@@ -55,7 +55,13 @@ WrapperRectangle {
             }
             Text {
                 id: battText
-                text: `${SysInfo.batteryPercent}%`
+                text: {
+                    if (SysInfo.power.hasBattery) {
+                        return `${SysInfo.power.batteryPercent}%`
+                    } else {
+                        return 'AC'
+                    }
+                }
                 font {
                     family: Config.fontTypewriter.font.family
                     pixelSize: 18

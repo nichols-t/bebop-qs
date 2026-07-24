@@ -155,10 +155,10 @@ Rectangle {
     ColumnLayout {
         anchors.centerIn: parent
         DetailsInfoText {
-            text: `Memory Usage: ${SysInfo.memText}`
+            text: `Memory Usage: ${SysInfo.ramUsage.memText}`
         }
         DetailsInfoText {
-            text: `Swap Usage: ${SysInfo.swapText}`
+            text: `Swap Usage: ${SysInfo.ramUsage.swapText}`
         }
     }
 }

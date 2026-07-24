@@ -10,8 +10,6 @@ A Cowboy Bebop title sequence inspired Quickshell.
 
 ## TODOs
 - Look at "Rule of 3" for how often I'm using particular design elements to make things feel cohesive
-- Looks like opening has white text, left-aligned on the frames that are similar to the lock screen
-    - also, consider the orange bars and black text instead of yellow maybe?
 - Bluetooth Indicator for taskbar
 - Find a better serif font for shutdown menu background text
 - Make system info more robust/flexible across different hardware/installed tools to read it

@@ -2,6 +2,8 @@
 
 A Cowboy Bebop title sequence inspired Quickshell.
 
+<img width="3840" height="2160" alt="2026-07-23-195802_hyprshot" src="https://github.com/user-attachments/assets/5bbd9d55-9105-4c53-af70-2063ff1df9aa" />
+
 ## Using
 1. Use this repo as your quickshell directory
 2. Symlink the `quickshell.lua` file into your hyprland config directory and `require` it from your config

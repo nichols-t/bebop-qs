@@ -16,7 +16,7 @@ PowerStatusModule {
 
     // TODO: I don't know how to determine "are we plugged in"
     // from this...
-    property bool pluggedIn: false
+    property bool pluggedIn: !hasBattery
 
     property var read: () => {
         batteryProc.running = true

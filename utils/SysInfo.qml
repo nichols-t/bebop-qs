@@ -29,6 +29,12 @@ Singleton {
     // Provides live power supply information. Read periodically
     property PowerStatusModule power: PowerSupplyPowerStatusModule {}
 
+    // TODO: Something like this can be used/read from the Config.qml in order to create a "fallback list"
+    // of modules; will need to have SystemInfoModules use their isSupported status, etc but also need to
+    // ensure that we give the processes they run a chance to complete. So maybe a hasLoaded property, and
+    // we wait for that is true before assigning the first supported module to our "active module" slot.
+    property list<PowerStatusModule> powerModuleOptions
+
     Timer {
         interval: 2000
         repeat: true

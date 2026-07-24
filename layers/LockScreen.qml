@@ -117,9 +117,10 @@ Scope {
                 Text {
                     id: placeholderFallback
                     anchors.centerIn: parent
-                    text: passwordBox.placeholderText
+                    text: "3, 2, 1, let's jam!"
                     color: passwordBox.placeholderTextColor
                     font: passwordBox.font
+                    z: 2
                     visible: passwordBox.text.length === 0
                 }
                 TextField {
@@ -147,7 +148,7 @@ Scope {
                     }
                     font.pixelSize: 24
                     background: Rectangle {
-                        color: Config.lockScreen.accentColor
+                        color: "transparent"
                         implicitWidth: parent.font.pixelSize * 10
                         implicitHeight: parent.font.pixelSize
                     }

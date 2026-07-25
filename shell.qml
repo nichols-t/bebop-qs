@@ -26,6 +26,11 @@ Scope {
                 shouldShow: false
                 modelData: perMonitor.modelData
             }
+            Layers.AppLauncher {
+                id: appLauncher
+                shouldShow: false
+                modelData: perMonitor.modelData
+            }
 
             Layers.Notifications { modelData: perMonitor.modelData }
         }

@@ -24,6 +24,8 @@ PanelWindow {
 
         LayerParts.Workspaces {}
         Item { Layout.fillWidth: true }
+        // Debug app menu launcher
+        // LayerParts.AppButton {}
         LayerParts.Battery {}
         LayerParts.Audio {}
         LayerParts.Clock {}

@@ -11,6 +11,9 @@ A Cowboy Bebop title sequence inspired Quickshell.
 2. Symlink the `quickshell.lua` file into your hyprland config directory and `require` it from your config
 
 ## TODOs
+- IPC moved to outside of Variants so that I don't have to do this hack with monitors?
+    - This is how the P3 quickshell does it
+- Submenus shouldn't rely on root IDs to open things. Pass as property or use a signal?
 - Look at "Rule of 3" for how often I'm using particular design elements to make things feel cohesive
 - Bluetooth Indicator for taskbar
 - Find a better serif font for shutdown menu background text

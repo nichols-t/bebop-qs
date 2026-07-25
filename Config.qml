@@ -62,6 +62,13 @@ Singleton {
         "dayTextRotationRange": 15
     }
 
+    readonly property var notifications: {
+        "backgroundColor": "black",
+        "applicationTextColor": "#e1e1e1",
+        "summaryTextColor": "#e1e1e1",
+        "lineColor": "#fabb3f"
+    }
+
     readonly property var systemInfo: {
         "backgroundColor": "black",
         "accentColor": "#226499",

@@ -44,18 +44,21 @@ Scope {
                     anchors {
                         //horizontalCenter: parent.horizontalCenter
                         top: parent.top
-                        topMargin: parent.height - accentRect.height - 3 * clock.font.pixelSize
+                        topMargin: parent.height - accentRect.height - 2.5 * clock.font.pixelSize
                         left: parent.left
-                        leftMargin: user.font.pixelSize * 2
+                        leftMargin: lockSurface.screen?.width * 0.02;
                     }
                     ColumnLayout {
+                        spacing: 0
                         LayerParts.LockTitleText {
+                            verticalAlignment: Qt.AlignBottom
                             id: user
                             text: `Log in as ${lockContext.user}`
                             font.pixelSize: Math.floor(backgroundRect.height / 25)
                         }
                         LayerParts.LockTitleText {
                             id: clock
+                            verticalAlignment: Qt.AlignTop
                             font.pixelSize: Math.floor(backgroundRect.height / 15)
                             // updated when the date changes
                             text: Qt.formatDateTime(Time.time, "hh:mm AP")

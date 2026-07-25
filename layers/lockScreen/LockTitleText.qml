@@ -7,7 +7,7 @@ Text {
     color: Config.lockScreen.dateTextColor
     font.family: Config.fontBlocky.font.family
     font.bold: false
-    font.italic: true
+    font.italic: false
     font.variableAxes: {
         "wght": 400
     }

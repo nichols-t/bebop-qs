@@ -1,5 +1,7 @@
 # Bebop
 
+> 3, 2, 1, let's jam!
+
 A Cowboy Bebop title sequence inspired Quickshell.
 
 <img width="3840" height="2160" alt="2026-07-23-195802_hyprshot" src="https://github.com/user-attachments/assets/5bbd9d55-9105-4c53-af70-2063ff1df9aa" />
@@ -13,6 +15,7 @@ A Cowboy Bebop title sequence inspired Quickshell.
 - Bluetooth Indicator for taskbar
 - Find a better serif font for shutdown menu background text
 - Make system info more robust/flexible across different hardware/installed tools to read it
+    - This has been modularized, but a "fallback" system would still be neat for max compatibility
 - Juice up background text in shutdown menu till it looks right
     - Note that low blurMax and high blurMultiplier makes an interesting effect
     - May be good to set "blur layers" in config and use those to calculate blur elements less manually
@@ -23,28 +26,21 @@ A Cowboy Bebop title sequence inspired Quickshell.
     - Can be done with shader effect onto MultiEffect maskSource or a shader
     - I learned via experimentation that mask images get stretched so they don't work great
 - Check and reduce memory usage, use LazyLoaders and such
-- Better system for Taskbar/other SVG creation
-    - What I have right now could be more flexible and also look better
-    - QtQuick.Shapes to draw shapes directly??
 - Finish larger widgets and menus (see below)
 
 ## Plans
 
 ### Always-On Widgets
-This is largely based on my personal taste. Undecided where these will be placed
+This is largely based on my personal taste. Undecided where these will be placed, but probably top taskbar.
 - **Date and Time**:
-    - Unsure on appearance, but base version is styled
-    - Functionality done
+    - Prototype done, but it's kinda boring. Need to see if there's something better to do here.
 - **Notifications**: These just need to be styled appropriately
-    - Unsure on appearance, crappy version styled
-    - Need to style these more effectively in line with my vision
-    - Functionality done
+    - Prototype is done, will keep unless I think of something better.
 - **Current Workspace Number**: Not sure what the cleanest way to have this is
-    - Prototype appearance is done, need to evaluate some of the surrounding box shape
-    - Functionality done
-    - Styling done but could be more dynamic
+    - Prototype is done, I think I like it until I have a better idea
 - **Volume Percent**: Optionally, what's currently playing
-    - Prototype appearance is done, need to evaluate some of the surrounding box shape
+    - Prototype is done, need to evaluate how much I like it
+        - Maybe consider a "slider" version or something?
     - Functionality done
 
 ### Submenu/New Layer Widgets
@@ -53,20 +49,17 @@ These things need dedicated menus or layers.
     - May use one of those scrolling text sections, but not sure if this is functional enough
     - Not started
 - **Lock Screen**:
-    - Going to do some SVG lock icon like the one screenshot ref, but black
-    - Actually, maybe do those 4 moving yellow lines around the edges
+    - Password login (`pam`) and basic styling done
     - see https://github.com/end-4/dots-hyprland/pull/2308/changes for fingerprint
         - but this is slop so who knows
-    - Password login and basic styling done
 - **Calendar**:
     - Section from opening with colored squares
-    - Considering `.ics` integration or weather integration
-    - Base functionality done, but no integrations and some styles still pending
+    - Basic `.ics` using `khal` done
+    - Some additional style juice, plus a single-day subpage are all that's needed.
 - **Audio Control/Setup**: Popup menu to control which devices used, etc. would be cool.
     - Unsure on appearance yet
     - Not started
 - **System Stats**: CPU/RAM etc
-    - Unsure on appearance yet
     - Essentially done, but more stats for certain things would be nice
 - **Theming Menu**: Wallpaper, colors, options
     - Control of settings from GUI

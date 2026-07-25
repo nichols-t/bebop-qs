@@ -1,30 +1,55 @@
 pragma Singleton
 import Quickshell
 import QtQml
+import QtQuick
 import Quickshell.Io
 import "./"
 
 Singleton {
     id: root
 
-    property bool loaded: false
-    
-    function eventsOnDay(day: string): list<var> {
-        const d = Date.parse(day);
-        events.filter((event) => {
-            if (sameDay(event.dtstart, d)) {
-                return true;
-            } else {
-                return false;
-            }
-        });
+    // TODO: We probably should clear stuff on close, but realistically I don't think this will matter
+    // very much unless I implement a full calendar search
+    function clear() {
     }
 
-    // TODO: just use khal, which can import ics just fine
-    // Just need to determine how to load the dates properly given that it is bunch of async commands
-    // khal at --json all 2026-07-29 12:00 AM
-    // khal import --batch cal.ics
+    // TODO probably use this for some user feedback or something
+    // property bool loaded: false
 
-    // ^ I think the way is to do a property exposed that controls what dates we look for, and
-    // when those change we spawn a new process. This feels a little wrong but will probably work
+    property string debug: ''
+    property string firstDay: ''
+    property string lastDay: ''
+    property list<var> dayInfo: []
+    onFirstDay: {
+        loadCalendarProcess.running = true;
+    }
+    onLastDay: {
+        loadCalendarProcess.running = true;
+    }
+    property string _data: ''
+
+    // khal import --batch cal.ics
+    //curl "<proton ics link>" | khal import --batch
+
+    Process {
+        id: loadCalendarProcess
+        running: true
+        // khal list --json all 2026-07-12 2026-07-12
+        command: ["khal", "list", "--json", "all", root.firstDay, root.lastDay]
+        stdout: SplitParser {
+            onRead: data => {
+                const events = JSON.parse(data.trim()).map((e) => e.title)
+                root.dayInfo.push(events);
+
+            }
+            //data.trim())
+        }
+        stderr: SplitParser {
+            onRead: data => root.debug += 'fail'
+        }
+        property bool success: false
+        onExited: code => {
+            root.debug += ' loaded ' + root.firstDay + '-' + root.lastDay 
+        }
+    }
 }

@@ -10,8 +10,6 @@ import ".."
 import "../utils"
 
 // TODO interactivity: What should happen when we click on a day?
-// If we have an ics integration then this would have obvious use, but I am
-// not 100% sure how trivial that's going to be
 Scope {
     id: root
     // This is the screen from Quickshell.screens
@@ -72,6 +70,12 @@ Scope {
                 anchors.centerIn: parent
                 spacing: 10
 
+                property string firstDay: ''
+                property string lastDay: ''
+                Component.onCompleted: {
+                    CalendarData.firstDay = firstDay;
+                    CalendarData.lastDay = lastDay;
+                }
                 delegate: Rectangle {
                     id: dayRect
                     width: root.modelData.width / 12
@@ -84,6 +88,18 @@ Scope {
 
                         const randIdx = Math.floor(Math.random() * Config.calendar.backgroundColorsDays.length);
                         return Config.calendar.backgroundColorsDays[randIdx];
+                    }
+                    // Text used when looking up data from the calendar
+                    property string dateLookupText: Qt.formatDateTime(date, 'yyyy-MM-dd')
+
+                    Component.onCompleted: {
+                        // ... This means it always shows six rows ... from
+                        // https://doc.qt.io/qt-6/qml-qtquick-controls-monthgrid.html
+                        if (index === 0) {
+                            grid.firstDay = dateLookupText;
+                        } else if (index === 41) {
+                            grid.lastDay = dateLookupText;
+                        }
                     }
 
                     MouseArea {
@@ -152,6 +168,42 @@ Scope {
                             }
                         }
                     }
+
+                    ColumnLayout {
+                        anchors.verticalCenter: dayRect.verticalCenter
+                        Repeater {
+                            model: CalendarData.dayInfo[index];
+                            
+                            // TODO I copied this from the above segment; put it into a proper component
+                            // as like RandomText or something
+                            // The ranges also are a bit weird for these particular event, needed to reduce them a lot
+                            // and also they don't work in a layout the same way (but the above text should probably also be in a Layout)
+                            Text {
+                                required property var modelData
+                                text: modelData
+
+                                font.bold: today
+                                font.family: Math.random() > 0.5 ? Config.fontTypewriter.font.family : Config.fontSerif.font.family
+                                font.pixelSize: Config.calendar.fontSizeDays - 2 // TODO theme
+                                font.italic: shouldShow ? Math.random() > Config.calendar.fontDaysItalicThreshold : false
+                                rotation: {
+                                    if (shouldShow) {
+                                        const range = Config.calendar.dayTextRotationRange / 2;
+                                        return Math.random() * range - range / 2;
+                                    } else {
+                                        return 0;
+                                    }
+                                }
+                                z: dayRect.z + 1
+                                color: "black"
+                                // Need to set both this and width explicitly to make it work inside a Layout
+                                Layout.preferredWidth: width
+                                wrapMode: Text.WordWrap
+                                width: dayRect.width
+                                Layout.alignment: Qt.AlignLeft | Qt.AlignVCenter
+                            }
+                        }
+                    }
                 }
             }
 
@@ -169,10 +221,8 @@ Scope {
                 color: "white"
             }
 
-            // TODO this is really a failsafe so I don't accidentally boot up to an unkillable screen,
-            // need a real esc/exit plan, and also need to add onClick to the calendar functions I think
-            // would be cool to have real calendar integration with Proton or something but that may be hard
-            // and less secure
+            // Additional failsafe to let you close menu via mouse
+            // TODO need to add onClick submenu to each day
             MouseArea {
                 id: backgroundMouseArea
                 anchors.fill: parent

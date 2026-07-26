@@ -8,7 +8,7 @@ PowerStatusModule {
     id: root
     // This defaults to 100, so that if we don't have a battery,
     // (i.e. on AC) it shows as full.
-    readonly property real batteryPercent: 100
+    property real batteryPercent: 100
 
     property bool isSupported: true
 

@@ -20,6 +20,7 @@ PowerStatusModule {
 
     property var read: () => {
         batteryProc.running = true
+        acPowerProc.running = true
     }
 
     Process {

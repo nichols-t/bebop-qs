@@ -14,9 +14,9 @@ PowerStatusModule {
 
     property bool hasBattery: batteryProc.success
 
-    // TODO: I don't know how to determine "are we plugged in"
-    // from this...
-    property bool pluggedIn: !hasBattery
+    property bool pluggedIn: !hasBattery || _acOnline
+
+    property bool _acOnline
 
     property var read: () => {
         batteryProc.running = true
@@ -31,8 +31,20 @@ PowerStatusModule {
         }
         property bool success: false
         onExited: (code) => {
-            // Here, we are assuming that a failure to read BAT0 means we're on AC
             success = code === 0;
+        }
+    }
+
+    Process {
+        id: acPowerProc
+        running: true
+        command: ["sh", "-c", "cat /sys/class/power_supply/AC/online"]
+        property bool success: false
+        stdout: SplitParser {
+            onRead: data => root._acOnline = Number(data.trim()) === 1
+        }
+        onExited: (code) => {
+            success = code === 0
         }
     }
 }

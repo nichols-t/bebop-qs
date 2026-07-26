@@ -12,8 +12,9 @@ WrapperRectangle {
 
     Item {
         implicitHeight: Config.taskbar.taskbarHeight
-        implicitWidth: 70 // TODO
+        implicitWidth: rows.width // TODO should be using a wrapper rect here, I think
         RowLayout {
+            id: rows
           anchors.centerIn: parent
             ColumnLayout {
                 id: batteryBars
@@ -57,7 +58,11 @@ WrapperRectangle {
                 id: battText
                 text: {
                     if (SysInfo.power.hasBattery) {
-                        return `${SysInfo.power.batteryPercent}%`
+                        const str = SysInfo.power.pluggedIn ? 'CHARGE ' : ''
+                        // TODO extra space is for layout issues - overall width
+                        // of this widget should have a margin that can accommodate
+                        // this
+                        return `${str}${SysInfo.power.batteryPercent}% `
                     } else {
                         return 'AC'
                     }

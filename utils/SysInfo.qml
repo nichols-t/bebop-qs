@@ -54,7 +54,19 @@ Singleton {
         onTriggered: {
             diskUsage.read()
             gpuUsage.read()
-            power.read()
+        }
+    }
+
+    // Taskbar information should always refresh
+    // TODO: This feels clumsy. Maybe config value for what is always
+    // running?
+    Timer {
+        id: alwaysOnTimer
+        interval: 30000
+        repeat: true
+        running: true
+        onTriggered: {
+            poewr.read()
         }
     }
 }

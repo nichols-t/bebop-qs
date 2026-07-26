@@ -17,7 +17,7 @@ Text {
         const rest = rawText.substring(1);
         const bigLetterSize = font.pixelSize * firstLetterMultiplier;
 
-        return `<span style='font-size: ${bigLetterSize}px;'>${first}</span>` +
+        return `<span style='font-weight:bold; font-size: ${bigLetterSize}px;'>${first}</span>` +
             `<span>${rest}</span>`;
     }
 

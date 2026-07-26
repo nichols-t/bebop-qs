@@ -31,7 +31,7 @@ Singleton {
 
     readonly property var fontSerif: FontLoader {
         id: fontSerif
-        source: "./fonts/Cormorant-VariableFont_wght.ttf"
+        source: "./fonts/LibertinusSerif-Regular.ttf"
     }
 
     readonly property var fontBlocky: FontLoader {

@@ -66,7 +66,7 @@ Singleton {
         repeat: true
         running: true
         onTriggered: {
-            poewr.read()
+            power.read()
         }
     }
 }

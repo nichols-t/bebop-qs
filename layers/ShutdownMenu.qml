@@ -14,6 +14,7 @@ Scope {
     // This is the screen from Quickshell.screens
     required property var modelData
     required property var lockRoot
+    required property bool shouldShow
 
     Process {
         id: shutdownProcess
@@ -37,7 +38,7 @@ Scope {
         target: `shutdownMenu-${modelData.name}`
         function showShutdownMenu() {
             if (Hyprland.focusedMonitor?.name === modelData.name) {
-                shutdownMenuWindow.visible = true;
+                root.shouldShow = true;
             }
         }
     }
@@ -45,7 +46,7 @@ Scope {
     PanelWindow {
         id: shutdownMenuWindow
         screen: root.modelData
-        visible: false
+        visible: root.shouldShow
         color: "transparent"
         Component.onCompleted: {
             if (this.WlrLayershell != null) {
@@ -111,7 +112,7 @@ Scope {
                     // close: Escape
                     if (event.key === Qt.Key_Escape) {
                         event.accepted = true;
-                        shutdownMenuWindow.visible = false;
+                        root.shouldShow = false;
                     }
                     // execute: enter
                     if (event.key === Qt.Key_Return) {
@@ -250,7 +251,7 @@ Scope {
             repeat: false
             onTriggered: {
                 process.startDetached();
-                shutdownMenuWindow.visible = false;
+                root.shouldShow = false;
                 goodbyeMessage.visible = false;
                 if (shouldQuit) {
                     Qt.quit();

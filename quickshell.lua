@@ -6,7 +6,12 @@ hl.bind(
     -- Note here that we have to do this jq stuff because the IPC is per-monitor
     -- which is kinda awkward. Consequence of variants; there is probably a better
     -- way to do that but going to leave it for now
-    hl.dsp.exec_cmd("qs ipc call shutdownMenu-$(hyprctl -j monitors | jq -rc '.[] | select(.focused == true) | .name') showShutdownMenu")
+    hl.dsp.exec_cmd("qs ipc call root showShutdownMenu")
+)
+
+hl.bind(
+  "SUPER + SPACE",
+  hl.dsp.exec_cmd("qs ipc call root showAppLauncher")
 )
 
 

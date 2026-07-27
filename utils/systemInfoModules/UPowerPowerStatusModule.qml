@@ -13,8 +13,12 @@ PowerStatusModule {
     property real batteryPercent: {
         const battery = _getBattery();
 
-        if (battery) {}
-        return Math.floor(battery.percentage * 100)
+        if (battery) {
+            return Math.floor(battery.percentage * 100)
+        }
+
+        // Assume no battery
+        return 0
     }
 
     // TODO can we check if daemon is installed?

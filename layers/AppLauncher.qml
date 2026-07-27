@@ -11,6 +11,7 @@ import ".."
 import "../utils"
 import "./appLauncher" as LayerParts
 
+// TODO it is slow and laggy if you type too fast
 Scope {
     id: root
     required property var modelData
@@ -36,7 +37,6 @@ Scope {
             }
         }
 
-        // TODO unsure if it is needed
         HyprlandFocusGrab {
             id: grab
             windows: [panel]
@@ -97,7 +97,6 @@ Scope {
                     anchors.fill: parent
                     color: "#CC000000"
                     radius: 2
-                    // TODO some issue of not always launching.... maybe it is slow??
                     // TODO this stuff probably belongs at the higher level...
                     property list<DesktopEntry> allApps: DesktopEntries.applications.values
                     property list<DesktopEntry> candidateApps: []
@@ -124,10 +123,7 @@ Scope {
                         }
                         placeholderText: "Search!"
                         placeholderTextColor: "#aaffffff"
-                        text: {
-                           root.shouldShow
-                           return ''
-                        }
+                        text: root.shouldShow ? '' : ''
 
                         onTextChanged: {
                             // Start with all entries
@@ -175,8 +171,8 @@ Scope {
                         }
                     }
 
-                    // TODO These need to be filtered based on list of ALL matching apps? Or not. Not sure,
-                    // I think doing it as only the selected app probably makes it more usable?
+                    // TODO filter these based on all possible apps or leave then as only the one we have
+                    // selected?
                     RowLayout {
                         anchors.left: parent.left
                         anchors.top: parent.top

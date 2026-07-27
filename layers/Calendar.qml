@@ -228,7 +228,6 @@ Scope {
                 anchors.fill: parent
                 onClicked: {
                     root.shouldShow = false;
-                    // panel.visible = false
                 }
             }
         }

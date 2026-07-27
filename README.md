@@ -11,9 +11,8 @@ A Cowboy Bebop title sequence inspired Quickshell.
 2. Symlink the `quickshell.lua` file into your hyprland config directory and `require` it from your config
 
 ## TODOs
-- IPC moved to outside of Variants so that I don't have to do this hack with monitors?
-    - This is how the P3 quickshell does it
 - Submenus shouldn't rely on root IDs to open things. Pass as property or use a signal?
+    - Check if this is still a problem later
 - Look at "Rule of 3" for how often I'm using particular design elements to make things feel cohesive
 - Bluetooth Indicator for taskbar
 - Find a better serif font for shutdown menu background text
@@ -24,7 +23,6 @@ A Cowboy Bebop title sequence inspired Quickshell.
     - May be good to set "blur layers" in config and use those to calculate blur elements less manually
     - Set an `anchor` and `x/y` or centerIn and `vertical/horizontalCenterOffset`
 - Consider if `ListView` is better semantics for arrow key behavior
-- Consider if there's a better multi-monitor IPC solution than what I did
 - "Destroy" shutdown menu background text
     - Can be done with shader effect onto MultiEffect maskSource or a shader
     - I learned via experimentation that mask images get stretched so they don't work great
@@ -49,8 +47,8 @@ This is largely based on my personal taste. Undecided where these will be placed
 ### Submenu/New Layer Widgets
 These things need dedicated menus or layers.
 - **App Launcher**:
-    - May use one of those scrolling text sections, but not sure if this is functional enough
-    - Not started
+    - Prototype done but it's laggy and doesn't do the same filtering as Rofi
+    - Also needs to be integrated with the theming
 - **Lock Screen**:
     - Password login (`pam`) and basic styling done
     - see https://github.com/end-4/dots-hyprland/pull/2308/changes for fingerprint
@@ -64,6 +62,7 @@ These things need dedicated menus or layers.
     - Not started
 - **System Stats**: CPU/RAM etc
     - Essentially done, but more stats for certain things would be nice
+    - Use modularized `SysInfo` to create a "fallback list" in each config
 - **Theming Menu**: Wallpaper, colors, options
     - Control of settings from GUI
     - Not started

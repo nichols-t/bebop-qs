@@ -60,7 +60,7 @@ Scope {
             Rectangle {
                 id: blackRect
                 anchors.fill: parent
-                color: "transparent"
+                color: "#bb000000"
                 visible: true
 
                 Rectangle {
@@ -117,7 +117,7 @@ Scope {
                         //    border.color: "black"
                         }
                         placeholderText: "search"
-                        placeholderTextColor: "#aaffffff"
+                        placeholderTextColor: Config.appLauncher.textInputColor
                         text: root.shouldShow ? '' : ''
                         onTextChanged: {
                             debounceTimer.running = true;

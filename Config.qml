@@ -49,6 +49,15 @@ Singleton {
         "accentColor": "#a21e1d"
     }
 
+    readonly property var appLauncher: {
+        "searchTextSize": 48,
+        "textInputColor": "#e1e1e1",
+        "backgroundColor": "#641c1a",
+        "accentColor": "#a21e1d",
+        "highlightColor": "#a21e1d",
+        "borderColor": "#250000"
+    }
+
     readonly property var calendar: {
         "backgroundColor": "black",
         "backgroundColorDayOutOfRange": "#d2d6d3",

@@ -16,6 +16,14 @@ Scope {
     id: root
     required property var modelData
     required property var shouldShow
+
+    function _reset() {
+        appSearchField.text = '';
+    }
+    onShouldShowChanged: {
+        _reset();
+    }
+
     PanelWindow {
         id: panel
         screen: root.modelData
@@ -42,186 +50,169 @@ Scope {
             windows: [panel]
         }
 
-        WrapperMouseArea {
-            id: escMouseArea
-            anchors.fill: parent
-            onClicked: {
+        LayerParts.InputHandler {
+            id: inputHandler
+            onClose: () => {
                 root.shouldShow = false;
             }
+            searchText: debounceTimer.text
 
             Rectangle {
                 id: blackRect
                 anchors.fill: parent
                 color: "transparent"
                 visible: true
-                function _shiftTargetedApp(index: int) {
-                    if (appLauncherRect.candidateApps.length > 0) {
-                        const currIdx = appLauncherRect.candidateApps.findIndex((app) => app.name === appLauncherRect.targetedApp?.name);
-                        const len = appLauncherRect.candidateApps.length;
-                        appLauncherRect.targetedApp = appLauncherRect.candidateApps[((currIdx + index % len) + len) % len];
-                    }
-                }
-                Keys.onPressed: event => {
-                    // close: Escape
-                    if (event.key === Qt.Key_Escape) {
-                        event.accepted = true;
-                        root.shouldShow = false;
-                    }
-
-                    // Key up = go to the previous item in the candidate apps list
-                    if (event.key === Qt.Key_Down) {
-                        _shiftTargetedApp(+1);
-                        event.accepted = true;
-                    }
-                    // Key down = go to the next item in the candiate apps list
-                    if (event.key === Qt.Key_Up) {
-                        _shiftTargetedApp(-1);
-                        event.accepted = true;
-                    }
-
-                    // Launch app if there's one selected
-                    if (event.key === Qt.Key_Return) {
-                        if (appLauncherRect.targetedApp) {
-                            event.accepted = true;
-                            appLauncherRect.targetedApp.execute();
-                            appSearchField.text = "";
-                            appLauncherRect.targetedApp = null;
-                            root.shouldShow = false;
-                        }
-                    }
-                }
 
                 Rectangle {
                     id: appLauncherRect
                     anchors.centerIn: parent
-                    anchors.fill: parent
-                    color: "#CC000000"
-                    radius: 2
-                    // TODO this stuff probably belongs at the higher level...
-                    property list<DesktopEntry> allApps: DesktopEntries.applications.values
-                    property list<DesktopEntry> candidateApps: []
-                    property DesktopEntry targetedApp
+                    // anchors.fill: parent
+                    width: panel.width * 0.5
+                    height: panel.height * 0.5
+                    color: Config.appLauncher.backgroundColor
+                    radius: 4
+                    clip: true
                     property var targetedAppShownProperties: {
-                        if (!targetedApp) {
+                        if (!inputHandler.targetedApp) {
                             return [];
                         }
-                        return [targetedApp?.name, targetedApp?.comment, targetedApp?.keywords, targetedApp?.genericName, targetedApp?.categories].filter(datum => !!datum);
+                        return [
+                            inputHandler.targetedApp?.name,
+                            inputHandler.targetedApp?.comment,
+                            inputHandler.targetedApp?.keywords,
+                            inputHandler.targetedApp?.genericName,
+                            inputHandler.targetedApp?.categories
+                        ].filter(datum => !!datum);
+                    }
+
+                    Rectangle {
+                        z: 5
+                        anchors.fill: parent
+                        color: "transparent"
+                        radius: appLauncherRect.radius
+                        border.color: Config.appLauncher.borderColor
+                        border.width: 4
                     }
 
                     TextField {
+                        rotation: -30
+                        z: 4
                         id: appSearchField
-                        anchors.centerIn: parent
+                        anchors.left: parent.left
+                        anchors.leftMargin: 0
+                        anchors.top: parent.top
+                        anchors.topMargin: parent.height * 0.3
                         focus: true
-                        color: "white"
-                        font.pixelSize: 96
-                        font.bold: text === "" ? false : true
+                        //horizontalAlignment: Text.AlignHCenter
+                        verticalAlignment: Text.AlignVCenter
+                        color: Config.appLauncher.textInputColor
+                        font.pixelSize: Config.appLauncher.searchTextSize
+                        font.bold: !!text
                         font.family: Config.fontSerif.font.family
-                        // horizontalAlignment: Text.AlignHCenter
-                        // verticalAlignment: Text.AlignVCenter
+                        implicitWidth: parent.width
+                        cursorDelegate: Item {}
                         background: Rectangle {
                             color: "transparent"
+                        //    border.width: 2
+                        //    border.color: "black"
                         }
-                        placeholderText: "Search!"
+                        placeholderText: "search"
                         placeholderTextColor: "#aaffffff"
                         text: root.shouldShow ? '' : ''
-
                         onTextChanged: {
-                            // Start with all entries
-                            // TODO rofi algorithm is https://github.com/davatorium/rofi/blob/a6afacb8cec27b51606b59e0571f33fa9007fc70/source/helper.c#L1045
-                            // idk if the Quickshell heuristicLookup is comparable or not
-                            if (!text) {
-                                appLauncherRect.targetedApp = null;
-                                appLauncherRect.candidateApps = appLauncherRect.allApps;
-                                return;
-                            }
-
-                            appLauncherRect.candidateApps = [];
-                            for (let i = 0; i < appLauncherRect.allApps.length; i++) {
-                                const entry = appLauncherRect.allApps[i];
-                                const appNameMatches = entry.name.toLowerCase().includes(text.toLowerCase());
-                                const appKeywordsMatch = -1 < entry.keywords.findIndex(keyword => keyword.toLowerCase().includes(text.toLowerCase()));
-                                const visible = text === '' || appNameMatches || appKeywordsMatch;
-                                if (visible) {
-                                    appLauncherRect.candidateApps.push(entry);
+                            debounceTimer.running = true;
+                        }
+                        Timer {
+                            id: debounceTimer
+                            interval: 200
+                            running: false
+                            property string text: ''
+                            onRunningChanged: {
+                                if (!running) {
+                                    text = appSearchField.text
                                 }
-                            }
-
-                            if (appLauncherRect.candidateApps.length > 0) {
-                                appLauncherRect.targetedApp = appLauncherRect.candidateApps[0];
-                            } else {
-                                // This means no search matched, so clear the selected entry
-                                appLauncherRect.targetedApp = null;
                             }
                         }
                     }
-                    Text {
-                        id: selectedText
+
+                    Rectangle {
+                        id: bigRect
+                        z: 3
+                        width: parent.width * 0.2
+                        height: parent.width
                         anchors.centerIn: parent
-                        anchors.verticalCenterOffset: 100
-                        anchors.horizontalCenterOffset: 100
+                        rotation: 60
+                        radius: 2
+                        border.width: 2
+                        border.color: Config.appLauncher.borderColor
+                        color: Config.appLauncher.accentColor
+                    }
+
+                    RowLayout {
+                        z: 1
+                        //anchors.horizontalCenter: parent.horizontalCenter
+                        rotation: -30
+                        anchors.top: parent.top
+                        anchors.left: parent.left
+                        anchors.leftMargin: 0 //parent.width * 0.05
+                        Repeater {
+                            model: 4
+                            Rectangle {
+                                required property var modelData
+                                // TODO when I set these to be based on appLauncherRect it is not working as i expect
+                                width: Config.appLauncher.searchTextSize * 3
+                                height: appLauncherRect.height / 2
+                                Layout.topMargin: 100
+                                border.width: 2
+                                radius: 2
+                                border.color: Config.appLauncher.borderColor
+                                color: Config.appLauncher.highlightColor
+                            }
+                        }
+                    }
+
+                    Text {
+                        z: 4
+                        id: selectedText
+                        rotation: -30
+                        anchors.centerIn: parent
+                        anchors.verticalCenterOffset: -parent.height * 0.02
+                        anchors.horizontalCenterOffset: parent.width / 8
                         font.family: Config.fontSerif.font.family
                         font.pixelSize: appSearchField.font.pixelSize
-                        color: "white"
+                        color: Config.appLauncher.textInputColor
                         text: {
-                            if (appSearchField.text !== '' && !!appLauncherRect.targetedApp) {
-                                return `[${appLauncherRect.targetedApp.name}]`;
+                            if (appSearchField.text !== '' && !!inputHandler.targetedApp) {
+                                return `[${inputHandler.targetedApp.name}]`;
                             } else {
                                 return '';
                             }
                         }
                     }
 
-                    // TODO filter these based on all possible apps or leave then as only the one we have
-                    // selected?
-                    RowLayout {
-                        anchors.left: parent.left
-                        anchors.top: parent.top
-                        anchors.topMargin: parent.height * 0.1
-                        anchors.leftMargin: parent.width * 0.1
-                        width: parent.width - appsColumn.width
-                        Repeater {
-                            property var properties: appLauncherRect.targetedAppShownProperties
-                            model: properties.slice(0, Math.ceil(properties.length / 2))
-                            LayerParts.BackgroundAccentText {
-                                required property var modelData
-                                text: modelData
-                            }
-                        }
-                    }
-                    RowLayout {
-                        anchors.left: parent.left
-                        anchors.bottom: parent.bottom
-                        anchors.bottomMargin: parent.height * 0.1
-                        anchors.leftMargin: parent.width * 0.1
-                        width: parent.width - appsColumn.width
-                        Repeater {
-                            property var properties: appLauncherRect.targetedAppShownProperties
-                            model: properties.slice(Math.ceil(properties.length / 2))
-                            LayerParts.BackgroundAccentText {
-                                required property var modelData
-                                text: modelData
-                            }
-                        }
-                    }
+                    // TODO it is crashing?? probably too fast changes
+                    // ColumnLayout {
+                    //     id: appsColumn
+                    //     //anchors.right: parent.right
+                    //     // anchors.verticalCenter: parent.verticalCenter
+                    //     // width: panel.width * 0.3
+                    //     //anchors.centerIn: parent
+                    //     anchors.right: parent.right
+                    //     anchors.verticalCenter: parent.verticalCenter
+                    //     width: parent.width * 0.4
 
-                    ColumnLayout {
-                        id: appsColumn
-                        anchors.right: parent.right
-                        anchors.verticalCenter: parent.verticalCenter
-                        width: panel.width * 0.3
-
-                        Repeater {
-                            id: desktopEntries
-                            model: appLauncherRect.candidateApps
-                            LayerParts.DesktopEntryListText {
-                                id: candidateAppInfo
-                                required property var modelData
-                                app: modelData
-                                isSelected: appLauncherRect.targetedApp?.name === app.name
-                                desiredWidth: appsColumn.width
-                            }
-                        }
-                    }
+                    //     Repeater {
+                    //         id: desktopEntries
+                    //         model: inputHandler.candidateApps
+                    //         LayerParts.DesktopEntryListText {
+                    //             id: candidateAppInfo
+                    //             required property var modelData
+                    //             app: modelData
+                    //             isSelected: inputHandler.targetedApp?.name === app.name
+                    //             desiredWidth: appsColumn.height
+                    //         }
+                    //     }
+                    // }
                 }
             }
         }

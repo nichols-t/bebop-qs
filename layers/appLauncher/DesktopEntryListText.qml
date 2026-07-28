@@ -41,7 +41,7 @@ Item {
     MultiEffect {
         anchors.fill: text
         source: text
-        blurEnabled: true
+        blurEnabled: false
         blur: 1.0
         blurMax: 2
     }

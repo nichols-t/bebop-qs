@@ -38,7 +38,7 @@ Singleton {
         command: ["khal", "list", "--json", "all", root.firstDay, root.lastDay]
         stdout: SplitParser {
             onRead: data => {
-                const events = JSON.parse(data.trim()).map((e) => e.title)
+                const events = JSON.parse(data.trim()).map((e) => e)
                 root.dayInfo.push(events);
 
             }

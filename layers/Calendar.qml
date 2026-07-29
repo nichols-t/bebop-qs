@@ -8,6 +8,7 @@ import QtQuick.Controls
 import Quickshell.Hyprland
 import ".."
 import "../utils"
+import "./calendar" as LayerParts
 
 // TODO interactivity: What should happen when we click on a day?
 Scope {
@@ -19,6 +20,17 @@ Scope {
     property int month: Qt.formatDateTime(Time.clock.date, 'MM') - 1
     property var locale: Qt.locale("en_US")
     property bool shouldShow
+
+    function _reset() {
+        dayView.reset();
+    }
+
+    onShouldShowChanged: {
+        if (!shouldShow) {
+            _reset();
+        }
+    }
+
     PanelWindow {
         id: panel
         screen: root.modelData
@@ -62,6 +74,20 @@ Scope {
                 }
             }
 
+            LayerParts.DayView {
+                id: dayView
+                shouldShow: !!dayInfo && !!date
+                screen: root.modelData
+                onDayInfoChanged: {
+                    shouldShow = !!dayInfo && !!date;
+                }
+                onDateChanged: {
+                    shouldShow = !!dayInfo && !!date;
+                }
+                width: grid.width
+                height: grid.height
+            }
+
             MonthGrid {
                 id: grid
                 month: root.month
@@ -91,6 +117,8 @@ Scope {
                     }
                     // Text used when looking up data from the calendar
                     property string dateLookupText: Qt.formatDateTime(date, 'yyyy-MM-dd')
+                    property date theDate: date
+                    property int theIndex: index
 
                     Component.onCompleted: {
                         // ... This means it always shows six rows ... from
@@ -103,20 +131,28 @@ Scope {
                     }
 
                     MouseArea {
+                        enabled: !dayView.shouldShow
                         id: dayMouseArea
                         anchors.fill: parent
                         hoverEnabled: true
                         cursorShape: Qt.PointingHandCursor
+                        onClicked: {
+                            dayView.date = dateLookupText;
+                            dayView.dayInfo = CalendarData.dayInfo[parent.theIndex];
+                            dayView.backgroundColor = dayRect.color;
+                        }
                         onEntered: {
+                            backgroundMouseArea.enabled = false;
                             backgroundMouseArea.visible = false;
-                            // panel.visible = false
                         }
                         onExited: {
+                            backgroundMouseArea.enabled = true;
                             backgroundMouseArea.visible = true;
                         }
                     }
 
                     Text {
+                        id: monthText
                         property string monthName: {
                             const x = new Date(Time.clock.date);
                             const monthsDiff = month - Qt.formatDateTime(Time.clock.date, 'MM');
@@ -180,7 +216,7 @@ Scope {
                             // and also they don't work in a layout the same way (but the above text should probably also be in a Layout)
                             Text {
                                 required property var modelData
-                                text: modelData
+                                text: modelData.title
 
                                 font.bold: today
                                 font.family: Math.random() > 0.5 ? Config.fontTypewriter.font.family : Config.fontSerif.font.family
@@ -225,6 +261,7 @@ Scope {
             // TODO need to add onClick submenu to each day
             MouseArea {
                 id: backgroundMouseArea
+                enabled: !dayView.shouldShow
                 anchors.fill: parent
                 onClicked: {
                     root.shouldShow = false;

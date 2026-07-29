@@ -31,7 +31,6 @@ Item {
         wrapMode: Text.WordWrap
         width: root.desiredWidth
         color: "white"
-        // TODO pick better font?
         font.family: Config.fontSerif.font.family
         font.pixelSize: 16
         font.bold: root.isSelected

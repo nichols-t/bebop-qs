@@ -49,7 +49,6 @@ Scope {
             }
         }
 
-        // TODO unsure if it is needed
         HyprlandFocusGrab {
             id: grab
             windows: [blackRect]

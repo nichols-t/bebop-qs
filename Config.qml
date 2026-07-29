@@ -68,7 +68,10 @@ Singleton {
         "fontDaysItalicThreshold": 0.5,
         "dayTextXOffsetRange": 10,
         "dayTextYOffsetRange": 10,
-        "dayTextRotationRange": 15
+        "dayTextRotationRange": 15,
+        "dayView": {
+            "backgroundColor": "#fefefe"
+        }
     }
 
     readonly property var notifications: {

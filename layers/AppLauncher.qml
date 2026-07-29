@@ -11,7 +11,6 @@ import ".."
 import "../utils"
 import "./appLauncher" as LayerParts
 
-// TODO it is slow and laggy if you type too fast
 Scope {
     id: root
     required property var modelData
@@ -55,7 +54,7 @@ Scope {
             onClose: () => {
                 root.shouldShow = false;
             }
-            searchText: debounceTimer.text
+            searchText: appSearchField.debouncedText
 
             Rectangle {
                 id: blackRect
@@ -94,45 +93,14 @@ Scope {
                         border.width: 4
                     }
 
-                    TextField {
-                        rotation: -30
-                        z: 4
+                    LayerParts.InputTextField {
                         id: appSearchField
+                        shouldShow: root.shouldShow
                         anchors.left: parent.left
                         anchors.leftMargin: 0
                         anchors.top: parent.top
                         anchors.topMargin: parent.height * 0.3
-                        focus: true
-                        //horizontalAlignment: Text.AlignHCenter
-                        verticalAlignment: Text.AlignVCenter
-                        color: Config.appLauncher.textInputColor
-                        font.pixelSize: Config.appLauncher.searchTextSize
-                        font.bold: !!text
-                        font.family: Config.fontSerif.font.family
                         implicitWidth: parent.width
-                        cursorDelegate: Item {}
-                        background: Rectangle {
-                            color: "transparent"
-                        //    border.width: 2
-                        //    border.color: "black"
-                        }
-                        placeholderText: "search"
-                        placeholderTextColor: Config.appLauncher.textInputColor
-                        text: root.shouldShow ? '' : ''
-                        onTextChanged: {
-                            debounceTimer.running = true;
-                        }
-                        Timer {
-                            id: debounceTimer
-                            interval: 200
-                            running: false
-                            property string text: ''
-                            onRunningChanged: {
-                                if (!running) {
-                                    text = appSearchField.text
-                                }
-                            }
-                        }
                     }
 
                     Rectangle {

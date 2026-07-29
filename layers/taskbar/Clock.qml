@@ -9,6 +9,7 @@ import "../.."
 WrapperMouseArea {
     id: root
     cursorShape: Qt.PointingHandCursor
+    property Calendar calendar
     onClicked: {
         calendar.shouldShow = true;
     }

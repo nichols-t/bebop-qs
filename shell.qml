@@ -62,11 +62,15 @@ Scope {
                 shouldShow: false
                 modelData: perMonitor.modelData
             }
-            Layers.Taskbar { modelData: perMonitor.modelData }
+            Layers.Taskbar {
+                modelData: perMonitor.modelData
+                systemInfo: systemInfo
+                calendar: calendar
+            }
             Layers.Calendar {
-               id: calendar
-               shouldShow: false
-               modelData: perMonitor.modelData
+                id: calendar
+                shouldShow: false
+                modelData: perMonitor.modelData
             }
             Layers.SystemInfo {
                 id: systemInfo
@@ -79,7 +83,9 @@ Scope {
                 modelData: perMonitor.modelData
             }
 
-            Layers.Notifications { modelData: perMonitor.modelData }
+            Layers.Notifications {
+                modelData: perMonitor.modelData
+            }
         }
     }
 }

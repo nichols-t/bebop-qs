@@ -5,9 +5,12 @@ import ".."
 import "./taskbar" as LayerParts
 
 PanelWindow {
-    id: panel
+    id: root
     required property var modelData
     screen: modelData
+
+    property SystemInfo systemInfo
+    property Calendar calendar
 
     color: Config.taskbar.backgroundColor
     anchors {
@@ -27,7 +30,7 @@ PanelWindow {
         // Debug app menu launcher
         LayerParts.Battery {}
         LayerParts.Audio {}
-        LayerParts.Clock {}
-        LayerParts.SystemInfoButton {}
+        LayerParts.Clock { calendar: root.calendar }
+        LayerParts.SystemInfoButton { systemInfo: root.systemInfo }
     }
 }

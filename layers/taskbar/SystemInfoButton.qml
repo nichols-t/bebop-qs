@@ -8,6 +8,7 @@ import "../.."
 
 WrapperMouseArea {
     cursorShape: Qt.PointingHandCursor
+    property SystemInfo systemInfo
     onClicked: {
         systemInfo.shouldShow = true;
     }

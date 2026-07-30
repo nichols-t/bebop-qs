@@ -28,6 +28,7 @@ PanelWindow {
         LayerParts.Workspaces {}
         Item { Layout.fillWidth: true }
         // Debug app menu launcher
+        LayerParts.Network {}
         LayerParts.Battery {}
         LayerParts.Audio {}
         LayerParts.Clock { calendar: root.calendar }

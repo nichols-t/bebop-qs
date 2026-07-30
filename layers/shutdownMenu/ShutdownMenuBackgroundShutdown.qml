@@ -72,6 +72,12 @@ ShutdownMenuBackground {
         source: firstLetter1
         anchors.fill: firstLetter1
         visible: false
+        layer.enabled: true
+        layer.effect: ShaderEffect {
+            fragmentShader: Qt.resolvedUrl("../../shaders/textErosionNoise.frag.qsb")
+            property real noiseSize: 64
+            property var resolution: [modelData.width, modelData.height]
+        }
     }
     MultiEffect {
         blurEnabled: true
@@ -80,6 +86,12 @@ ShutdownMenuBackground {
         opacity: 0.9
         source: firstLetter1Mf
         anchors.fill: firstLetter1Mf
+        layer.enabled: true
+        layer.effect: ShaderEffect {
+            fragmentShader: Qt.resolvedUrl("../../shaders/textErosionNoise.frag.qsb")
+            property real noiseSize: 64
+            property var resolution: [modelData.width, modelData.height]
+        }
     }
 
     Widgets.BigFirstLetterText {

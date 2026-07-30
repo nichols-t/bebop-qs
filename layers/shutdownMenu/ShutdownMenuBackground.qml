@@ -11,7 +11,6 @@ Item {
     required property string textColor
     z: 0
 
-
     Text {
         id: menuTitleText1
         text: Config.powerMenu.menuTitleText

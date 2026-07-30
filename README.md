@@ -15,7 +15,6 @@ A Cowboy Bebop title sequence inspired Quickshell.
 - **[DESIGN] Rule of 3**: Check how often I use design elements to see if I can increase cohesiveness
 - **Taskbar**:
     - **[FEATURE] Bluetooth indicator and control**
-    - **[FEATURE] Network indicator and control**
 - **[ERGONOMICS] SysInfo**: Make "fallback" system for modules that allows `Config` to specify a list of how things should be read
 - **[FEATURE] SystemInfo Screen**: Add details section for power and network
 - **[ERGONOMICS] Shutdown Menu**:
@@ -27,6 +26,7 @@ A Cowboy Bebop title sequence inspired Quickshell.
     - **[ERGONOMICS] Config blur layers** so things are less magic-numbery
     - **[OPTIMIZATION] Loaders**: Use loaders to make sure ongoing resource usage is minimized
 - **[FEATURE] Audio Control**: Create menu for toggling of audio settings
+- **[FEATURE] Network Control**: Create a control screen for network status, Wi-Fi etc.
 - **[BUG] App Launcher**: Had an issue crashing when I was loading all other Desktop app entries and typing quickly. Look into fixing this so it can be juiced better.
 - **[FEATURE] Lock Screen**: Add support for fingerprint login via PAM.
     - see https://github.com/end-4/dots-hyprland/pull/2308/changes, but this is slop so who knows

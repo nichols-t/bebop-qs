@@ -29,7 +29,7 @@ Scope {
     Item {
         id: logoutProcess
         function startDetached() {
-            lockRoot.lock()
+            lockRoot.lock();
         }
         property bool running: false
     }
@@ -204,11 +204,12 @@ Scope {
                     xOffset: -400
                     process: shutdownProcess
                 }
-
             }
+
             // We load each background, but they're only displayed when the text
             // actually matches
             LayerParts.ShutdownMenuBackgroundLock {
+                id: lockButton
                 text: itemsContainer.selectedBtnItem.text
                 screen: root.modelData
                 textColor: Config.colors.lock
@@ -286,6 +287,7 @@ Scope {
                     pixelSize: 100
                 }
                 visible: false
+
             }
             MultiEffect {
                 blurEnabled: true
@@ -293,6 +295,13 @@ Scope {
                 blurMax: 4
                 source: myText
                 anchors.fill: myText
+                layer.enabled: false
+                // TODO need to TWEAK IT
+                layer.effect: ShaderEffect {
+                    fragmentShader: Qt.resolvedUrl("../shaders/textErosionNoise.frag.qsb")
+                    property real noiseSize: 64
+                    property var resolution: [modelData.width, modelData.height]
+                }
             }
 
             MouseArea {

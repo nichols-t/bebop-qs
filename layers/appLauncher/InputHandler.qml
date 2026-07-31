@@ -2,6 +2,7 @@ import Quickshell
 import Quickshell.Io
 import Quickshell.Widgets
 import QtQuick
+import "../../utils" as Utils
 
 // Handles events involving arrow keys and input for the app launcher.
 // Must provide a function (remember to use () => {} syntax, reactivity makes it ambiguous otherwise
@@ -52,19 +53,7 @@ WrapperMouseArea {
         }
     }
 
-    property list<DesktopEntry> candidateApps: DesktopEntries.applications.values.filter(entry => {
-        // Start with all entries
-        // TODO rofi algorithm is https://github.com/davatorium/rofi/blob/a6afacb8cec27b51606b59e0571f33fa9007fc70/source/helper.c#L1045
-        // idk if the Quickshell heuristicLookup is comparable or not
-        if (!searchText) {
-            return true;
-        }
-
-        const appNameMatches = entry.name.toLowerCase().includes(searchText.toLowerCase());
-        const appKeywordsMatch = -1 < entry.keywords.findIndex(keyword => keyword.toLowerCase().includes(searchText.toLowerCase()));
-
-        return appNameMatches || appKeywordsMatch;
-    })
+    property list<DesktopEntry> candidateApps: Utils.DesktopApps.fuzzySearch(searchText)
 
     onCandidateAppsChanged: {
         if (candidateApps.length > 0) {

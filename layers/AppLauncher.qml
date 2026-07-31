@@ -35,7 +35,7 @@ Scope {
             right: true
         }
         WlrLayershell.exclusionMode: ExclusionMode.Ignore
-        WlrLayershell.keyboardFocus: WlrKeyboardFocus.Exclusive
+        WlrLayershell.keyboardFocus: WlrKeyboardFocus.OnDemand
 
         Component.onCompleted: {
             if (this.WlrLayershell != null) {
@@ -85,64 +85,36 @@ Scope {
                     }
 
                     Rectangle {
-                        z: 5
-                        anchors.fill: parent
-                        color: "transparent"
-                        radius: appLauncherRect.radius
-                        border.color: Config.appLauncher.borderColor
-                        border.width: 4
-                    }
-
-                    LayerParts.InputTextField {
-                        id: appSearchField
-                        shouldShow: root.shouldShow
-                        anchors.left: parent.left
-                        anchors.leftMargin: 0
-                        anchors.top: parent.top
-                        anchors.topMargin: parent.height * 0.3
-                        implicitWidth: parent.width
-                    }
-
-                    Rectangle {
-                        id: bigRect
-                        z: 3
-                        width: parent.width * 0.2
-                        height: parent.width
-                        anchors.centerIn: parent
-                        rotation: 60
-                        radius: 2
-                        border.width: 2
-                        border.color: Config.appLauncher.borderColor
-                        color: Config.appLauncher.accentColor
-                    }
-
-                    RowLayout {
                         z: 1
-                        //anchors.horizontalCenter: parent.horizontalCenter
-                        rotation: -30
-                        anchors.top: parent.top
+                        id: appSearchBackground
+                        width: randomTextContainer.width
                         anchors.left: parent.left
-                        anchors.leftMargin: 0 //parent.width * 0.05
-                        Repeater {
-                            model: 4
-                            Rectangle {
-                                required property var modelData
-                                // TODO when I set these to be based on appLauncherRect it is not working as i expect
-                                width: Config.appLauncher.searchTextSize * 3
-                                height: appLauncherRect.height / 2
-                                Layout.topMargin: 100
-                                border.width: 2
-                                radius: 2
-                                border.color: Config.appLauncher.borderColor
-                                color: Config.appLauncher.highlightColor
-                            }
+                        // The background becomes less visible as the # of possible apps shrinks
+                        height: {
+                            // TODO math is slightly wrong
+                            const diff = (parent.height - appSearchField.height) / 10;
+                            const plus = (11 - Math.min(inputHandler.candidateApps.length, 11)) * diff;
+
+                            return appSearchField.height + plus
+                        }
+                        Behavior on height {
+                            NumberAnimation { duration: 100 }
+                        }
+                        anchors.verticalCenter: parent.verticalCenter
+                        color: "black" // TODO theme it
+                        LayerParts.InputTextField {
+                            id: appSearchField
+                            shouldShow: root.shouldShow
+                            anchors.centerIn: parent
                         }
                     }
 
+
+                    // TODO on if I need this now?
                     Text {
                         z: 4
+                        visible: false 
                         id: selectedText
-                        rotation: -30
                         anchors.centerIn: parent
                         anchors.verticalCenterOffset: -parent.height * 0.02
                         anchors.horizontalCenterOffset: parent.width / 8
@@ -158,29 +130,105 @@ Scope {
                         }
                     }
 
-                    // TODO it is crashing?? probably too fast changes
-                    // ColumnLayout {
-                    //     id: appsColumn
-                    //     //anchors.right: parent.right
-                    //     // anchors.verticalCenter: parent.verticalCenter
-                    //     // width: panel.width * 0.3
-                    //     //anchors.centerIn: parent
-                    //     anchors.right: parent.right
-                    //     anchors.verticalCenter: parent.verticalCenter
-                    //     width: parent.width * 0.4
+                    Rectangle {
+                        id: randomTextContainer
+                        color: "transparent"
+                        width: parent.width * 0.7
+                        anchors.left: parent.left
+                        height: parent.height
+                        clip: true
+                        Repeater {
+                            model: inputHandler.candidateApps
+                            Item {
+                                required property var modelData
+                                property real maxX: randomTextContainer.width * 0.75
+                                property int maxFontSize: {
+                                    // TODO make this randomness configurable
+                                    // TODO this may look better as "bias" rather than a hard cap, but TBD
+                                    const plus = (18 - Math.min(18, inputHandler.candidateApps.length)) * 8;
+                                    return 16 + plus;
+                                }
+                                // TODO probably make this into a container
+                                // TODO bias the randoms so that fonts tend smaller when there are more entries
+                                Text {
+                                    x: Math.random() * maxX
+                                    y: Math.random() * randomTextContainer.height
+                                    font.family: Config.fontBlocky.font.family
+                                    font.pixelSize: Math.random() * maxFontSize;
+                                    font.italic: Math.random() > 0.5
+                                    font.bold: Math.random() > 0.5
+                                    text: modelData.categories.join()
+                                }
+                                Text {
+                                    visible: !!modelData.genericName
+                                    x: Math.random() * maxX
+                                    y: Math.random() * randomTextContainer.height
+                                    font.family: Config.fontBlocky.font.family
+                                    font.pixelSize: Math.random() * maxFontSize;
+                                    font.italic: Math.random() > 0.5
+                                    font.bold: Math.random() > 0.5
+                                    text: modelData.genericName
+                                }
+                                Text {
+                                    visible: modelData.keywords.length > 0
+                                    x: Math.random() * maxX
+                                    y: Math.random() * randomTextContainer.height
+                                    font.family: Config.fontBlocky.font.family
+                                    font.pixelSize: Math.random() * maxFontSize;
+                                    font.italic: Math.random() > 0.5
+                                    font.bold: Math.random() > 0.5
+                                    text: modelData.keywords.join()
+                                }
+                                Text {
+                                    visible: !!modelData.comment
+                                    x: Math.random() * maxX
+                                    y: Math.random() * randomTextContainer.height
+                                    font.family: Config.fontBlocky.font.family
+                                    font.pixelSize: Math.random() * maxFontSize;
+                                    font.italic: Math.random() > 0.5
+                                    font.bold: Math.random() > 0.5
+                                    text: modelData.comment
+                                }
+                            }
+                        }
+                    }
+                    Rectangle {
+                        id: appsListContainer
+                        color: "black" // TODO theme
+                        width: parent.width - randomTextContainer.width
+                        height: parent.height
+                        anchors.right: parent.right
+                    }
 
-                    //     Repeater {
-                    //         id: desktopEntries
-                    //         model: inputHandler.candidateApps
-                    //         LayerParts.DesktopEntryListText {
-                    //             id: candidateAppInfo
-                    //             required property var modelData
-                    //             app: modelData
-                    //             isSelected: inputHandler.targetedApp?.name === app.name
-                    //             desiredWidth: appsColumn.height
-                    //         }
-                    //     }
-                    // }
+                    ListView {
+                        id: appsView
+                        model: inputHandler.candidateApps
+
+                        anchors.right: parent.right
+                        anchors.verticalCenter: parent.verticalCenter
+                        height: Math.min(parent.height * 0.9, contentHeight)
+                        width: parent.width / 4
+                        anchors.rightMargin: parent.width / 20
+                        
+                        delegate: WrapperRectangle {
+                            id: rect
+                            color: "transparent"
+                            Layout.alignment: Qt.AlignRight
+                            width: appsView.width
+                            required property var modelData
+                            property bool isSelected: modelData.name === inputHandler.targetedApp?.name
+                            Text {
+                                width: rect.width / 2
+                                horizontalAlignment: Text.AlignRight
+                                text: rect.modelData.name
+                                font.family: Config.fontSerif.font.family
+                                font.pixelSize: 20
+                                font.bold: isSelected
+                                font.underline: isSelected
+                                color: Config.appLauncher.textInputColor
+                            }
+                        }
+                    }
                 }
             }
         }

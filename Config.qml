@@ -51,11 +51,15 @@ Singleton {
 
     readonly property var appLauncher: {
         "searchTextSize": 48,
-        "textInputColor": "#e1e1e1",
-        "backgroundColor": "#641c1a",
-        "accentColor": "#a21e1d",
-        "highlightColor": "#a21e1d",
-        "borderColor": "#250000"
+        "appListTextSize": 20,
+        "textInputColor": "black",
+        "backgroundColor": "#20236d",
+        "backgroundTextMinSize": 16,
+        "searchBarBackgroundColor": "#c3bb05",
+        "searchBarBorderColor": "black",
+        "searchBarBorderWidth": 2,
+        "appListBackgroundColor": "black",
+        "appListTextColor": "#e1e1e1"
     }
 
     readonly property var calendar: {

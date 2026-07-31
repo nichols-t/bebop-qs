@@ -89,9 +89,8 @@ Scope {
                         id: appSearchBackground
                         width: randomTextContainer.width
                         anchors.left: parent.left
-                        // The background becomes less visible as the # of possible apps shrinks
+                        // This container grows vertically as # of possible apps shrinks
                         height: {
-                            // TODO math is slightly wrong
                             const diff = (parent.height - appSearchField.height) / 10;
                             const plus = (11 - Math.min(inputHandler.candidateApps.length, 11)) * diff;
 
@@ -101,32 +100,13 @@ Scope {
                             NumberAnimation { duration: 100 }
                         }
                         anchors.verticalCenter: parent.verticalCenter
-                        color: "black" // TODO theme it
+                        color: Config.appLauncher.searchBarBackgroundColor
+                        border.width: Config.appLauncher.searchBarBorderWidth
+                        border.color: Config.appLauncher.searchBarBorderColor
                         LayerParts.InputTextField {
                             id: appSearchField
                             shouldShow: root.shouldShow
                             anchors.centerIn: parent
-                        }
-                    }
-
-
-                    // TODO on if I need this now?
-                    Text {
-                        z: 4
-                        visible: false 
-                        id: selectedText
-                        anchors.centerIn: parent
-                        anchors.verticalCenterOffset: -parent.height * 0.02
-                        anchors.horizontalCenterOffset: parent.width / 8
-                        font.family: Config.fontSerif.font.family
-                        font.pixelSize: appSearchField.font.pixelSize
-                        color: Config.appLauncher.textInputColor
-                        text: {
-                            if (appSearchField.text !== '' && !!inputHandler.targetedApp) {
-                                return `[${inputHandler.targetedApp.name}]`;
-                            } else {
-                                return '';
-                            }
                         }
                     }
 
@@ -143,50 +123,29 @@ Scope {
                                 required property var modelData
                                 property real maxX: randomTextContainer.width * 0.75
                                 property int maxFontSize: {
-                                    // TODO make this randomness configurable
+                                    // TODO should this 18 be configurable?
                                     // TODO this may look better as "bias" rather than a hard cap, but TBD
                                     const plus = (18 - Math.min(18, inputHandler.candidateApps.length)) * 8;
-                                    return 16 + plus;
+                                    return Config.appLauncher.backgroundTextMinSize + plus;
                                 }
-                                // TODO probably make this into a container
-                                // TODO bias the randoms so that fonts tend smaller when there are more entries
-                                Text {
-                                    x: Math.random() * maxX
-                                    y: Math.random() * randomTextContainer.height
-                                    font.family: Config.fontBlocky.font.family
-                                    font.pixelSize: Math.random() * maxFontSize;
-                                    font.italic: Math.random() > 0.5
-                                    font.bold: Math.random() > 0.5
-                                    text: modelData.categories.join()
+                                LayerParts.DesktopEntryBackgroundText {
+                                    maxHeight: randomTextContainer.height
+                                    maxWidth: maxX
+                                    text: modelData.categories.join(', ')
                                 }
-                                Text {
-                                    visible: !!modelData.genericName
-                                    x: Math.random() * maxX
-                                    y: Math.random() * randomTextContainer.height
-                                    font.family: Config.fontBlocky.font.family
-                                    font.pixelSize: Math.random() * maxFontSize;
-                                    font.italic: Math.random() > 0.5
-                                    font.bold: Math.random() > 0.5
+                                LayerParts.DesktopEntryBackgroundText {
+                                    maxHeight: randomTextContainer.height
+                                    maxWidth: maxX
                                     text: modelData.genericName
                                 }
-                                Text {
-                                    visible: modelData.keywords.length > 0
-                                    x: Math.random() * maxX
-                                    y: Math.random() * randomTextContainer.height
-                                    font.family: Config.fontBlocky.font.family
-                                    font.pixelSize: Math.random() * maxFontSize;
-                                    font.italic: Math.random() > 0.5
-                                    font.bold: Math.random() > 0.5
-                                    text: modelData.keywords.join()
+                                LayerParts.DesktopEntryBackgroundText {
+                                    maxHeight: randomTextContainer.height
+                                    maxWidth: maxX
+                                    text: modelData.keywords.join(', ')
                                 }
-                                Text {
-                                    visible: !!modelData.comment
-                                    x: Math.random() * maxX
-                                    y: Math.random() * randomTextContainer.height
-                                    font.family: Config.fontBlocky.font.family
-                                    font.pixelSize: Math.random() * maxFontSize;
-                                    font.italic: Math.random() > 0.5
-                                    font.bold: Math.random() > 0.5
+                                LayerParts.DesktopEntryBackgroundText {
+                                    maxHeight: randomTextContainer.height
+                                    maxWidth: maxX
                                     text: modelData.comment
                                 }
                             }
@@ -194,7 +153,7 @@ Scope {
                     }
                     Rectangle {
                         id: appsListContainer
-                        color: "black" // TODO theme
+                        color: Config.appLauncher.appListBackgroundColor
                         width: parent.width - randomTextContainer.width
                         height: parent.height
                         anchors.right: parent.right
@@ -222,10 +181,11 @@ Scope {
                                 horizontalAlignment: Text.AlignRight
                                 text: rect.modelData.name
                                 font.family: Config.fontSerif.font.family
-                                font.pixelSize: 20
+                                font.pixelSize: Config.appLauncher.appListTextSize
                                 font.bold: isSelected
+                                font.italic: isSelected
                                 font.underline: isSelected
-                                color: Config.appLauncher.textInputColor
+                                color: Config.appLauncher.appListTextColor
                             }
                         }
                     }

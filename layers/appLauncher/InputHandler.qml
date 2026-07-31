@@ -14,7 +14,6 @@ WrapperMouseArea {
     onClicked: () => onClose()
     required property string searchText
 
-
     function _shiftTargetedApp(index: int) {
         if (candidateApps.length > 0) {
             const currIdx = candidateApps.findIndex(app => app.name === targetedApp?.name);

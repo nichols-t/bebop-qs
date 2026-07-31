@@ -14,8 +14,8 @@ TextField {
     verticalAlignment: Text.AlignVCenter
     color: Config.appLauncher.textInputColor
     font.pixelSize: Config.appLauncher.searchTextSize
-    font.bold: !!text
-    font.family: Config.fontSerif.font.family
+    font.bold: false; //!!text
+    font.family: Config.fontBlocky.font.family
     cursorDelegate: Item {}
     background: Rectangle {
         color: "transparent"

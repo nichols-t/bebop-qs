@@ -36,7 +36,7 @@ TextField {
     }
     Timer {
         id: debounceTimer
-        interval: 200
+        interval: 100
         running: false
         property string text: ''
         onRunningChanged: {

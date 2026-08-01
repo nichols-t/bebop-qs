@@ -127,15 +127,6 @@ Scope {
             LayerParts.GpuDetails { visible: panel.showDetails === "GPU" }
             LayerParts.DiskDetails { visible: panel.showDetails === "SSD" }
         }
-        MouseArea {
-            id: closeMouseClick
-            anchors.fill: parent
-            onClicked: {
-                panel.showDetails = ""
-                root.shouldShow = false;
-                // panel.visible = false
-            }
-        }
     }
 
     component SectionSpacer: Item {
@@ -144,13 +135,6 @@ Scope {
 
     component SectionHeaderMouseArea: WrapperMouseArea {
         // TODO: some stronger user feedback on hover
-        hoverEnabled: true
         cursorShape: Qt.PointingHandCursor
-        onEntered: {
-            closeMouseClick.visible = false;
-        }
-        onExited: {
-            closeMouseClick.visible = true;
-        }
     }
 }

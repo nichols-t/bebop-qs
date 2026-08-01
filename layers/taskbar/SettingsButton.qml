@@ -8,9 +8,10 @@ import "../.."
 
 WrapperMouseArea {
     cursorShape: Qt.PointingHandCursor
-    property SystemInfo systemInfo
+    property Settings settings
+
     onClicked: {
-        systemInfo.shouldShow = true;
+        settings.shouldShow = true;
     }
     margin: 0
     WrapperRectangle {
@@ -21,7 +22,7 @@ WrapperMouseArea {
             implicitWidth: sysText.width
             Text {
                 id: sysText
-                text: "SYS " // TODO better text or icon or some shit
+                text: "SETTINGS " // TODO better text or icon or some shit
                 anchors.centerIn: parent
                 // TODO I think this is font related
                 anchors.verticalCenterOffset: 2

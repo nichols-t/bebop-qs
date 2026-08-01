@@ -129,4 +129,9 @@ Singleton {
             "fontSize": 16
         }
     }
+
+    readonly property var settings: {
+        "backgroundColor": "black",
+        "menuTextColor": "#e1e1e1"
+    }
 }

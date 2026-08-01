@@ -11,6 +11,7 @@ PanelWindow {
 
     property SystemInfo systemInfo
     property Calendar calendar
+    property Settings settings
 
     color: Config.taskbar.backgroundColor
     anchors {
@@ -32,6 +33,6 @@ PanelWindow {
         LayerParts.Battery {}
         LayerParts.Audio {}
         LayerParts.Clock { calendar: root.calendar }
-        LayerParts.SystemInfoButton { systemInfo: root.systemInfo }
+        LayerParts.SettingsButton { settings: root.settings }
     }
 }

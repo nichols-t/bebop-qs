@@ -34,15 +34,6 @@ Scope {
         property bool running: false
     }
 
-    IpcHandler {
-        target: `shutdownMenu-${modelData.name}`
-        function showShutdownMenu() {
-            if (Hyprland.focusedMonitor?.name === modelData.name) {
-                root.shouldShow = true;
-            }
-        }
-    }
-
     PanelWindow {
         id: shutdownMenuWindow
         screen: root.modelData

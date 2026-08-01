@@ -65,12 +65,20 @@ Scope {
             Layers.Taskbar {
                 modelData: perMonitor.modelData
                 systemInfo: systemInfo
+                settings: settings
                 calendar: calendar
             }
             Layers.Calendar {
                 id: calendar
                 shouldShow: false
                 modelData: perMonitor.modelData
+            }
+            Layers.Settings {
+                id: settings
+                shouldShow: false
+                modelData: perMonitor.modelData
+                systemInfo: systemInfo
+                shutdownMenu: shutdownMenu
             }
             Layers.SystemInfo {
                 id: systemInfo

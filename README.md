@@ -14,20 +14,25 @@ A Cowboy Bebop title sequence inspired Quickshell.
 - **[BUG] Sub-menu IDs**: Check if I'm still opening any windows by implicitly relying on the ID. I think I fixed this, but need to check.
 - **[DESIGN] Rule of 3**: Check how often I use design elements to see if I can increase cohesiveness
 - **Taskbar**:
-    - **[FEATURE] Bluetooth indicator and control**
+    - **[FEATURE] Bluetooth indicator**
+    - **[DESIGN] Better network icon design**
+    - **[DESIGN] Evaluate battery indicator design**
+    - **[BUG] Properly center/margin items for all possible states**
+    - **[DESIGN] Evaluate audio indicator design**
 - **[ERGONOMICS] SysInfo**: Make "fallback" system for modules that allows `Config` to specify a list of how things should be read
 - **[FEATURE] SystemInfo Screen**: Add details section for power and network
+- **[BUG] Settings Screen**: Laptop text is getting cut off and needs to be smaller
 - **[ERGONOMICS] Shutdown Menu**:
     - Consider if `ListView` is better semantics for arrow key behavior
     - Additionally, consider how clickable space is laid out for each item and possibly adjust it
-- **All Screens**: Consider how to "juice" the appearance appropriately:
+        - Delaunay Triangulation (Voronoi) (see [this implementation](https://github.com/mapbox/delaunator)) would be an interesting thing for this
+- **All Screens**:
     - **[DESIGN] Shaders** to modify certain elements' appearance
     - **[DESIGN] Additional elements** to fill empty space
     - **[ERGONOMICS] Config blur layers** so things are less magic-numbery
     - **[OPTIMIZATION] Loaders**: Use loaders to make sure ongoing resource usage is minimized
 - **[FEATURE] Audio Control**: Create menu for toggling of audio settings
 - **[FEATURE] Network Control**: Create a control screen for network status, Wi-Fi etc.
-- **[BUG] App Launcher**: Had an issue crashing when I was loading all other Desktop app entries and typing quickly. Look into fixing this so it can be juiced better.
 - **[FEATURE] Lock Screen**: Add support for fingerprint login via PAM.
     - see https://github.com/end-4/dots-hyprland/pull/2308/changes, but this is slop so who knows
 - **[ERGONOMICS] Theme Control**: A menu for editing theme colors, maybe

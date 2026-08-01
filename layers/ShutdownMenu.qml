@@ -172,6 +172,7 @@ Scope {
                     anchors.fill: menuTitleText
                 }
 
+                // TODO insane idea: Voronoi mouse area lmao
                 // wonder if this is smarter way: https://doc.qt.io/qt-6/qml-qtquick-controls-buttongroup.html
                 LogoutClickableButtonItem {
                     id: btnLock

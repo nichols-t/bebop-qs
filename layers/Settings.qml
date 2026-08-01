@@ -48,7 +48,7 @@ Scope {
             anchors.topMargin: panel.height * 0.1
 
             // TODO heading and I am questioning my font choices
-
+            // TODO: Font is too wide on laptop
             SettingsMenuButton {
                 text: "SYSTEM INFO"
 

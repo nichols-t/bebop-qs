@@ -12,6 +12,7 @@ A Cowboy Bebop title sequence inspired Quickshell.
 
 ## TODOs
 - **[BUG] Sub-menu IDs**: Check if I'm still opening any windows by implicitly relying on the ID. I think I fixed this, but need to check.
+- **[BUG] Prefer Point Size** for fonts that are defined via static pixel sizing
 - **[DESIGN] Rule of 3**: Check how often I use design elements to see if I can increase cohesiveness
 - **Taskbar**:
     - **[FEATURE] Bluetooth indicator**

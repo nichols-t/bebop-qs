@@ -73,12 +73,36 @@ Scope {
                 shouldShow: false
                 modelData: perMonitor.modelData
             }
+            Layers.AudioSettings {
+                id: audioSettings
+                shouldShow: false
+                modelData: perMonitor.modelData
+            }
+            Layers.BluetoothSettings {
+                id: bluetoothSettings
+                shouldShow: false
+                modelData: perMonitor.modelData
+            }
+            Layers.NetworkSettings {
+                id: networkSettings
+                shouldShow: false
+                modelData: perMonitor.modelData
+            }
+            Layers.ThemeSettings {
+                id: themeSettings
+                shouldShow: false
+                modelData: perMonitor.modelData
+            }
             Layers.Settings {
                 id: settings
                 shouldShow: false
                 modelData: perMonitor.modelData
                 systemInfo: systemInfo
                 shutdownMenu: shutdownMenu
+                audioSettings: audioSettings
+                bluetoothSettings: bluetoothSettings
+                networkSettings: networkSettings
+                themeSettings: themeSettings
             }
             Layers.SystemInfo {
                 id: systemInfo

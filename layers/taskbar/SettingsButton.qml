@@ -11,7 +11,7 @@ WrapperMouseArea {
     property Settings settings
 
     onClicked: {
-        settings.shouldShow = true;
+        settings.show()// = true;
     }
     margin: 0
     WrapperRectangle {

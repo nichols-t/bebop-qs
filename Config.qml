@@ -132,6 +132,7 @@ Singleton {
 
     readonly property var settings: {
         "backgroundColor": "black",
-        "menuTextColor": "#e1e1e1"
+        "menuTextColor": "#e1e1e1",
+        "menuTextSize": 32
     }
 }

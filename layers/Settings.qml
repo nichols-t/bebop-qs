@@ -13,12 +13,25 @@ Scope {
     required property var modelData
     property bool shouldShow: false
 
-    function onClose() {
+    function show() {
+        shouldShow = true;
+        panel.show();
+    }
+
+    function close() {
         shouldShow = false;
+    }
+
+    function beginClose() {
+        panel.close()
     }
 
     property SystemInfo systemInfo
     property ShutdownMenu shutdownMenu
+    property AudioSettings audioSettings
+    property BluetoothSettings bluetoothSettings
+    property NetworkSettings networkSettings
+    property ThemeSettings themeSettings
 
     PanelWindow {
         id: panel
@@ -32,14 +45,34 @@ Scope {
             right: true
         }
 
+        margins.right: root.shouldShow ? 0 : -width;
+
         WlrLayershell.exclusionMode: ExclusionMode.Ignore
         WlrLayershell.keyboardFocus: WlrKeyboardFocus.OnDemand
 
-        implicitWidth: !root.shouldShow ? 0 : screen.width * 0.3
-        Behavior on implicitWidth {
-            NumberAnimation {
-                duration: 100
+        implicitWidth: screen.width * 0.3
+        Behavior on margins.right {
+            SequentialAnimation {
+                NumberAnimation {
+                    duration: 100
+                }
+                ScriptAction {
+                    script: {
+                        if (panel.margins.right < 0) {
+                            root.close()
+                        }
+                    }
+                }
             }
+        }
+
+        function show() {
+            margins.right = 0;
+        }
+
+        function close() {
+            // This should trigger an animation that reset root.onClose when it is done
+            panel.margins.right = -panel.width;
         }
 
         ColumnLayout {
@@ -59,18 +92,34 @@ Scope {
 
             SettingsMenuButton {
                 text: "AUDIO"
+
+                onClicked: () => {
+                    root.audioSettings.show();
+                }
             }
 
             SettingsMenuButton {
                 text: "BLUETOOTH"
+
+                onClicked: () => {
+                    root.bluetoothSettings.show();
+                }
             }
 
             SettingsMenuButton {
                 text: "NETWORK"
+
+                onClicked: () => {
+                    root.networkSettings.show();
+                }
             }
 
             SettingsMenuButton {
                 text: "THEME"
+
+                onClicked: () => {
+                    root.themeSettings.show();
+                }
             }
 
             SettingsMenuButton {
@@ -78,7 +127,7 @@ Scope {
 
                 onClicked: () => {
                     nixCfgsProcess.startDetached()
-                    root.onClose()
+                    root.beginClose()
                 }
             }
 
@@ -101,7 +150,7 @@ Scope {
             Keys.onPressed: event => {
                 if (event.key === Qt.Key_Escape) {
                     event.accepted = true;
-                    root.onClose();
+                    root.beginClose();
                 }
             }
         }

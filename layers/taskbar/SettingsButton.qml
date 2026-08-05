@@ -1,5 +1,6 @@
 // ClockWidget.qml
 import QtQuick
+import QtQuick.Effects
 import QtQuick.Layouts
 import Quickshell.Widgets
 import "../../utils"
@@ -19,19 +20,24 @@ WrapperMouseArea {
         margin: 0
         Item {
             implicitHeight: Config.taskbar.taskbarHeight
-            implicitWidth: sysText.width
-            Text {
-                id: sysText
-                text: "SETTINGS " // TODO better text or icon or some shit
+            implicitWidth: icon.width
+
+            Image {
                 anchors.centerIn: parent
-                // TODO I think this is font related
-                anchors.verticalCenterOffset: 2
-                font {
-                    family: Config.fontTypewriter.font.family
-                    pixelSize: 18
-                    bold: true
-                }
-                color: Config.taskbar.clock.textColor
+                id: icon
+                fillMode: Image.PreserveAspectFit
+                source: Qt.resolvedUrl("../../assets/settings-icon.svg")
+                visible: false
+                sourceSize.width: parent.height - 4
+            }
+
+            // Note that the icon is white so that we can recolor it based
+            // on theme as needed.
+             MultiEffect {
+                colorizationColor: Config.taskbar.clock.textColor
+                colorization: 1.0
+                source: icon
+                anchors.fill: icon
             }
         }
     }

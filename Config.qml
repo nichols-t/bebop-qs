@@ -138,4 +138,10 @@ Singleton {
         "menuTextColor": "#e1e1e1",
         "menuTextSize": 32
     }
+
+    readonly property var networkSettings: {
+        "accentColor": "#4f65ef",
+        "deviceTextColor": "#e1e1e1",
+        "deviceTextSize": 18
+    }
 }

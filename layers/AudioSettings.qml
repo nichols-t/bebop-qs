@@ -69,6 +69,19 @@ Scope {
             panel.margins.right = -panel.width;
         }
 
+
+        Text {
+            id: titleText
+            text: "AUDIO"
+            color: "white"
+            rotation: 90
+            anchors.verticalCenter: parent.verticalCenter
+            anchors.right: parent.right
+            anchors.rightMargin: -width / 3
+            font.family: Config.fontBlocky.font.family
+            font.pointSize: 60
+        }
+
         ColumnLayout {
 
             Text {

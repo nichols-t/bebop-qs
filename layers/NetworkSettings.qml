@@ -67,35 +67,45 @@ Scope {
             panel.margins.right = -panel.width;
         }
 
+
+        Text {
+            id: titleText
+            text: "NETWORK"
+            color: "white"
+            rotation: 90
+            anchors.verticalCenter: parent.verticalCenter
+            anchors.right: parent.right
+            anchors.rightMargin: -width / 3
+            font.family: Config.fontBlocky.font.family
+            font.pointSize: 60
+        }
+
         ColumnLayout {
-
-            Text {
-                text: "NETWORK STUFF"
-                color: "white"
-            }
-
-            Text {
-                text: `Is wifi: ${Networking.wifiEnabled}`
-                color: "white"
-            }
-
-            Text {
-                // See quickshell.org/docs/v0.3.0/types/Quickshell.Networking/NetworkConnectivity/
-                text: `Connectivity: ${Networking.connectivity}`
-                color: "white"
-            }
-
-            Text {
-                text: "Devices:"
-                color: "white"
-            }
+            anchors.top: parent.top
+            anchors.topMargin: Config.networkSettings.deviceTextSize
+            // TODO maybe repeat with empty cells?
             Repeater {
                 model: Networking.devices
 
-                Text {
+                Rectangle {
                     required property var modelData
-                    text: modelData.name
-                    color: "white"
+                    Layout.leftMargin: text.font.pointSize
+                    color: Config.networkSettings.accentColor
+                    height: text.height + 2 * text.font.pointSize
+                    width: panel.width - 2 * text.font.pointSize
+                    Text {
+                        id: text
+                        text: {
+                            const netType = modelData.type === DeviceType.Wifi ? 'WiFi' : 'Ethernet'
+                            return `
+                        Device Name: ${modelData.name} (${netType})
+                        Is Connected: ${modelData.connected}
+                        `
+                        }
+                        color: Config.networkSettings.deviceTextColor
+                        font.pointSize: Config.networkSettings.deviceTextSize
+                        font.family: Config.fontTypewriter.font.family
+                    }
                 }
             }
 

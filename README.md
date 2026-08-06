@@ -19,7 +19,6 @@ A Cowboy Bebop title sequence inspired Quickshell.
     - **[BUG] Properly center/margin items for all possible states**
 - **[ERGONOMICS] SysInfo**: Make "fallback" system for modules that allows `Config` to specify a list of how things should be read
 - **[FEATURE] SystemInfo Screen**: Add details section for power and network
-- **[BUG] Settings Screen**: Laptop text is getting cut off and needs to be smaller
 - **[ERGONOMICS] Shutdown Menu**:
     - Consider if `ListView` is better semantics for arrow key behavior
     - Additionally, consider how clickable space is laid out for each item and possibly adjust it
@@ -31,6 +30,7 @@ A Cowboy Bebop title sequence inspired Quickshell.
     - **[OPTIMIZATION] Loaders**: Use loaders to make sure ongoing resource usage is minimized
 - **[FEATURE] Audio Control**: Create menu for toggling of audio settings
 - **[FEATURE] Network Control**: Create a control screen for network status, Wi-Fi etc.
+- **[FEATURE] Bluetooth Control**: Create a control screen for bluetooth pairing/dc/etc.
 - **[FEATURE] Lock Screen**: Add support for fingerprint login via PAM.
     - see https://github.com/end-4/dots-hyprland/pull/2308/changes, but this is slop so who knows
 - **[ERGONOMICS] Theme Control**: A menu for editing theme colors, maybe

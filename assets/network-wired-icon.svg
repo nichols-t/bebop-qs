@@ -15,19 +15,19 @@
      id="layer1">
     <path
        style="fill:none;fill-opacity:1;stroke:#ffffff;stroke-linejoin:bevel;stroke-opacity:1"
-       d="M 8,5 H 6 V 7 H 3 v 4 H 13 V 7 H 10 V 5 Z"
+       d="M 8,5 H 6 V 7 H 3 v 6 H 13 V 7 H 10 V 5 Z"
        id="path3" />
     <path
        style="fill:none;fill-opacity:1;stroke:#ffffff;stroke-linejoin:bevel;stroke-opacity:1"
-       d="M 8,11 V 9"
+       d="M 8,13 V 10"
        id="path4" />
     <path
        style="fill:#ffffff;stroke:#ffffff;stroke-width:1;stroke-linejoin:bevel;stroke-dasharray:none;stroke-opacity:1"
-       d="M 10,11 V 9"
+       d="M 10,13 V 10"
        id="path1" />
     <path
        style="fill:#ffffff;stroke:#ffffff;stroke-width:1;stroke-linejoin:bevel;stroke-dasharray:none;stroke-opacity:1"
-       d="M 6,11 V 9"
+       d="M 6,13 V 10"
        id="path2" />
   </g>
 </svg>

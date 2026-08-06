@@ -77,7 +77,7 @@ WrapperRectangle {
                 verticalAlignment: Qt.AlignVCenter
                 horizontalAlignment: Qt.AlignHCenter
                 // TODO why is this extra margin needed?
-                Layout.topMargin: 2
+                Layout.topMargin: 4
                 color: Config.taskbar.battery.textColor
             }
         }

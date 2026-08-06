@@ -94,7 +94,7 @@ Singleton {
 
     readonly property var taskbar: {
         "taskbarHeight": 30,
-        "backgroundColor": "transparent",
+        "backgroundColor": "black",
         "fontSize": 18,
         "clock": {
             "textColor": "#e1e1e1",

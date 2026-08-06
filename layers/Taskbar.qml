@@ -28,7 +28,7 @@ PanelWindow {
     RowLayout {
         spacing: 0
         anchors.fill: parent
-
+        LayerParts.User {}
         Item { Layout.fillWidth: true }
         // Debug app menu launcher
         LayerParts.Network {}

@@ -28,6 +28,8 @@ Singleton {
     property GpuUsageModule gpuUsage: NvidiaSmiGpuUsageModule {}
     // Provides live power supply information. Read periodically
     property PowerStatusModule power: UPowerPowerStatusModule {}
+    // Provides user information
+    property UserModule user: WhoAmIUserModule {}
 
     // TODO: Something like this can be used/read from the Config.qml in order to create a "fallback list"
     // of modules; will need to have SystemInfoModules use their isSupported status, etc but also need to

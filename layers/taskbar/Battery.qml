@@ -12,7 +12,7 @@ WrapperRectangle {
 
     Item {
         implicitHeight: Config.taskbar.taskbarHeight
-        implicitWidth: rows.width // TODO should be using a wrapper rect here, I think
+        implicitWidth: rows.width + 10 // TODO should be using a wrapper rect here, I think
         RowLayout {
             id: rows
           anchors.centerIn: parent
@@ -20,12 +20,12 @@ WrapperRectangle {
                 id: batteryBars
                 spacing: 1
                 property int numBarsFilled: Math.ceil(SysInfo.power.batteryPercent / 25)
-                Layout.alignment: Qt.AlignTop
+                Layout.alignment: Qt.AlignCenter
                 Repeater {
                     id: repeater
                     model: 4
                     Rectangle {
-                      border.width: 1
+                      border.width: 0
                       border.color: Config.taskbar.battery.barsBorderColor
                         Layout.alignment: Qt.AlignHCenter
                         required property int index
@@ -43,12 +43,14 @@ WrapperRectangle {
                                 return 5;
                             }
                         }
-                        radius: 2
+                        radius: 0
                         color: {
                             if ((repeater.model - index - 1) < batteryBars.numBarsFilled) {
-                                return Config.taskbar.battery.barsColor;
+                                return Config.taskbar.battery.barsFilledColor;
+                            } else if (!SysInfo.power.hasBattery) {
+                                return Config.taskbar.battery.barsFilledColor;
                             } else {
-                                return "transparent";
+                                return Config.taskbar.battery.barsEmptyColor;
                             }
                         }
                     }
@@ -68,9 +70,9 @@ WrapperRectangle {
                     }
                 }
                 font {
-                    family: Config.fontTypewriter.font.family
-                    pixelSize: 18
-                    bold: true
+                    family: Config.fontBlocky.font.family
+                    pixelSize: Config.taskbar.fontSize
+                    bold: false
                 }
                 verticalAlignment: Qt.AlignVCenter
                 horizontalAlignment: Qt.AlignHCenter

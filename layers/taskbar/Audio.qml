@@ -45,7 +45,7 @@ WrapperRectangle {
             fillMode: Image.PreserveAspectFit
             source: Qt.resolvedUrl("../../assets/volume-icon.svg")
             visible: false
-            sourceSize.width: parent.height - 4
+            sourceSize.width: parent.height - 6
         }
 
         // Note that the icon is white so that we can recolor it based

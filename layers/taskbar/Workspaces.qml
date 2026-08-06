@@ -12,15 +12,23 @@ Rectangle {
     // Want it to stop before the end of the workspace buttons so that
     // it covers the left side gap but does not appear on the right
     implicitWidth: rows.width
-    radius: 2
     z: 0
-    implicitHeight: Config.taskbar.taskbarHeight
+    height: Config.taskbar.taskbarHeight
+
+    Rectangle {
+        height: Config.taskbar.taskbarHeight / 4
+        width: rows.width
+        anchors.bottom: parent.bottom
+        color: Config.taskbar.workspaces.borderColor
+        z: 1
+    }
+
     RowLayout {
         id: rows
         spacing: 0
-        z: 2
 
         Repeater {
+            id: repeater
             model: 6 // TODO how to control this more dynamically? Some people use different number of workspaces
             WrapperMouseArea {
                 id: area
@@ -41,14 +49,12 @@ Rectangle {
                 }
 
                 Item {
-                    implicitHeight: Config.taskbar.taskbarHeight
                     implicitWidth: wsButton.width
+                    implicitHeight: wsButton.height
                     Rectangle {
                         id: wsButton
                         clip: true
                         anchors.top: parent.top
-                        anchors.topMargin: area.isActive ? -Config.taskbar.taskbarHeight / 2 : -Config.taskbar.taskbarHeight * 0.8
-                        radius: 2
                         color: {
                             if (area.isActive) {
                                 return Config.taskbar.workspaces.backgroundColorActive;
@@ -74,55 +80,71 @@ Rectangle {
 
                         property bool isHovered: false
                         // Creates a shape that is the right size for bounds of a regular hexagon
-                        height: Config.taskbar.taskbarHeight * 1.5
-                        width: Config.taskbar.taskbarHeight * 1.5
+                        height: Config.taskbar.taskbarHeight
+                        width: Config.taskbar.taskbarHeight * 1.3
 
                         Text {
                             id: label
-                            anchors.bottom: parent.bottom
-                            anchors.horizontalCenter: parent.horizontalCenter
-                            anchors.bottomMargin: 1
+                            anchors.centerIn: parent
                             text: area.index + 1
                             z: 1
                             // If the weight is wrong it just doesn't load, so just read weight directly from the
                             // file that we imported
-                            font {
-                                family: Config.fontTypewriter.font.family
-                                bold: area.isActive
-                                pixelSize: Config.taskbar.workspaces.fontSize
-                            }
+                            anchors.verticalCenterOffset: area.isActive ? -2 : 0
+                            font.family: area.isActive ? Config.fontBlocky.font.family : Config.fontTypewriter.font.family
+                            font.italic: wsButton.isHovered
+                            font.pixelSize: Config.taskbar.workspaces.fontSize
 
                             color: {
                                 return Config.taskbar.workspaces.textColorWithWindows;
                                 if (area.isActive)
                                     return Config.taskbar.workspaces.textColorActive;
-                                if (area.hasWindows)
+                                if (wsButton.hasWindows)
                                     return Config.taskbar.workspaces.textColorWithWindows;
                                 return Config.taskbar.workspaces.textColorInactive;
                             }
                         }
 
                         Rectangle {
-                            width: wsButton.width / 4
-                            height: wsButton.height / 2
-                            anchors.centerIn: parent
-                            anchors.horizontalCenterOffset: width + 1
-                            anchors.verticalCenterOffset: area.index % 2 === 0 ? 10 : 0
-                            border.width: 2
+                            visible: area.isActive
+                            width:wsButton.width / 2
+                            height: area.isActive ? wsButton.height : 0
+                            anchors.top: parent.top
+                            anchors.horizontalCenter: parent.horizontalCenter
+                            color: wsButton.isHovered ? Config.taskbar.workspaces.backgroundColorHovered: Config.taskbar.workspaces.backgroundColorActive
                             border.color: Config.taskbar.workspaces.borderColor
-                            color: wsButton.isHovered ? wsButton.hoverColor : wsButton.color
+                            border.width: 2
+                            Behavior on height {
+                                NumberAnimation {}
+                            }
+                        }
+
+                        Rectangle {
+                            visible: area.isActive
+                            width:wsButton.width / 2
+                            height: area.isActive ? wsButton.height : 0
+                            anchors.bottom: parent.bottom
+                            anchors.horizontalCenter: parent.horizontalCenter
+                            color: wsButton.isHovered ? Config.taskbar.workspaces.backgroundColorHovered: Config.taskbar.workspaces.backgroundColorActive
+                            border.color: Config.taskbar.workspaces.borderColor
+                            border.width: 2
+                            Behavior on height {
+                                NumberAnimation {}
+                            }
+                        }
+
+                        Rectangle {
+                            width: wsButton.width / 8
+                            height: wsButton.height
+                            anchors.right: parent.right
+                            color: Config.taskbar.workspaces.borderColor
                             z: 0
                         }
                         Rectangle {
-                            width: wsButton.width / 4
-                            height: wsButton.height / 2
-                            anchors.centerIn: parent
-                            anchors.horizontalCenterOffset: -width - 1
-                            anchors.verticalCenterOffset: area.index % 2 === 0 ? 0 : 10
-                            // anchors.horizontalCenterOffset: -Config.taskbar.taskbarHeight / 2
-                            border.width: 2
-                            border.color: Config.taskbar.workspaces.borderColor
-                            color: wsButton.isHovered ? wsButton.hoverColor : wsButton.color
+                            width: wsButton.width / 8
+                            height: wsButton.height
+                            anchors.left: parent.left
+                            color: Config.taskbar.workspaces.borderColor
                             z: 0
                         }
                     }

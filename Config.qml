@@ -95,6 +95,7 @@ Singleton {
     readonly property var taskbar: {
         "taskbarHeight": 30,
         "backgroundColor": "transparent",
+        "fontSize": 18,
         "clock": {
             "textColor": "#e1e1e1",
             "backgroundColor": "black"
@@ -109,9 +110,10 @@ Singleton {
         },
         "battery": {
             "textColor": "#e1e1e1",
-            "barsColor": "#de5c5c",
-            "barsBorderColor": '#250000',
-            "backgroundColor": "#641c1a"
+            "barsFilledColor": "#cf2d1d",
+            "barsEmptyColor": "#a21e1d",
+            "barsBorderColor": 'white',
+            "backgroundColor": "black"
         },
         // TODO theme dark mid light border
         // TODO these also need a new "hover color" above the lightest shade
@@ -126,7 +128,7 @@ Singleton {
             "backgroundColorHovered": '#de5c5c',
             "backgroundColorInactive": "#641c1a",
             "backgroundColorWithWindows": "#a21e1d",
-            "borderColor": "#250000",
+            "borderColor": "black",
             "fontSize": 16
         }
     }

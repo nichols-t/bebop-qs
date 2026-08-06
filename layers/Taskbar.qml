@@ -22,11 +22,13 @@ PanelWindow {
 
     implicitHeight: Config.taskbar.taskbarHeight
 
+    LayerParts.Workspaces {
+        anchors.horizontalCenter: parent.horizontalCenter
+    }
     RowLayout {
         spacing: 0
         anchors.fill: parent
 
-        LayerParts.Workspaces {}
         Item { Layout.fillWidth: true }
         // Debug app menu launcher
         LayerParts.Network {}

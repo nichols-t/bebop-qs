@@ -144,4 +144,14 @@ Singleton {
         "deviceTextColor": "#e1e1e1",
         "deviceTextSize": 18
     }
+
+    readonly property var audioSettings: {
+        "accentColor": "#4f65ef",
+        "volumeBarColor": '#222d71',
+        "volumeBarBorderColor": '#0a0e30',
+        "trackTitleFontSize": 14,
+        "artistFontSize": 32,
+        "trackControlTextColor": "#e1e1e1",
+        "trackControlTextSize": 18,
+    }
 }

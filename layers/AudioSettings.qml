@@ -39,7 +39,7 @@ Scope {
             right: true
         }
 
-        margins.right: root.shouldShow ? 0 : -width;
+        margins.right: root.shouldShow ? 0 : -width
 
         WlrLayershell.exclusionMode: ExclusionMode.Ignore
         WlrLayershell.keyboardFocus: WlrKeyboardFocus.OnDemand
@@ -53,7 +53,7 @@ Scope {
                 ScriptAction {
                     script: {
                         if (panel.margins.right < 0) {
-                            root.close()
+                            root.close();
                         }
                     }
                 }
@@ -69,102 +69,23 @@ Scope {
             panel.margins.right = -panel.width;
         }
 
-
-        Text {
-            id: titleText
-            text: "AUDIO"
-            color: "white"
-            rotation: 90
-            anchors.verticalCenter: parent.verticalCenter
-            anchors.right: parent.right
-            anchors.rightMargin: -width / 3
-            font.family: Config.fontBlocky.font.family
-            font.pointSize: 60
-        }
-
         ColumnLayout {
-
-            Text {
-                text: "AUDIO STUFF"
-                color: "white"
-            }
-
             id: cols
+            anchors.top: parent.top
+            anchors.horizontalCenter: parent.horizontalCenter
+            property real itemsMargin: panel.width * 0.1 / 2
+            anchors.topMargin: itemsMargin
+            width: panel.width * 0.9
+            spacing: itemsMargin
+
+            // Must retain focus to close on Esc
+            focus: true
 
             property var sink: Pipewire.defaultAudioSink
             // Used for track information
             // https://quickshell.org/docs/v0.3.0/types/Quickshell.Services.Mpris/MprisPlayer/
             property var mpris: Mpris.players.values[0] || null
 
-            Text {
-                text: `Ready: ${cols.sink?.ready}`
-                color: "white"
-            }
-
-            Text {
-                text: `Muted? ${cols.sink?.ready && cols.sink?.audio.muted}`
-                color: "white"
-            }
-
-            Text {
-                text: `Volume: ${cols.sink?.audio.volume}`
-                color: 'white'
-            }
-
-            Text {
-                text: `Playback State: ${cols.mpris?.playbackState}`
-                color: 'white'
-            }
-
-            Text {
-                text: `Current Artist ${cols.mpris?.trackArtist}`
-                color: 'white'
-            }
-
-            Text {
-                text: `Is shuffled: ${cols.mpris?.shuffle}`
-                color: 'white'
-            }
-
-            // They note that players can ignore this and are more likely to
-            // accept common multipliers. So like 0.25, 0.5, 1, 1.5 2 type beat
-            Text {
-                text: `Rate: ${cols.mpris?.rate} (${cols.mpris?.minRate} - ${cols.mpris?.maxRate})`
-                color: 'white'
-            }
-
-            // Lots of other bools here I could use to show controls
-            Text {
-                text: `Can loop: ${cols.mpris?.loopSupported}`
-                color: 'white'
-            }
-
-            Text {
-                text: `Position or length: ${cols.mpris?.length}`
-                color: 'white'
-            }
-
-            Text {
-                text: `Player identity ${cols.mpris?.identity}`
-                color: 'white'
-            }
-
-            Text {
-                text: `Track album ${cols.mpris?.trackAlbum}`
-                color: 'white'
-            }
-
-            Text {
-                text: `Track title ${cols.mpris?.trackTitle}`
-                color: 'white'
-            }
-
-            Text {
-                text: `Track vol ${cols.mpris?.volume}`
-                color: 'white'
-            }
-
-            focus: true
 
             Keys.onPressed: event => {
                 if (event.key === Qt.Key_Escape) {
@@ -172,6 +93,164 @@ Scope {
                     panel.close();
                 }
             }
+
+            // TODO is shuffled icon/text? cols.mpris?.shuffle
+            // TODO rate control cols.mpris?.rate ${cols.mpris?.minRate} - ${cols.mpris?.maxRate}
+            // TODO loop cols.mpris?.loopSupported
+            // TODO position or length: cols.mpris?.length
+            //  (note for streaming this is random timestamp I thikn)
+            // TODO audio player ID (i.e. the app) cols.mpris?.identity
+            // TODO track album cols.mpris?.trackAlbum
+            // TODO track title cols.mpris?.trackTitle
+            Rectangle {
+                id: displayRect
+                height: cols.width * 0.6
+                implicitWidth: cols.width
+                color: Config.audioSettings.accentColor
+
+                Text {
+                    text: cols.mpris?.trackTitle || ''
+                    color: "white"
+                    width: displayRect.width
+                    horizontalAlignment: Text.AlignHCenter
+                    anchors.top: parent.top
+                    anchors.topMargin: displayRect.height * 0.1
+                    font.family: Config.fontTypewriter.font.family
+                    font.pointSize: Config.audioSettings.trackTitleFontSize
+                }
+
+                Text {
+                    z: 1
+                    text: cols.mpris?.trackArtist || ''
+                    color: "black" // TODO theme
+                    rotation: 90
+                    anchors.verticalCenter: parent.verticalCenter
+                    anchors.left: parent.left
+                    font.family: Config.fontBlocky.font.family
+                    font.pointSize: Config.audioSettings.artistFontSize
+                }
+
+                Rectangle {
+                    id: volumeRect
+                    radius: 2
+                    border.color: Config.audioSettings.volumeBarBorderColor
+                    // TODO: vol bars thinggy?
+                    height: displayRect.height * 0.05
+                    anchors.bottom: parent.bottom
+                    anchors.horizontalCenter: parent.horizontalCenter
+                    color: Config.audioSettings.volumeBarColor
+                    width: {
+                        const vol = cols.sink?.audio.volume || 0;
+
+                        if (cols.sink?.audio.muted) {
+                            return 0;
+                        }
+
+                        return vol * displayRect.width;
+                    }
+
+                    Behavior on width {
+                        NumberAnimation { duration: 100 }
+                    }
+                }
+            }
+
+            Rectangle {
+                id: controlRect
+                height: cols.width * 0.1
+                implicitWidth: cols.width
+                color: Config.audioSettings.accentColor
+
+                // TODO button group maybe
+                RowLayout {
+                    width: parent.width
+                    spacing: cols.itemsMargin
+
+                    WrapperMouseArea {
+                        onClicked: {
+                            if (cols.mpris?.canGoPrevious) {
+                                cols.mpris.previous();
+                            }
+                        }
+                        cursorShape: Qt.PointingHandCursor
+                        Rectangle {
+                            Layout.alignment: Qt.AlignLeft
+                            implicitHeight: controlRect.height
+                            implicitWidth: controlRect.width * .25
+                            color: "transparent"
+                            Text {
+                                anchors.centerIn: parent
+                                text: "PREV"
+                                color: Config.audioSettings.trackControlTextColor
+                                font.family: Config.fontBlocky.font.family
+                                font.pointSize: Config.audioSettings.trackControlTextSize
+                            }
+                        }
+                    }
+
+                    WrapperMouseArea {
+                        onClicked: {
+                            if (cols.mpris) {
+                                cols.mpris.isPlaying = !cols.mpris.isPlaying;
+                            }
+                        }
+                        cursorShape: Qt.PointingHandCursor
+                        Rectangle {
+                            Layout.alignment: Qt.AlignCenter
+                            implicitHeight: controlRect.height
+                            implicitWidth: controlRect.width * 0.30
+                            color: "transparent"
+                            Text {
+                                anchors.centerIn: parent
+                                text: {
+                                    if (cols.mpris?.isPlaying) {
+                                        return "PAUSE";
+                                    } else {
+                                        return "PLAY";
+                                    }
+                                }
+                                color: Config.audioSettings.trackControlTextColor
+                                font.family: Config.fontBlocky.font.family
+                                font.pointSize: Config.audioSettings.trackControlTextSize
+                            }
+                        }
+                    }
+
+                    WrapperMouseArea {
+                        onClicked: {
+                            if (cols.mpris?.canGoNext) {
+                                cols.mpris.next();
+                            }
+                        }
+                        cursorShape: Qt.PointingHandCursor
+                        Rectangle {
+                            Layout.alignment: Qt.AlignRight
+                            implicitHeight: controlRect.height
+                            implicitWidth: controlRect.width * 0.25
+                            color: "transparent"
+                            Text {
+                                anchors.centerIn: parent
+                                text: "NEXT"
+                                color: Config.audioSettings.trackControlTextColor
+                                font.family: Config.fontBlocky.font.family
+                                font.pointSize: Config.audioSettings.trackControlTextSize
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+        Text {
+            id: titleText
+            text: "AUDIO"
+            color: "white"
+            rotation: 0
+            anchors.verticalCenter: parent.verticalCenter
+            anchors.right: parent.right
+            //anchors.rightMargin: -width / 3
+            font.family: Config.fontBlocky.font.family
+            font.pointSize: 60
         }
     }
 }

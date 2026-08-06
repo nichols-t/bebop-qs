@@ -1,4 +1,3 @@
-// ClockWidget.qml
 import QtQuick
 import QtQuick.Effects
 import QtQuick.Layouts
@@ -8,12 +7,14 @@ import ".."
 import "../.."
 
 WrapperMouseArea {
+    id: mouseArea
     cursorShape: Qt.PointingHandCursor
     property Settings settings
 
     onClicked: {
         settings.show()// = true;
     }
+    hoverEnabled: true
     margin: 0
     WrapperRectangle {
         color: Config.taskbar.clock.backgroundColor

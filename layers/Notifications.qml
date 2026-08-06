@@ -93,10 +93,13 @@ Scope {
                             spacing: 0
 
                             RowLayout {
+                                spacing: 0
                                 Image {
                                     id: image
-                                    Layout.preferredHeight: panel.screen.height / 15
-                                    Layout.preferredWidth: panel.screen.height / 15
+                                    property bool hasImage: source.toString() !== ""
+                                    property real size: hasImage ? panel.screen.height / 15 : panel.screen.height / 50;
+                                    Layout.preferredHeight: size
+                                    Layout.preferredWidth: size
                                     Layout.margins: colLayout.itemsLeftMargin
                                     Layout.alignment: Qt.AlignCenter
                                     fillMode: Image.PreserveAspectFit
@@ -107,49 +110,61 @@ Scope {
 
                                 LayerParts.BlurLine {
                                     Layout.alignment: Qt.AlignRight
-                                    rectHeight: panel.screen.height / 10 + 2
+                                    rectHeight: image.hasImage ? image.size * 1.5 : image.size * 3
                                     rectWidth: 2
+                                    z: 1
                                     color: Config.notifications.lineColor
                                 }
 
-                                ColumnLayout {
-                                    id: textColLayout
-                                    Layout.fillWidth: true
-                                    spacing: 0
-                                    Layout.leftMargin: colLayout.itemsLeftMargin
-
-                                    Text {
-                                        id: applicationText
-                                        text: card.modelData.summary
+                                Rectangle {
+                                    id: accentRect
+                                    color: Config.notifications.accentColor
+                                    Layout.alignment: Qt.AlignTop | Qt.AlignRight
+                                    Layout.preferredWidth: cardBackground.width - image.width
+                                    Layout.preferredHeight: cardBackground.height - 15
+                                    ColumnLayout {
+                                        id: textColLayout
                                         Layout.fillWidth: true
-                                        color: Config.notifications.applicationTextColor
-                                        font.bold: false
-                                        font.family: Config.fontBlocky.font.family
-                                        font.pixelSize: 16
-                                        elide: Text.ElideRight
-                                    }
+                                        Layout.fillHeight: true
+                                        spacing: 0
 
-                                    Text {
-                                        // TODO preferred height? or we just do max lines and calc font sizes?
-                                        Layout.fillWidth: true
-                                        text: card.modelData.body
-                                        color: Config.notifications.summaryTextColor
-                                        font.family: Config.fontTypewriter.font.family
-                                        font.pixelSize: 16
-                                        minimumPixelSize: 12
-                                        // Cut off text (nicely, with elide) so that we
-                                        // don't inadvertently run into issues with the fancy lines
-                                        elide: Text.ElideRight
-                                        maximumLineCount: 3
-                                        fontSizeMode: Text.VerticalFit
-                                        visible: text !== ""
-                                        wrapMode: Text.WordWrap
+                                        Text {
+                                            Layout.topMargin: colLayout.itemsLeftMargin
+                                            Layout.leftMargin: colLayout.itemsLeftMargin
+                                            id: applicationText
+                                            text: card.modelData.summary
+                                            Layout.fillWidth: true
+                                            color: Config.notifications.applicationTextColor
+                                            font.bold: false
+                                            font.family: Config.fontBlocky.font.family
+                                            font.pixelSize: 16
+                                            font.italic: true
+                                            elide: Text.ElideRight
+                                        }
+
+                                        Text {
+                                            // TODO preferred height? or we just do max lines and calc font sizes?
+                                            Layout.fillWidth: true
+                                            Layout.leftMargin: colLayout.itemsLeftMargin
+                                            text: card.modelData.body
+                                            color: Config.notifications.summaryTextColor
+                                            font.family: Config.fontTypewriter.font.family
+                                            font.pixelSize: 16
+                                            minimumPixelSize: 12
+                                            // Cut off text (nicely, with elide) so that we
+                                            // don't inadvertently run into issues with the fancy lines
+                                            elide: Text.ElideRight
+                                            maximumLineCount: 3
+                                            fontSizeMode: Text.VerticalFit
+                                            visible: text !== ""
+                                            wrapMode: Text.WordWrap
+                                        }
                                     }
                                 }
                             }
 
                             LayerParts.BlurLine {
-                                Layout.topMargin: -30
+                                Layout.topMargin: -30 // TODO theme it or var
                                 id: horizontalYellowLine
                                 rectHeight: 2
                                 rectWidth: cardBackground.width

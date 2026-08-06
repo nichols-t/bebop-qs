@@ -21,9 +21,9 @@ WrapperMouseArea {
             Text {
                 id: clockText
                 text: Qt.formatDateTime(Time.time, " ddd MMM dd hh:mm AP ")
-                font.family: Config.fontTypewriter.font.family
+                font.family: Config.fontBlocky.font.family
                 font.pixelSize: 18
-                font.bold: true
+                font.bold: false
                 anchors.centerIn: parent
                 // TODO why it is needed?? I think its font related
                 anchors.verticalCenterOffset: 2

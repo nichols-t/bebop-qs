@@ -2,6 +2,7 @@ import Quickshell
 import Quickshell.Services.Pipewire
 import Quickshell.Services.Mpris
 import QtQuick
+import QtQuick.Effects
 import QtQuick.Layouts
 import Quickshell.Widgets
 import ".."
@@ -16,7 +17,9 @@ WrapperRectangle {
         id: root
         implicitHeight: Config.taskbar.taskbarHeight
         //spacing: 0
-        implicitWidth: volumeBars.width
+        implicitWidth: icon.width * 1.5
+        anchors.right: parent.right
+        anchors.rightMargin: 2
 
         property var sink: Pipewire.defaultAudioSink
 
@@ -36,82 +39,58 @@ WrapperRectangle {
                 // Done so that 0-20 = 1 bar, 20 - 40 = 2 bar, etc.
                 return Math.floor(vol);
         }
-
-        RowLayout {
-            id: volumeBars
+        Image {
+            id: icon
             anchors.centerIn: parent
-            spacing: 2
-            Repeater {
-                id: repeater
-                model: 11
-                Rectangle {
-                    id: r
-                    radius: 2
-                    border.width: 1
-                    border.color: Config.taskbar.audio.barsBorderColor
-                    required property int index
-                    color: Config.taskbar.audio.barsColor
-                    // double this because our "index" is 1/2 what it would have been for a unidirectional thing
-                    property real threshold: 2 * 100 / (repeater.model - 1)
-                    property bool active: {
-                        if (root.audioLevel === 0) {
-                            return false;
-                        }
-
-                        return Math.abs(index - (repeater.model - 1) / 2) <= root.audioLevel / threshold;
-                    }
-                    implicitHeight: {
-                        if (active) {
-                            return Config.taskbar.taskbarHeight * 7/8;
-                        } else {
-                            return Config.taskbar.taskbarHeight * 2 / 3;
-                        }
-                    }
-                    implicitWidth: 8
-                }
-            }
-        }
-        // TODO: Not sure that I'm happy with this
-        WrapperRectangle {
-            anchors.centerIn: parent
-            color: Config.taskbar.audio.barsColor
-            radius: 2
+            fillMode: Image.PreserveAspectFit
+            source: Qt.resolvedUrl("../../assets/volume-icon.svg")
             visible: false
-            Text {
-                id: audioText
-                anchors.centerIn: parent
-                // TODO why is this extra offset needed?
-                anchors.verticalCenterOffset: 2
-                //verticalAlignment: Text.AlignVCenter
-                text: {
-                    return root.audioLevel;
-                    if (!root.ready)
-                        return "-";
-                    if (root.muted)
-                        return "muted";
-
-                    if (mpris?.playbackState !== MprisPlaybackState.Playing) {
-                        return root.vol + "% VOL";
-                    }
-
-                    // TODO: Not sure if I want this, and if I do, probably to the left of the bars
-                    // var title = mpris.trackTitle || "[untitled]";
-                    // var artist = mpris.trackArtist || "[unknown]";
-
-                    // return title + " BY " + artist + " @ " + root.vol + "%";
-                    return root.vol + "% VOL";
-                }
-
-                font {
-                    family: Config.fontTypewriter.font.family
-                    pixelSize: 18
-                    bold: true
-                    capitalization: Font.AllUppercase
-                }
-                color: Config.taskbar.audio.textColor
-            }
+            sourceSize.width: parent.height - 4
         }
 
+        // Note that the icon is white so that we can recolor it based
+        // on theme as needed.
+        MultiEffect {
+            colorizationColor: Config.taskbar.clock.textColor
+            colorization: 1.0
+            source: icon
+            anchors.fill: icon
+        }
+
+        // I just placed these by experimentation, may need to adjust if icon changes
+        Rectangle {
+            id: lowVolRect
+            visible: root.audioLevel > 0
+            color: Config.taskbar.clock.textColor
+            width: 4
+            height: 2
+            radius: 1
+            rotation: 30
+            x: icon.width * 0.9
+            y: icon.height * 0.5
+        }
+        Rectangle {
+            id: medVolRect
+            visible: root.audioLevel > 37
+            color: Config.taskbar.clock.textColor
+            width: 6
+            height: 2
+            radius: 1
+            rotation: 30
+            x: icon.width * 0.92
+            y: icon.height * 0.4
+        }
+        Rectangle {
+            id: highVolRect
+            visible: root.audioLevel > 75
+            color: Config.taskbar.clock.textColor
+            width: 8
+            height: 2
+            radius: 1
+            rotation: 30
+            x: icon.width * 0.93
+            y: icon.height * 0.3
+        }
         PwObjectTracker {
             objects: [root.sink]
         }

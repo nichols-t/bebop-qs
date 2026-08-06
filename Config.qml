@@ -82,7 +82,8 @@ Singleton {
         "backgroundColor": "black",
         "applicationTextColor": "#e1e1e1",
         "summaryTextColor": "#e1e1e1",
-        "lineColor": "#fabb3f"
+        "lineColor": "#fabb3f",
+        "accentColor": "#641c1a"
     }
 
     readonly property var systemInfo: {
@@ -96,7 +97,7 @@ Singleton {
         "backgroundColor": "transparent",
         "clock": {
             "textColor": "#e1e1e1",
-            "backgroundColor": "#641c1a"
+            "backgroundColor": "black"
         },
         "audio": {
             // TODO previously #4f65ef which is a nice blue
@@ -104,7 +105,7 @@ Singleton {
             "textColor": "#e1e1e1",
             "barsColor": '#de5c5c',
             "barsBorderColor": "#250000", 
-            "backgroundColor": "#641c1a"
+            "backgroundColor": "black"
         },
         "battery": {
             "textColor": "#e1e1e1",

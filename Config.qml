@@ -151,6 +151,9 @@ Singleton {
         "volumeBarBorderColor": '#0a0e30',
         "trackTitleFontSize": 14,
         "artistFontSize": 32,
+        "recordOuterRotationDuration": 5000,
+        "recordMiddleRotationDuration": 4000,
+        "recordInnerRotationDuration": 3000,
         "trackControlTextColor": "#e1e1e1",
         "trackControlTextSize": 18,
     }

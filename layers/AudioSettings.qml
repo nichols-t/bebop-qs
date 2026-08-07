@@ -7,6 +7,7 @@ import Quickshell.Wayland
 import Quickshell.Widgets
 import QtQuick
 import QtQuick.Layouts
+import QtQuick.Effects
 import QtQuick.Controls
 import "../"
 
@@ -86,7 +87,6 @@ Scope {
             // https://quickshell.org/docs/v0.3.0/types/Quickshell.Services.Mpris/MprisPlayer/
             property var mpris: Mpris.players.values[0] || null
 
-
             Keys.onPressed: event => {
                 if (event.key === Qt.Key_Escape) {
                     event.accepted = true;
@@ -107,6 +107,52 @@ Scope {
                 height: cols.width * 0.6
                 implicitWidth: cols.width
                 color: Config.audioSettings.accentColor
+
+                // TODO cooler to do a front-on view of a player and need better svg thing here
+                Image {
+                    id: outerRecord
+                    anchors.centerIn: parent
+                    fillMode: Image.PreserveAspectFit
+                    source: Qt.resolvedUrl("../assets/record-outer.svg")
+                    visible: true
+                    sourceSize.width: parent.width * 0.4
+                    RotationAnimation on rotation {
+                        loops: Animation.Infinite
+                        from: 0
+                        to: 360
+                        duration: Config.audioSettings.recordOuterRotationDuration
+                    }
+                }
+
+                Image {
+                    id: middleRecord
+                    anchors.centerIn: parent
+                    fillMode: Image.PreserveAspectFit
+                    source: Qt.resolvedUrl("../assets/record-middle.svg")
+                    visible: true
+                    sourceSize.width: parent.width * 0.18
+                    RotationAnimation on rotation {
+                        loops: Animation.Infinite
+                        from: 360
+                        to: 0
+                        duration: Config.audioSettings.recordMiddleRotationDuration
+                    }
+                }
+
+                Image {
+                    id: innerRecord
+                    anchors.centerIn: parent
+                    fillMode: Image.PreserveAspectFit
+                    source: Qt.resolvedUrl("../assets/record-inner.svg")
+                    visible: true
+                    sourceSize.width: parent.width * 0.1
+                    RotationAnimation on rotation {
+                        loops: Animation.Infinite
+                        from: 0
+                        to: 360
+                        duration: Config.audioSettings.recordInnerRotationDuration
+                    }
+                }
 
                 Text {
                     text: cols.mpris?.trackTitle || ''
@@ -150,7 +196,9 @@ Scope {
                     }
 
                     Behavior on width {
-                        NumberAnimation { duration: 100 }
+                        NumberAnimation {
+                            duration: 100
+                        }
                     }
                 }
             }

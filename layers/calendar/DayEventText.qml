@@ -15,7 +15,7 @@ Text {
     horizontalAlignment: Qt.AlignHCenter
     Layout.alignment: Qt.AlignCenter
     font.family: Config.fontTypewriter.font.family
-    font.pixelSize: root.height / 54
+    font.pointSize: root.height / 54
     wrapMode: Text.WrapAnywhere
     textFormat: Text.RichText
     rotation: {

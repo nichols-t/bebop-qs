@@ -69,11 +69,8 @@ WrapperRectangle {
                         return 'AC'
                     }
                 }
-                font {
-                    family: Config.fontBlocky.font.family
-                    pixelSize: Config.taskbar.fontSize
-                    bold: false
-                }
+                font.family: Config.fontBlocky.font.family
+                font.pointSize: Config.taskbar.fontSize
                 verticalAlignment: Qt.AlignVCenter
                 horizontalAlignment: Qt.AlignHCenter
                 // TODO why is this extra margin needed?

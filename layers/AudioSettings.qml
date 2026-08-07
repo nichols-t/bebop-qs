@@ -162,7 +162,7 @@ Scope {
                     anchors.top: parent.top
                     anchors.topMargin: displayRect.height * 0.1
                     font.family: Config.fontTypewriter.font.family
-                    font.pointSize: Config.audioSettings.trackTitleFontSize
+                    font.pointSize: Config.audioSettings.trackTitleTextSize
                 }
 
                 Text {
@@ -173,7 +173,7 @@ Scope {
                     anchors.verticalCenter: parent.verticalCenter
                     anchors.left: parent.left
                     font.family: Config.fontBlocky.font.family
-                    font.pointSize: Config.audioSettings.artistFontSize
+                    font.pointSize: Config.audioSettings.artistTextSize
                 }
 
                 Rectangle {

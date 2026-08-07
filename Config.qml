@@ -40,18 +40,23 @@ Singleton {
     }
 
     readonly property var powerMenu: {
-        "menuTitleText": "Power Menu #1"
+        "menuTitleText": "Power Menu #1",
+        "menuTitleTextSize": 45,
+        "optionTextSize": 75,
+        "goodbyeText": "SEE YOU SPACE COWBOY... ",
+        "goodbyeTextSize": 40
     }
 
     readonly property var lockScreen: {
         "dateTextColor": "#e1e1e1",
         "passwordTextColor": "black",
+        "passwordTextSize": 16,
         "accentColor": "#a21e1d"
     }
 
     readonly property var appLauncher: {
-        "searchTextSize": 48,
-        "appListTextSize": 20,
+        "searchTextSize": 36,
+        "appListTextSize": 14,
         "textInputColor": "black",
         "backgroundColor": "#20236d",
         "backgroundTextMinSize": 16,
@@ -67,7 +72,8 @@ Singleton {
         "backgroundColorDayOutOfRange": "#d2d6d3",
         // Background color for a Day, selected at random from this list
         "backgroundColorsDays": ["#3954f0", "#d7dbf8", "#fefefe", "#b1bdf8", "#a4aef8"],
-        "fontSizeDays": 22,
+        "daysTextSize": 16,
+        "eventsTextSize": 16,
         // Probability that a given Day's label will be italicized
         "fontDaysItalicThreshold": 0.5,
         "dayTextXOffsetRange": 10,
@@ -83,19 +89,22 @@ Singleton {
         "applicationTextColor": "#e1e1e1",
         "summaryTextColor": "#e1e1e1",
         "lineColor": "#fabb3f",
-        "accentColor": "#641c1a"
+        "accentColor": "#641c1a",
+        "headerTextSize": 12,
+        "bodyTextSize": 12,
     }
 
     readonly property var systemInfo: {
         "backgroundColor": "black",
         "accentColor": "#226499",
-        "textColor": "#fabb3f"
+        "textColor": "#fabb3f",
+        "detailsTextSize": 18
     }
 
     readonly property var taskbar: {
         "taskbarHeight": 30,
         "backgroundColor": "black",
-        "fontSize": 18,
+        "fontSize": 13,
         "clock": {
             "textColor": "#e1e1e1",
             "backgroundColor": "black"
@@ -129,7 +138,7 @@ Singleton {
             "backgroundColorInactive": "#641c1a",
             "backgroundColorWithWindows": "#a21e1d",
             "borderColor": "black",
-            "fontSize": 16
+            "fontSize": 12
         }
     }
 
@@ -149,8 +158,8 @@ Singleton {
         "accentColor": "#4f65ef",
         "volumeBarColor": '#222d71',
         "volumeBarBorderColor": '#0a0e30',
-        "trackTitleFontSize": 14,
-        "artistFontSize": 32,
+        "trackTitleTextSize": 14,
+        "artistTextSize": 32,
         "recordOuterRotationDuration": 5000,
         "recordMiddleRotationDuration": 4000,
         "recordInnerRotationDuration": 3000,

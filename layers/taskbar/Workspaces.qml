@@ -93,7 +93,7 @@ Rectangle {
                             anchors.verticalCenterOffset: area.isActive ? -2 : 0
                             font.family: area.isActive ? Config.fontBlocky.font.family : Config.fontTypewriter.font.family
                             font.italic: wsButton.isHovered
-                            font.pixelSize: Config.taskbar.workspaces.fontSize
+                            font.pointSize: Config.taskbar.workspaces.fontSize
 
                             color: {
                                 return Config.taskbar.workspaces.textColorWithWindows;

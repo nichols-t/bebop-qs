@@ -5,12 +5,13 @@ import "../.."
 Text {
     required property real maxHeight
     required property real maxWidth
+    required property real maxFontSize
     visible: !!text
     x: Math.random() * maxX
     y: Math.random() * randomTextContainer.height
     font.family: Config.fontBlocky.font.family
     // TODO bias the random so that fonts tend smaller when there are more entries
-    font.pixelSize: Math.random() * maxFontSize
+    font.pointSize: Math.random() * maxFontSize
     font.italic: Math.random() > 0.5
     font.bold: Math.random() > 0.5
 }

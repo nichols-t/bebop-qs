@@ -17,14 +17,12 @@ Rectangle {
         anchors.bottom: parent.bottom
         anchors.right: parent.right
         visible: false
-        font {
-            family: Config.fontSerif.font.family
-            pixelSize: 50
-            italic: true
-            bold: true
-        }
+        font.family: Config.fontSerif.font.family
+        font.pointSize: Config.powerMenu.goodbyeTextSize
+        font.italic: true
+        font.bold: true
         color: Config.colors.menuItemSelected
-        text: "SEE YOU SPACE COWBOY... "
+        text: Config.powerMenu.goodbyeText
     }
 
     MultiEffect {

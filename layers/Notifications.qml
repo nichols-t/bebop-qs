@@ -137,7 +137,7 @@ Scope {
                                             color: Config.notifications.applicationTextColor
                                             font.bold: false
                                             font.family: Config.fontBlocky.font.family
-                                            font.pixelSize: 16
+                                            font.pointSize: Config.notifications.headerTextSize
                                             font.italic: true
                                             elide: Text.ElideRight
                                         }
@@ -149,8 +149,8 @@ Scope {
                                             text: card.modelData.body
                                             color: Config.notifications.summaryTextColor
                                             font.family: Config.fontTypewriter.font.family
-                                            font.pixelSize: 16
-                                            minimumPixelSize: 12
+                                            font.pointSize: Config.notifications.bodyTextSize
+                                            minimumPixelSize: Config.notifications.bodyTextSize
                                             // Cut off text (nicely, with elide) so that we
                                             // don't inadvertently run into issues with the fancy lines
                                             elide: Text.ElideRight

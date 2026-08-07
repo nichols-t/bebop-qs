@@ -157,7 +157,7 @@ Scope {
 
                     font {
                         family: Config.fontTypewriter.font.family
-                        pixelSize: 60
+                        pointSize: Config.powerMenu.menuTitleTextSize
                     }
                     y: btnLock.yOffset - 100
                     x: btnLock.xOffset - 100
@@ -276,7 +276,7 @@ Scope {
 
                 font {
                     family: Config.fontTypewriter.font.family
-                    pixelSize: 100
+                    pointSize: Config.powerMenu.optionTextSize
                 }
                 visible: false
 

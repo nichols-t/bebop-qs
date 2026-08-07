@@ -89,7 +89,7 @@ Rectangle {
             wrapMode: Text.WrapAnywhere
             text: self.text
             color: "black"
-            font.pixelSize: 20
+            font.pixelSize: root.movingTextSize
             font.family: Config.fontTypewriter.font.family
             width: font.pixelSize
             anchors.centerIn: parent

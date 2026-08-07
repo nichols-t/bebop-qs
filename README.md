@@ -12,8 +12,6 @@ A Cowboy Bebop title sequence inspired Quickshell.
 
 ## TODOs
 - **[BUG] Sub-menu IDs**: Check if I'm still opening any windows by implicitly relying on the ID. I think I fixed this, but need to check.
-- **[BUG] Prefer Point Size** for fonts that are defined via static pixel sizing
-- **[DESIGN] Rule of 3**: Check how often I use design elements to see if I can increase cohesiveness
 - **Taskbar**:
     - **[FEATURE] Bluetooth indicator**
     - **[BUG] Properly center/margin items for all possible states**
@@ -29,8 +27,11 @@ A Cowboy Bebop title sequence inspired Quickshell.
     - **[ERGONOMICS] Config blur layers** so things are less magic-numbery
     - **[OPTIMIZATION] Loaders**: Use loaders to make sure ongoing resource usage is minimized
 - **[FEATURE] Audio Control**: Create menu for toggling of audio settings
+    - Started, but needs some work on controls, etc and SVGs
 - **[FEATURE] Network Control**: Create a control screen for network status, Wi-Fi etc.
+    - Started, but no controls yet
 - **[FEATURE] Bluetooth Control**: Create a control screen for bluetooth pairing/dc/etc.
+    - Not started
 - **[FEATURE] Lock Screen**: Add support for fingerprint login via PAM.
     - see https://github.com/end-4/dots-hyprland/pull/2308/changes, but this is slop so who knows
 - **[ERGONOMICS] Theme Control**: A menu for editing theme colors, maybe

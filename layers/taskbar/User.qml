@@ -19,7 +19,7 @@ WrapperMouseArea {
                 id: text
                 text: SysInfo.user.name
                 font.family: Config.fontBlocky.font.family
-                font.pixelSize: Config.taskbar.fontSize
+                font.pointSize: Config.taskbar.fontSize
                 font.bold: false
                 anchors.verticalCenter: parent.verticalCenter
                 anchors.right: parent.right

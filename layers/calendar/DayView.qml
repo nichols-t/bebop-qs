@@ -53,7 +53,7 @@ Scope {
                 Layout.alignment: Qt.AlignHCenter | Qt.AlignTop
                 Layout.topMargin: root.height / 18
                 font.family: Config.fontBlocky.font.family
-                font.pixelSize: root.height / 18
+                font.pointSize: root.height / 18
                 text: date ? Qt.formatDateTime(date, 'dddd, MMMM dd yyyy') : ''
             }
             Repeater {

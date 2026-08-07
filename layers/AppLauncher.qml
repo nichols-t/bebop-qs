@@ -120,6 +120,7 @@ Scope {
                         Repeater {
                             model: inputHandler.candidateApps
                             Item {
+                                id: item
                                 required property var modelData
                                 property real maxX: randomTextContainer.width * 0.75
                                 property int maxFontSize: {
@@ -132,21 +133,25 @@ Scope {
                                     maxHeight: randomTextContainer.height
                                     maxWidth: maxX
                                     text: modelData.categories.join(', ')
+                                    maxFontSize: item.maxFontSize
                                 }
                                 LayerParts.DesktopEntryBackgroundText {
                                     maxHeight: randomTextContainer.height
                                     maxWidth: maxX
                                     text: modelData.genericName
+                                    maxFontSize: item.maxFontSize
                                 }
                                 LayerParts.DesktopEntryBackgroundText {
                                     maxHeight: randomTextContainer.height
                                     maxWidth: maxX
                                     text: modelData.keywords.join(', ')
+                                    maxFontSize: item.maxFontSize
                                 }
                                 LayerParts.DesktopEntryBackgroundText {
                                     maxHeight: randomTextContainer.height
                                     maxWidth: maxX
                                     text: modelData.comment
+                                    maxFontSize: item.maxFontSize
                                 }
                             }
                         }
@@ -181,7 +186,7 @@ Scope {
                                 horizontalAlignment: Text.AlignRight
                                 text: rect.modelData.name
                                 font.family: Config.fontSerif.font.family
-                                font.pixelSize: Config.appLauncher.appListTextSize
+                                font.pointSize: Config.appLauncher.appListTextSize
                                 font.bold: isSelected
                                 font.italic: isSelected
                                 font.underline: isSelected

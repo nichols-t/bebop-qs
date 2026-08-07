@@ -13,7 +13,7 @@ TextField {
     focus: true
     verticalAlignment: Text.AlignVCenter
     color: Config.appLauncher.textInputColor
-    font.pixelSize: Config.appLauncher.searchTextSize
+    font.pointSize: Config.appLauncher.searchTextSize
     font.bold: false; //!!text
     font.family: Config.fontBlocky.font.family
     cursorDelegate: Item {}

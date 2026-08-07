@@ -149,7 +149,7 @@ Scope {
                         // don't bother with that and just control visibility explicitly
                         visible: passwordBox.focus && passwordBox.text.length > 0
                     }
-                    font.pixelSize: 24
+                    font.pointSize: Config.lockScreen.passwordTextSize
                     background: Rectangle {
                         color: "transparent"
                         implicitWidth: parent.font.pixelSize * 10

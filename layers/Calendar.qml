@@ -166,7 +166,7 @@ Scope {
                         }
                         font.letterSpacing: 2
                         font.family: Config.fontBlocky.font.family
-                        font.pixelSize: Config.calendar.fontSizeDays
+                        font.pointSize: Config.calendar.daysTextSize
                         font.italic: shouldShow ? Math.random() > Config.calendar.fontDaysItalicThreshold : false
                         x: {
                             if (shouldShow) {
@@ -220,7 +220,7 @@ Scope {
 
                                 font.bold: today
                                 font.family: Math.random() > 0.5 ? Config.fontTypewriter.font.family : Config.fontSerif.font.family
-                                font.pixelSize: Config.calendar.fontSizeDays - 2 // TODO theme
+                                font.pointSize: Config.calendar.eventsTextSize - 2 // TODO theme
                                 font.italic: shouldShow ? Math.random() > Config.calendar.fontDaysItalicThreshold : false
                                 rotation: {
                                     if (shouldShow) {

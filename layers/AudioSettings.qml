@@ -173,7 +173,6 @@ Scope {
                 implicitWidth: cols.width
                 color: Config.audioSettings.accentColor
 
-                // TODO button group maybe
                 RowLayout {
                     width: parent.width
                     spacing: cols.itemsMargin

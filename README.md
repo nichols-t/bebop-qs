@@ -14,7 +14,6 @@ A Cowboy Bebop title sequence inspired Quickshell.
 - **[BUG] Sub-menu IDs**: Check if I'm still opening any windows by implicitly relying on the ID. I think I fixed this, but need to check.
 - **Taskbar**:
     - **[FEATURE] Bluetooth indicator**
-    - **[BUG] Properly center/margin items for all possible states**
 - **[ERGONOMICS] SysInfo**: Make "fallback" system for modules that allows `Config` to specify a list of how things should be read
 - **[FEATURE] SystemInfo Screen**: Add details section for power and network
 - **[ERGONOMICS] Shutdown Menu**:

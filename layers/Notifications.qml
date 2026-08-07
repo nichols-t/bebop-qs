@@ -35,8 +35,6 @@ Scope {
         }
         screen: modelData
         margins {
-            // TODO: set to 0 to render above taskbar, but decide if that's actually
-            // what I want
             top: Config.taskbar.taskbarHeight + 2
             right: 0
         }

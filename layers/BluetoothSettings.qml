@@ -37,7 +37,7 @@ Scope {
             right: true
         }
 
-        margins.right: root.shouldShow ? 0 : -width;
+        margins.right: root.shouldShow ? 0 : -width
 
         WlrLayershell.exclusionMode: ExclusionMode.Ignore
         WlrLayershell.keyboardFocus: WlrKeyboardFocus.OnDemand
@@ -51,7 +51,7 @@ Scope {
                 ScriptAction {
                     script: {
                         if (panel.margins.right < 0) {
-                            root.close()
+                            root.close();
                         }
                     }
                 }
@@ -67,42 +67,59 @@ Scope {
             panel.margins.right = -panel.width;
         }
 
+        ColumnLayout {
+            width: panel.width
             Text {
                 id: titleText
                 text: "BLUETOOTH"
                 color: "white"
-                rotation: 90
-                anchors.verticalCenter: parent.verticalCenter
-                anchors.right: parent.right
-                anchors.rightMargin: -width / 3
-                // TODO why I need this margin?
                 font.family: Config.fontBlocky.font.family
-                font.pointSize: 60
-            }
-        
-
-        ColumnLayout {
-
-            Text {
-                text: "BLUETOOTH STUFF"
-                color: "white"
-            }
-
-            Text {
-                text: 'Blue tooth devices'
-                color: 'white'
+                Layout.fillWidth: true
+                width: panel.width
+                horizontalAlignment: Text.AlignHCenter
+                font.pointSize: Config.networkSettings.menuTitleTextSize
             }
 
             Repeater {
                 model: Bluetooth.devices
 
-                Text {
-                    // There is bunch of other stuff here, see
-                    // https://quickshell.org/docs/v0.3.0/types/Quickshell.Bluetooth/BluetoothDevice/
+                WrapperMouseArea {
                     required property var modelData
-                    text: modelData.name
-                    color: 'white'
+                    Layout.alignment: Qt.AlignCenter
+                    cursorShape: Qt.PointingHandCursor
+                    // TODO: Not working bc laptop has adapter issue - figure out
+                    // how to have bt adapter turned on
+                    onClicked: {
+                        if (modelData.paired) {
+                            modelData.connected = !modelData.connected;
+                        }
+                    }
+
+                    WrapperRectangle {
+                        color: Config.bluetoothSettings.accentColor
+                        margin: 10
+                        implicitWidth: panel.width * 0.9
+
+                        ColumnLayout {
+                            // There is bunch of other stuff here, see
+                            // https://quickshell.org/docs/v0.3.0/types/Quickshell.Bluetooth/BluetoothDevice/
+
+                            Text {
+                                text: modelData.name
+                                color: Config.bluetoothSettings.deviceTextColor
+                                font.family: Config.fontBlocky.font.family
+                                font.pointSize: Config.bluetoothSettings.deviceTextSize
+                            }
+                            Text {
+                                text: modelData.connected ? 'CONNECTED' : 'DISCONNECTED'
+                                color: Config.bluetoothSettings.deviceTextColor
+                                font.family: Config.fontBlocky.font.family
+                                font.pointSize: Config.bluetoothSettings.deviceTextSize
+                            }
+                        }
+                    }
                 }
+
             }
 
             focus: true

@@ -151,7 +151,8 @@ Singleton {
     readonly property var networkSettings: {
         "accentColor": "#4f65ef",
         "deviceTextColor": "#e1e1e1",
-        "deviceTextSize": 18
+        "deviceTextSize": 18,
+        "menuTitleTextSize": 45
     }
 
     readonly property var audioSettings: {
@@ -165,5 +166,11 @@ Singleton {
         "recordInnerRotationDuration": 3000,
         "trackControlTextColor": "#e1e1e1",
         "trackControlTextSize": 18,
+    }
+
+    readonly property var bluetoothSettings: {
+        "accentColor": "#fabb3f",
+        "deviceTextColor": "black",
+        "deviceTextSize": 18,
     }
 }

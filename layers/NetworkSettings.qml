@@ -37,7 +37,7 @@ Scope {
             right: true
         }
 
-        margins.right: root.shouldShow ? 0 : -width;
+        margins.right: root.shouldShow ? 0 : -width
 
         WlrLayershell.exclusionMode: ExclusionMode.Ignore
         WlrLayershell.keyboardFocus: WlrKeyboardFocus.OnDemand
@@ -51,7 +51,7 @@ Scope {
                 ScriptAction {
                     script: {
                         if (panel.margins.right < 0) {
-                            root.close()
+                            root.close();
                         }
                     }
                 }
@@ -67,23 +67,20 @@ Scope {
             panel.margins.right = -panel.width;
         }
 
-
-        Text {
-            id: titleText
-            text: "NETWORK"
-            color: "white"
-            rotation: 90
-            anchors.verticalCenter: parent.verticalCenter
-            anchors.right: parent.right
-            anchors.rightMargin: -width / 3
-            font.family: Config.fontBlocky.font.family
-            font.pointSize: 60
-        }
-
         ColumnLayout {
             anchors.top: parent.top
             anchors.topMargin: Config.networkSettings.deviceTextSize
             // TODO maybe repeat with empty cells?
+            Text {
+                id: titleText
+                text: "NETWORK"
+                color: "white"
+                font.family: Config.fontBlocky.font.family
+                Layout.fillWidth: true
+                width: panel.width
+                horizontalAlignment: Text.AlignHCenter
+                font.pointSize: Config.networkSettings.menuTitleTextSize
+            }
             Repeater {
                 model: Networking.devices
 
@@ -94,13 +91,15 @@ Scope {
                     height: text.height + 2 * text.font.pointSize
                     width: panel.width - 2 * text.font.pointSize
                     Text {
+                        anchors.centerIn:parent
                         id: text
                         text: {
-                            const netType = modelData.type === DeviceType.Wifi ? 'WiFi' : 'Ethernet'
-                            return `
-                        Device Name: ${modelData.name} (${netType})
-                        Is Connected: ${modelData.connected}
-                        `
+                            const netType = modelData.type === DeviceType.Wifi ? 'WiFi' : 'Ethernet';
+                            let state = modelData.connected ? 'Connected' : 'Disconnected';
+                            if (modelData.connected && modelData.networks.values.length > 0) {
+                                state = modelData.networks.values[0].name;
+                            }
+                            return `${netType}: ${state}`;
                         }
                         color: Config.networkSettings.deviceTextColor
                         font.pointSize: Config.networkSettings.deviceTextSize

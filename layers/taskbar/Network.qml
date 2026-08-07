@@ -5,16 +5,13 @@ import Quickshell.Widgets
 import ".."
 import "../.."
 
-// TODO some kind of image background or something?
-// TODO not entirely happy with the text here
 WrapperRectangle {
     color: Config.taskbar.battery.backgroundColor
-    // TODO singleton it
     Item {
         anchors.centerIn: parent
         implicitHeight: Config.taskbar.taskbarHeight
-        implicitWidth:1.25 * icon.width // TODO should be using a wrapper rect here, I think
-    
+        implicitWidth:1.25 * icon.width
+
         Image {
             anchors.centerIn: parent
             id: icon
@@ -26,14 +23,19 @@ WrapperRectangle {
                 }
 
                 // TODO should we check if it is active
-                const networkingType = Networking.devices.values[0].type;
-                switch (networkingType) {
-                    case DeviceType.Wifi:
-                        return Qt.resolvedUrl("../../assets/network-none-icon.svg");
-                    case DeviceType.Wired:
-                        return Qt.resolvedUrl("../../assets/network-wired-icon.svg");
-                    case DeviceType.None:
-                        return Qt.resolvedUrl("../../assets/network-none-icon.svg");
+                const connectedDevices = Networking.devices.values.filter((dev) => dev.connected);
+                // In theory if Networking.connectivity said we're up, we should have an entry here,
+                // but just in case guard it
+                if (connectedDevices.length > 0) {
+                    const networkingType = connectedDevices[0].type;
+                    switch (networkingType) {
+                        case DeviceType.Wifi:
+                            return Qt.resolvedUrl("../../assets/network-none-icon.svg");
+                        case DeviceType.Wired:
+                            return Qt.resolvedUrl("../../assets/network-wired-icon.svg");
+                        case DeviceType.None:
+                            return Qt.resolvedUrl("../../assets/network-none-icon.svg");
+                    }
                 }
                 
             }

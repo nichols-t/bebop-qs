@@ -30,7 +30,7 @@ WrapperRectangle {
                     const networkingType = connectedDevices[0].type;
                     switch (networkingType) {
                         case DeviceType.Wifi:
-                            return Qt.resolvedUrl("../../assets/network-none-icon.svg");
+                            return Qt.resolvedUrl("../../assets/network-wifi-icon.svg");
                         case DeviceType.Wired:
                             return Qt.resolvedUrl("../../assets/network-wired-icon.svg");
                         case DeviceType.None:

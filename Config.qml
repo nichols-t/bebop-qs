@@ -145,7 +145,10 @@ Singleton {
     readonly property var settings: {
         "backgroundColor": "black",
         "menuTextColor": "#e1e1e1",
-        "menuTextSize": 32
+        "menuTextSize": 32,
+        "menuTitleTextColor": "#e1e1e1",
+        "menuTitleTextSize": 60,
+        "nixConfigCmd": ["code", "/etc/nixos"]
     }
 
     readonly property var networkSettings: {

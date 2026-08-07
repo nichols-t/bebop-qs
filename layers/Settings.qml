@@ -5,6 +5,7 @@ import Quickshell.Widgets
 import QtQuick
 import QtQuick.Layouts
 import QtQuick.Controls
+import Quickshell.Hyprland
 import "../"
 import "./settings"
 
@@ -48,7 +49,7 @@ Scope {
         margins.right: root.shouldShow ? 0 : -width;
 
         WlrLayershell.exclusionMode: ExclusionMode.Ignore
-        WlrLayershell.keyboardFocus: WlrKeyboardFocus.OnDemand
+        WlrLayershell.keyboardFocus: WlrKeyboardFocus.Exclusive
 
         implicitWidth: screen.width * 0.3
         Behavior on margins.right {
@@ -75,13 +76,21 @@ Scope {
             panel.margins.right = -panel.width;
         }
 
+        HyprlandFocusGrab {
+            windows: [cols]
+        }
+
         ColumnLayout {
             id: cols
             anchors.top: parent.top
             anchors.topMargin: panel.height * 0.1
 
+            SettingsMenuTitleText {
+                text: "SETTINGS"
+            }
+
+            Item {}
             // TODO heading and I am questioning my font choices
-            // TODO: Font is too wide on laptop
             SettingsMenuButton {
                 text: "SYSTEM INFO"
 
@@ -134,7 +143,7 @@ Scope {
             Process {
                 id: nixCfgsProcess
                 running: false
-                command: ["code", "/etc/nixos"]
+                command: Config.settings.nixConfigCmd
             }
 
             SettingsMenuButton {

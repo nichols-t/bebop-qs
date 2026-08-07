@@ -10,6 +10,7 @@ import QtQuick.Layouts
 import QtQuick.Effects
 import QtQuick.Controls
 import "../"
+import "./settings" as LayerParts
 
 Scope {
     id: root
@@ -94,6 +95,11 @@ Scope {
                 }
             }
 
+            LayerParts.SettingsMenuTitleText {
+                id: titleText
+                text: "AUDIO"
+            }
+
             // TODO is shuffled icon/text? cols.mpris?.shuffle
             // TODO rate control cols.mpris?.rate ${cols.mpris?.minRate} - ${cols.mpris?.maxRate}
             // TODO loop cols.mpris?.loopSupported
@@ -108,50 +114,8 @@ Scope {
                 implicitWidth: cols.width
                 color: Config.audioSettings.accentColor
 
-                // TODO cooler to do a front-on view of a player and need better svg thing here
-                Image {
-                    id: outerRecord
-                    anchors.centerIn: parent
-                    fillMode: Image.PreserveAspectFit
-                    source: Qt.resolvedUrl("../assets/record-outer.svg")
-                    visible: true
-                    sourceSize.width: parent.width * 0.4
-                    RotationAnimation on rotation {
-                        loops: Animation.Infinite
-                        from: 0
-                        to: 360
-                        duration: Config.audioSettings.recordOuterRotationDuration
-                    }
-                }
-
-                Image {
-                    id: middleRecord
-                    anchors.centerIn: parent
-                    fillMode: Image.PreserveAspectFit
-                    source: Qt.resolvedUrl("../assets/record-middle.svg")
-                    visible: true
-                    sourceSize.width: parent.width * 0.18
-                    RotationAnimation on rotation {
-                        loops: Animation.Infinite
-                        from: 360
-                        to: 0
-                        duration: Config.audioSettings.recordMiddleRotationDuration
-                    }
-                }
-
-                Image {
-                    id: innerRecord
-                    anchors.centerIn: parent
-                    fillMode: Image.PreserveAspectFit
-                    source: Qt.resolvedUrl("../assets/record-inner.svg")
-                    visible: true
-                    sourceSize.width: parent.width * 0.1
-                    RotationAnimation on rotation {
-                        loops: Animation.Infinite
-                        from: 0
-                        to: 360
-                        duration: Config.audioSettings.recordInnerRotationDuration
-                    }
+                LayerParts.AudioSettingsRecordGraphic {
+                    anchors.fill: parent
                 }
 
                 Text {
@@ -287,18 +251,6 @@ Scope {
                     }
                 }
             }
-        }
-
-        Text {
-            id: titleText
-            text: "AUDIO"
-            color: "white"
-            rotation: 0
-            anchors.verticalCenter: parent.verticalCenter
-            anchors.right: parent.right
-            //anchors.rightMargin: -width / 3
-            font.family: Config.fontBlocky.font.family
-            font.pointSize: 60
         }
     }
 }

@@ -102,6 +102,7 @@ Scope {
                     CalendarData.firstDay = firstDay;
                     CalendarData.lastDay = lastDay;
                 }
+                // TODO: Should be its own file!!
                 delegate: Rectangle {
                     id: dayRect
                     width: root.modelData.width / 12

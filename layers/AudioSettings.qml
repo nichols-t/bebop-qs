@@ -44,7 +44,7 @@ Scope {
         margins.right: root.shouldShow ? 0 : -width
 
         WlrLayershell.exclusionMode: ExclusionMode.Ignore
-        WlrLayershell.keyboardFocus: WlrKeyboardFocus.OnDemand
+        WlrLayershell.keyboardFocus: WlrKeyboardFocus.Exclusive
 
         implicitWidth: screen.width * 0.3
         Behavior on margins.right {
@@ -113,11 +113,15 @@ Scope {
                 height: cols.width * 0.6
                 implicitWidth: cols.width
                 color: Config.audioSettings.accentColor
+                clip: true
 
                 LayerParts.AudioSettingsRecordGraphic {
                     anchors.fill: parent
+                    anchors.centerIn: parent
+                    playing: cols.mpris?.isPlaying
                 }
 
+                // TODO animate if it is long?
                 Text {
                     text: cols.mpris?.trackTitle || ''
                     color: "white"
@@ -131,21 +135,41 @@ Scope {
 
                 Text {
                     z: 1
-                    text: cols.mpris?.trackArtist || ''
+                    text: cols.mpris?.trackAlbum || ''
                     color: "black" // TODO theme
-                    rotation: 90
                     anchors.verticalCenter: parent.verticalCenter
+                    anchors.verticalCenterOffset: -parent.height / 4
                     anchors.left: parent.left
+                    anchors.leftMargin: font.pixelSize * 1.5
+                    font.family: Config.fontBlocky.font.family
+                    font.pointSize: Config.audioSettings.artistTextSize
+                    transform: Rotation {
+                        origin.x: 0
+                        origin.y: 0
+                        angle: 90
+                        axis {
+                            x: 0
+                            y: 0
+                            z: 1
+                        }
+                    }
+                }
+
+                Text {
+                    width: parent.width
+                    horizontalAlignment: Text.AlignHCenter
+                    text: cols.mpris?.trackArtist || ''
+                    color: Config.audioSettings.trackControlTextColor // TODO
+                    anchors.bottom: parent.bottom
+                    anchors.bottomMargin: parent.height * 0.05
                     font.family: Config.fontBlocky.font.family
                     font.pointSize: Config.audioSettings.artistTextSize
                 }
 
                 Rectangle {
                     id: volumeRect
-                    radius: 2
-                    border.color: Config.audioSettings.volumeBarBorderColor
                     // TODO: vol bars thinggy?
-                    height: displayRect.height * 0.05
+                    height: displayRect.height * 0.06
                     anchors.bottom: parent.bottom
                     anchors.horizontalCenter: parent.horizontalCenter
                     color: Config.audioSettings.volumeBarColor

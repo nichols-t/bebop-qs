@@ -160,8 +160,7 @@ Singleton {
 
     readonly property var audioSettings: {
         "accentColor": "#4f65ef",
-        "volumeBarColor": '#222d71',
-        "volumeBarBorderColor": '#0a0e30',
+        "volumeBarColor": '#000000',
         "trackTitleTextSize": 14,
         "artistTextSize": 32,
         "recordOuterRotationDuration": 5000,

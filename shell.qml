@@ -67,6 +67,8 @@ Scope {
                 systemInfo: systemInfo
                 settings: settings
                 calendar: calendar
+                audioSettings: audioSettings
+                shutdownMenu: shutdownMenu
             }
             Layers.Calendar {
                 id: calendar

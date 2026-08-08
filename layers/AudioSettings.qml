@@ -10,7 +10,9 @@ import QtQuick.Layouts
 import QtQuick.Effects
 import QtQuick.Controls
 import "../"
-import "./settings" as LayerParts
+import "../utils"
+import "./settings"
+import "./settings/audioSettings"
 
 Scope {
     id: root
@@ -95,7 +97,7 @@ Scope {
                 }
             }
 
-            LayerParts.SettingsMenuTitleText {
+            SettingsMenuTitleText {
                 id: titleText
                 text: "AUDIO"
             }
@@ -115,10 +117,26 @@ Scope {
                 color: Config.audioSettings.accentColor
                 clip: true
 
-                LayerParts.AudioSettingsRecordGraphic {
+                Rectangle {
+                    z: 1
+                    color: Config.audioSettings.accentColor
+                    height: displayRect.height
+                    width: displayRect.height * 0.05
+                    anchors.left: parent.left
+                }
+
+                Rectangle {
+                    z: 1
+                    color: Config.audioSettings.accentColor
+                    height: displayRect.height
+                    width: displayRect.height * 0.05
+                    anchors.right: parent.right
+                }
+
+                AudioSettingsRecordGraphic {
                     anchors.fill: parent
                     anchors.centerIn: parent
-                    playing: cols.mpris?.isPlaying
+                    playing: cols.mpris?.isPlaying || false
                 }
 
                 // TODO animate if it is long?
@@ -133,16 +151,43 @@ Scope {
                     font.pointSize: Config.audioSettings.trackTitleTextSize
                 }
 
+                // Per docs position doesn't really update reactively unless we tell it to
+                Timer {
+                    // only emit the signal when the position is actually changing.
+                    running: cols.mpris?.playbackState == MprisPlaybackState.Playing
+                    // Make sure the position updates at least once per second.
+                    interval: 1000
+                    repeat: true
+                    // emit the positionChanged signal every second.
+                    onTriggered: cols.mpris.positionChanged()
+                }
+                Text {
+                    text: {
+                        const duration = Time.toHH_MM_SS(cols.mpris?.length || 0);
+                        const position = Time.toHH_MM_SS(cols.mpris?.position || 0);
+
+                        return `${position}/${duration}`;
+                    }
+                    color: "white"
+                    visible: cols.mpris?.positionSupported || false
+                    width: displayRect.width
+                    horizontalAlignment: Text.AlignHCenter
+                    anchors.top: parent.top
+                    anchors.topMargin: displayRect.height * 0.2
+                    font.family: Config.fontTypewriter.font.family
+                    font.pointSize: Config.audioSettings.trackTitleTextSize
+                }
+
                 Text {
                     z: 1
-                    text: cols.mpris?.trackAlbum || ''
+                    text: cols.mpris?.identity || ''
                     color: "black" // TODO theme
-                    anchors.verticalCenter: parent.verticalCenter
+                    anchors.top: parent.top
                     anchors.verticalCenterOffset: -parent.height / 4
                     anchors.left: parent.left
                     anchors.leftMargin: font.pixelSize * 1.5
                     font.family: Config.fontBlocky.font.family
-                    font.pointSize: Config.audioSettings.artistTextSize
+                    font.pointSize: Config.audioSettings.playerTextSize
                     transform: Rotation {
                         origin.x: 0
                         origin.y: 0
@@ -170,7 +215,7 @@ Scope {
                     id: volumeRect
                     // TODO: vol bars thinggy?
                     height: displayRect.height * 0.06
-                    anchors.bottom: parent.bottom
+                    anchors.top: parent.top
                     anchors.horizontalCenter: parent.horizontalCenter
                     color: Config.audioSettings.volumeBarColor
                     width: {
@@ -195,84 +240,76 @@ Scope {
                 id: controlRect
                 height: cols.width * 0.1
                 implicitWidth: cols.width
-                color: Config.audioSettings.accentColor
+                color: "black"
 
                 RowLayout {
                     width: parent.width
                     spacing: cols.itemsMargin
 
-                    WrapperMouseArea {
+                    AudioControlButton {
                         onClicked: {
                             if (cols.mpris?.canGoPrevious) {
                                 cols.mpris.previous();
                             }
                         }
-                        cursorShape: Qt.PointingHandCursor
-                        Rectangle {
-                            Layout.alignment: Qt.AlignLeft
-                            implicitHeight: controlRect.height
-                            implicitWidth: controlRect.width * .25
-                            color: "transparent"
-                            Text {
-                                anchors.centerIn: parent
-                                text: "PREV"
-                                color: Config.audioSettings.trackControlTextColor
-                                font.family: Config.fontBlocky.font.family
-                                font.pointSize: Config.audioSettings.trackControlTextSize
-                            }
-                        }
+                        layoutAlignment: Qt.AlignLeft
+                        implicitHeight: controlRect.height
+                        implicitWidth: controlRect.width * .25
+                        enabled: cols.mpris?.canGoPrevious
+                        text: "PREV"
                     }
 
-                    WrapperMouseArea {
+                    AudioControlButton {
                         onClicked: {
                             if (cols.mpris) {
                                 cols.mpris.isPlaying = !cols.mpris.isPlaying;
                             }
                         }
-                        cursorShape: Qt.PointingHandCursor
-                        Rectangle {
-                            Layout.alignment: Qt.AlignCenter
-                            implicitHeight: controlRect.height
-                            implicitWidth: controlRect.width * 0.30
-                            color: "transparent"
-                            Text {
-                                anchors.centerIn: parent
-                                text: {
-                                    if (cols.mpris?.isPlaying) {
-                                        return "PAUSE";
-                                    } else {
-                                        return "PLAY";
-                                    }
-                                }
-                                color: Config.audioSettings.trackControlTextColor
-                                font.family: Config.fontBlocky.font.family
-                                font.pointSize: Config.audioSettings.trackControlTextSize
+                        layoutAlignment: Qt.AlignCenter
+                        implicitHeight: controlRect.height
+                        implicitWidth: controlRect.width * 0.30
+                        text: {
+                            if (cols.mpris?.isPlaying) {
+                                return "PAUSE";
+                            } else {
+                                return "PLAY";
                             }
                         }
                     }
 
-                    WrapperMouseArea {
+                    AudioControlButton {
                         onClicked: {
                             if (cols.mpris?.canGoNext) {
                                 cols.mpris.next();
                             }
                         }
-                        cursorShape: Qt.PointingHandCursor
-                        Rectangle {
-                            Layout.alignment: Qt.AlignRight
-                            implicitHeight: controlRect.height
-                            implicitWidth: controlRect.width * 0.25
-                            color: "transparent"
-                            Text {
-                                anchors.centerIn: parent
-                                text: "NEXT"
-                                color: Config.audioSettings.trackControlTextColor
-                                font.family: Config.fontBlocky.font.family
-                                font.pointSize: Config.audioSettings.trackControlTextSize
-                            }
-                        }
+                        layoutAlignment: Qt.AlignRight
+                        implicitHeight: controlRect.height
+                        implicitWidth: controlRect.width * 0.25
+                        text: "NEXT"
+                        enabled: cols.mpris?.canGoPrevious
                     }
                 }
+            }
+        }
+    }
+
+    component AudioControlButton: WrapperMouseArea {
+        cursorShape: Qt.PointingHandCursor
+        property alias implicitWidth: btnRect.implicitWidth
+        property alias implicitHeight: btnRect.implicitHeight
+        property alias text: btnText.text
+        property var layoutAlignment
+        Rectangle {
+            id: btnRect
+            Layout.alignment: layoutAlignment
+            color: Config.audioSettings.accentColor
+            Text {
+                id: btnText
+                anchors.centerIn: parent
+                color: Config.audioSettings.trackControlTextColor
+                font.family: Config.fontBlocky.font.family
+                font.pointSize: Config.audioSettings.trackControlTextSize
             }
         }
     }

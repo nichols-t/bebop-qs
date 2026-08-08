@@ -8,8 +8,15 @@ import "../.."
 
 WrapperMouseArea {
     id: root
-    //cursorShape: Qt.PointingHandCursor
-    enabled: false
+    cursorShape: Qt.PointingHandCursor
+    enabled: true
+
+    property ShutdownMenu shutdownMenu
+
+    onClicked:  {
+        shutdownMenu.shouldShow = true
+    }
+
     WrapperRectangle {
         color: Config.taskbar.clock.backgroundColor
         Item {

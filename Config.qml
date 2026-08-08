@@ -168,6 +168,7 @@ Singleton {
         "recordInnerRotationDuration": 3000,
         "trackControlTextColor": "#e1e1e1",
         "trackControlTextSize": 18,
+        "playerTextSize": 14
     }
 
     readonly property var bluetoothSettings: {

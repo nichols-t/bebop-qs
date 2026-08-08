@@ -12,6 +12,8 @@ PanelWindow {
     property SystemInfo systemInfo
     property Calendar calendar
     property Settings settings
+    property AudioSettings audioSettings
+    property ShutdownMenu shutdownMenu
 
     color: Config.taskbar.backgroundColor
     anchors {
@@ -28,12 +30,12 @@ PanelWindow {
     RowLayout {
         spacing: 0
         anchors.fill: parent
-        LayerParts.User {}
+        LayerParts.User { shutdownMenu: root.shutdownMenu }
         Item { Layout.fillWidth: true }
         // Debug app menu launcher
         LayerParts.Network {}
         LayerParts.Battery {}
-        LayerParts.Audio {}
+        LayerParts.AudioButton { audioSettings: root.audioSettings }
         LayerParts.Clock { calendar: root.calendar }
         LayerParts.SettingsButton { settings: root.settings }
     }

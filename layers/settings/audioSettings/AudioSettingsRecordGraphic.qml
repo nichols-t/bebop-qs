@@ -1,6 +1,6 @@
 import QtQuick
 import QtQuick.Effects
-import "../.."
+import "../../.."
 
 // Should be same size as its container rect
 Rectangle {
@@ -31,7 +31,7 @@ Rectangle {
             fillMode: Image.PreserveAspectFit
             visible: false
             sourceSize.width: parent.width
-            source: Qt.resolvedUrl("../../assets/record.svg")
+            source: Qt.resolvedUrl("../../../assets/record.svg")
         }
 
         MultiEffect {
@@ -61,11 +61,13 @@ Rectangle {
             origin.y: record.y + record.height / 2
         }
         ]
+        // Starting from rotAngle lets it restart from the same angle after it's paused.
+        // When we use an absolute 0, it resets when you unpause which looks jarring
         RotationAnimation on rotAngle {
             running: root.playing
             loops: Animation.Infinite
-            from: 360
-            to: 0
+            from: rotAngle
+            to: rotAngle - 360
             duration: Config.audioSettings.recordOuterRotationDuration
         }
     }
@@ -77,7 +79,9 @@ Rectangle {
         anchors.centerIn: parent
     }
     Rectangle {
+        id: playerFrontRect
         color: "black"
+        anchors.horizontalCenter: parent.horizontalCenter
         width: root.width
         height: root.height * 0.3
         anchors.bottom: parent.bottom
@@ -102,7 +106,8 @@ Rectangle {
     Rectangle {
         id: r
         color: "black"
-        width: root.width * 1.1
+        // TODO calc based off of 
+        width: root.width * 1
         height: root.height * 0.9
         anchors.centerIn: parent
         anchors.verticalCenterOffset: -0.035 * height + -record.height * Math.cos(xAngle)

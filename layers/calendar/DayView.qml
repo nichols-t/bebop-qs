@@ -53,7 +53,8 @@ Scope {
                 Layout.alignment: Qt.AlignHCenter | Qt.AlignTop
                 Layout.topMargin: root.height / 18
                 font.family: Config.fontBlocky.font.family
-                font.pointSize: root.height / 18
+                // It warns when pointSize is 0
+                font.pointSize: Math.max(1, root.height / 18)
                 text: date ? Qt.formatDateTime(date, 'dddd, MMMM dd yyyy') : ''
             }
             Repeater {

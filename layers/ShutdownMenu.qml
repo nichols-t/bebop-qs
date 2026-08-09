@@ -94,9 +94,6 @@ Scope {
                 id: itemsContainer
                 focus: true
                 anchors.centerIn: parent
-                // Could use these to mess with stuff a little more flexibly?
-                // anchors.horizontalCenterOffset: 50
-                // anchors.verticalCenterOffset: 10
                 property var selectedBtnItem: btnLock
                 Keys.onPressed: event => {
                     // close: Escape
@@ -178,6 +175,7 @@ Scope {
                     xOffset: -400
                     shouldQuit: false
                     process: logoutProcess
+                    background: backgroundLock
                 }
                 LogoutClickableButtonItem {
                     id: btnReboot
@@ -185,6 +183,7 @@ Scope {
                     yOffset: 0
                     xOffset: 400
                     process: rebootProcess
+                    background: backgroundReboot
                 }
                 LogoutClickableButtonItem {
                     id: btnShutdown
@@ -192,27 +191,45 @@ Scope {
                     yOffset: 400
                     xOffset: -400
                     process: shutdownProcess
+                    background: backgroundShutdown
                 }
             }
 
-            // We load each background, but they're only displayed when the text
-            // actually matches
-            ShutdownMenuBackgroundLock {
-                id: lockButton
-                text: itemsContainer.selectedBtnItem.text
-                screen: root.modelData
-                textColor: Config.powerMenu.lockColor
+            Loader {
+                id: backgroundLoader
+                sourceComponent: itemsContainer.selectedBtnItem?.background || null
+                asynchronous: true
+                anchors.fill: parent
+                // This can be used if partial loading needs to be avoided
+                //visible: status == Loader.Ready
             }
-            ShutdownMenuBackgroundReboot {
-                text: itemsContainer.selectedBtnItem.text
-                screen: root.modelData
-                textColor: Config.powerMenu.rebootColor
+
+            Component {
+                id: backgroundLock
+                ShutdownMenuBackgroundLock {
+                    //id: lockButton
+                    text: itemsContainer.selectedBtnItem.text
+                    screen: root.modelData
+                    textColor: Config.powerMenu.lockColor
+                }
             }
-            ShutdownMenuBackgroundShutdown {
-                text: itemsContainer.selectedBtnItem.text
-                screen: root.modelData
-                textColor: Config.powerMenu.shutdownColor
+            Component {
+                id: backgroundReboot
+                ShutdownMenuBackgroundReboot {
+                    text: itemsContainer.selectedBtnItem.text
+                    screen: root.modelData
+                    textColor: Config.powerMenu.rebootColor
+                }
             }
+            Component {
+                id: backgroundShutdown
+                ShutdownMenuBackgroundShutdown {
+                    text: itemsContainer.selectedBtnItem.text
+                    screen: root.modelData
+                    textColor: Config.powerMenu.shutdownColor
+                }
+            }
+
         }
     }
 
@@ -222,6 +239,7 @@ Scope {
         required property int yOffset
         required property int xOffset
         required property var process
+        required property Component background
         property bool shouldQuit: true
         property bool selected: {
             return itemsContainer.selectedBtnItem === myself;

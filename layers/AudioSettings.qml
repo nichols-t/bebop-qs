@@ -109,66 +109,86 @@ Scope {
                 text: "AUDIO"
             }
 
-            Rectangle {
-                id: displayRect
+            Loader {
+                id: audioInfoLoader
+                sourceComponent: panel.visible ? audioInfo : null
+                asynchronous: true
                 height: cols.width * 0.6
-                implicitWidth: cols.width
-                color: Config.audioSettings.accentColor
-                clip: true
-
-                AudioSettingsRecordGraphic {
-                    anchors.fill: parent
-                    anchors.centerIn: parent
-                    playing: cols.mpris?.isPlaying || false
-                }
-
-                AudioSettingsTrackTitleText {
-                    text: cols.mpris?.trackTitle || ''
-                    width: displayRect.width
-                    horizontalAlignment: Text.AlignHCenter
-                    anchors.top: parent.top
-                    anchors.topMargin: displayRect.height * 0.1
-                }
-
-                AudioSettingsPositionDurationText {
-                    player: cols.mpris
-                    anchors.top: parent.top
-                    anchors.topMargin: displayRect.height * 0.2
-                    textWidth: displayRect.width
-                }
-
-                AudioSettingsApplicationText {
-                    z: 1
-                    text: cols.mpris?.identity || ''
-                    anchors.top: parent.top
-                    anchors.topMargin: font.pixelSize * 0.2
-                    anchors.left: parent.left
-                    anchors.leftMargin: font.pixelSize * 1.5
-                }
-
-                AudioSettingsTrackArtistText {
-                    z: 1
-                    text: cols.mpris?.trackArtist || ''
-                    width: parent.width
-                    horizontalAlignment: Text.AlignHCenter
-                    anchors.bottom: parent.bottom
-                    anchors.bottomMargin: parent.height * 0.02
-                }
-
-                AudioSettingsVolumeIndicator {
-                    container: displayRect
-                    width: displayRect.width
-                    maxHeight: container.height * 0.22
-                    anchors.bottom: displayRect.bottom
-                    anchors.horizontalCenter: displayRect.horizontalCenter
-                    sink: cols.sink
-                }
+                // This can be used if partial loading needs to be avoided
+                //visible: status == Loader.Ready
             }
 
-            AudioSettingsTrackControl {
-                player: cols.mpris
-                implicitHeight: cols.width * 0.1
-                implicitWidth: cols.width
+            Component {
+                id: audioInfo
+                Rectangle {
+                    id: displayRect
+                    implicitWidth: cols.width
+                    color: Config.audioSettings.accentColor
+                    clip: true
+
+                    AudioSettingsRecordGraphic {
+                        anchors.fill: parent
+                        anchors.centerIn: parent
+                        playing: cols.mpris?.isPlaying || false
+                    }
+
+                    AudioSettingsTrackTitleText {
+                        text: cols.mpris?.trackTitle || ''
+                        width: displayRect.width
+                        horizontalAlignment: Text.AlignHCenter
+                        anchors.top: parent.top
+                        anchors.topMargin: displayRect.height * 0.1
+                    }
+
+                    AudioSettingsPositionDurationText {
+                        player: cols.mpris
+                        anchors.top: parent.top
+                        anchors.topMargin: displayRect.height * 0.2
+                        textWidth: displayRect.width
+                    }
+
+                    AudioSettingsApplicationText {
+                        z: 1
+                        text: cols.mpris?.identity || ''
+                        anchors.top: parent.top
+                        anchors.topMargin: font.pixelSize * 0.2
+                        anchors.left: parent.left
+                        anchors.leftMargin: font.pixelSize * 1.5
+                    }
+
+                    AudioSettingsTrackArtistText {
+                        z: 1
+                        text: cols.mpris?.trackArtist || ''
+                        width: parent.width
+                        horizontalAlignment: Text.AlignHCenter
+                        anchors.bottom: parent.bottom
+                        anchors.bottomMargin: parent.height * 0.02
+                    }
+
+                    AudioSettingsVolumeIndicator {
+                        container: displayRect
+                        width: displayRect.width
+                        maxHeight: container.height * 0.22
+                        anchors.bottom: displayRect.bottom
+                        anchors.horizontalCenter: displayRect.horizontalCenter
+                        sink: cols.sink
+                    }
+                }
+            }
+            
+            Loader {
+                id: audioControlsLoader
+                sourceComponent: panel.visible ? audioControls : null
+                asynchronous: true
+            }
+
+            Component {
+                id: audioControls
+                AudioSettingsTrackControl {
+                    player: cols.mpris
+                    implicitHeight: cols.width * 0.1
+                    implicitWidth: cols.width
+                }
             }
         }
     }

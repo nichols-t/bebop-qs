@@ -24,19 +24,38 @@ PanelWindow {
 
     implicitHeight: Config.taskbar.taskbarHeight
 
-    Workspaces {
+    Loader {
+        id: workspacesLoader
+        asynchronous: true
+        sourceComponent: workspaces
         anchors.horizontalCenter: parent.horizontalCenter
     }
-    RowLayout {
-        spacing: 0
+    Component {
+        id: workspaces
+        // Not inside the RowLayout so that we can center them exactly without doing a bunch
+        // of nonsense
+        Workspaces {
+            anchors.horizontalCenter: parent.horizontalCenter
+        }
+    }
+    Loader {
+        id: taskbarLoader
+        asynchronous: true
+        sourceComponent: rows
         anchors.fill: parent
-        User { shutdownMenu: root.shutdownMenu }
-        Item { Layout.fillWidth: true }
-        // Debug app menu launcher
-        Network {}
-        Battery {}
-        AudioButton { audioSettings: root.audioSettings }
-        Clock { calendar: root.calendar }
-        SettingsButton { settings: root.settings }
+    }
+    Component {
+        id: rows
+        RowLayout {
+            spacing: 0
+            User { shutdownMenu: root.shutdownMenu }
+            Item { Layout.fillWidth: true }
+            // Debug app menu launcher
+            Network {}
+            Battery {}
+            AudioButton { audioSettings: root.audioSettings }
+            Clock { calendar: root.calendar }
+            SettingsButton { settings: root.settings }
+        }
     }
 }

@@ -28,7 +28,7 @@ Scope {
         }
         // Center offset for "row headings" of this page
         property var rowHeadingHorizontalOffset: -modelData.width * 0.1
-        property var sectionVerticalSpaceHeight: modelData.height * 0.05
+        property var sectionVerticalSpaceHeight: modelData.height * 0.03
         WlrLayershell.exclusionMode: ExclusionMode.Ignore
         WlrLayershell.keyboardFocus: WlrKeyboardFocus.Exclusive
         
@@ -45,7 +45,7 @@ Scope {
         Component.onCompleted: {
             if (this.WlrLayershell != null) {
                 this.WlrLayershell.layer = WlrLayer.Top;
-                this.WlrLayershell.namespace = "calendar";
+                this.WlrLayershell.namespace = "systemInfo";
             }
         }
 
@@ -87,21 +87,21 @@ Scope {
                 SectionSpacer {}
                 SectionHeaderMouseArea {
                     SectionHeader { text: "CENTRAL PROCESSING UNIT" }
-                    onClicked: { panel.showDetails = "CPU" }
+                    onClicked: { detailsLoader.sourceComponent = cpuDetails }
                 }
                 SectionStat { label: "USAGE"; value: SysInfo.cpuUsage.cpuText }
 
                 SectionSpacer {}
                 SectionHeaderMouseArea {
                     SectionHeader { text: "RANDOM ACCESS MEMORY" }
-                    onClicked: { panel.showDetails = "RAM" }
+                    onClicked: { detailsLoader.sourceComponent = ramDetails }
                 }
                 SectionStat { label: "USAGE"; value: SysInfo.ramUsage.memText; }
 
                 SectionSpacer {}
                 SectionHeaderMouseArea {
                     SectionHeader { text: "GRAPHICS PROCESSING UNIT" }
-                    onClicked: { panel.showDetails = "GPU" }
+                    onClicked: { detailsLoader.sourceComponent = gpuDetails }
                 }
                 SectionStat { label: "TEMP"; value: SysInfo.gpuUsage.gpuTempText; }
                 SectionStat { label: "MEM USAGE"; value: SysInfo.gpuUsage.gpuMemText; }
@@ -109,12 +109,13 @@ Scope {
                 SectionSpacer {}
                 SectionHeaderMouseArea {
                     SectionHeader { text: "SOLID STATE DRIVE" }
-                    onClicked: { panel.showDetails = "SSD" }
+                    onClicked: { detailsLoader.sourceComponent = diskDetails }
                 }
                 SectionStat { label: "USAGE"; value: SysInfo.diskUsage.diskText; }
      
                 MultiEffect {
                     id: hoverBlur
+                    // This logs a warning but I think it is actually correct for MultiEffect?
                     anchors.fill: source
                     blurEnabled: true
                     blur: 1.0
@@ -130,10 +131,30 @@ Scope {
             height: modelData.height
             anchors.right: parent.right
             color: Config.systemInfo.accentColor
-            CpuDetails { visible: panel.showDetails === "CPU" }
-            RamDetails { visible: panel.showDetails === "RAM" }
-            GpuDetails { visible: panel.showDetails === "GPU" }
-            DiskDetails { visible: panel.showDetails === "SSD" }
+            Loader {
+                id: detailsLoader
+                sourceComponent: null
+                asynchronous: true
+                anchors.fill: parent
+                // This can be used if partial loading needs to be avoided
+                //visible: status == Loader.Ready
+            }
+            Component {
+                id: cpuDetails
+                CpuDetails { }
+            }
+            Component {
+                id: ramDetails
+                RamDetails { }
+            }
+            Component {
+                id: gpuDetails
+                GpuDetails { }
+            }
+            Component {
+                id: diskDetails
+                DiskDetails { }
+            }
         }
     }
 
@@ -145,6 +166,7 @@ Scope {
         id: self
         cursorShape: Qt.PointingHandCursor
         hoverEnabled: true
+        margin: 20
         onEntered: {
             hoverBlur.source = self
         }

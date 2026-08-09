@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   width="120"
+   height="120"
+   viewBox="0 0 120 120"
+   version="1.1"
+   id="svg1"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <defs
+     id="defs1">
+    <filter
+       x="-0.00050000299"
+       width="1.001"
+       y="-0.20425645"
+       height="1.4085129"
+       style="color-interpolation-filters:sRGB"
+       id="filter136">
+      <feGaussianBlur
+         stdDeviation="0.01 1.03591"
+         result="blur"
+         id="feGaussianBlur133" />
+      <feComposite
+         in="SourceGraphic"
+         in2="blur"
+         operator="atop"
+         result="composite1"
+         id="feComposite133" />
+      <feComposite
+         in2="composite1"
+         operator="in"
+         result="composite2"
+         id="feComposite134" />
+      <feComposite
+         in2="composite2"
+         operator="in"
+         result="composite3"
+         id="feComposite135" />
+      <feTurbulence
+         type="turbulence"
+         numOctaves="2"
+         seed="1"
+         baseFrequency="0.82478 0.115144"
+         result="turbulence"
+         id="feTurbulence135" />
+      <feDisplacementMap
+         in="composite3"
+         in2="turbulence"
+         xChannelSelector="R"
+         scale="1.15737"
+         yChannelSelector="G"
+         result="map"
+         id="feDisplacementMap135" />
+      <feColorMatrix
+         values="1 0 0 0 0 0 1 0 0 0 0 0 1 0 0 0 0 0 1 -0 "
+         result="colormatrix"
+         id="feColorMatrix135" />
+      <feComposite
+         in="composite3"
+         in2="colormatrix"
+         operator="atop"
+         result="composite4"
+         id="feComposite136" />
+    </filter>
+  </defs>
+  <g
+     id="layer1">
+    <path
+       d="M 107.97852,58.578125 60,60 106.78125,70.75 c 0.91621,-3.984143 1.31895,-8.085553 1.19727,-12.171875 z"
+       style="fill:#ffffff;fill-opacity:1;filter:url(#filter136)"
+       id="path140" />
+  </g>
+</svg>

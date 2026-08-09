@@ -28,7 +28,7 @@ Rectangle {
     component RotatingRecord: Item {
         id: record
         Image {
-            id: outerRecord
+            id: recordSVG
             anchors.centerIn: parent
             fillMode: Image.PreserveAspectFit
             visible: false
@@ -40,8 +40,8 @@ Rectangle {
             id: effect
             colorization: 1.0
             colorizationColor: Config.audioSettings.recordAccentColor
-            source: outerRecord
-            anchors.fill: outerRecord
+            source: recordSVG
+            anchors.fill: recordSVG
             blurEnabled: true
             blur: 1.0
             blurMax: root.maxBlur
@@ -84,6 +84,37 @@ Rectangle {
         anchors.centerIn: parent
     }
 
+    Image {
+        id: recordHighlight
+        anchors.centerIn: parent
+        fillMode: Image.PreserveAspectFit
+        visible: false
+        sourceSize.width: parent.width
+        source: Qt.resolvedUrl("../../../assets/record-highlight.svg")
+    }
+    MultiEffect {
+        z: 4
+        source: recordHighlight
+        anchors.fill: source
+        blurEnabled: true
+        blur: 1.0
+        blurMax: 4
+        opacity: Config.audioSettings.recordHighlightOpacity
+        colorization: 1.0
+        colorizationColor: Config.audioSettings.recordHighlightColor
+        transform: [
+            Rotation {
+                origin.x: recordHighlight.width / 2
+                origin.y: recordHighlight.height / 2
+                axis { x: 0; y: 0; z: 1 }
+                angle: Config.audioSettings.recordHighlightAngle            },
+            XRotation {
+                origin.x: recordHighlight.width / 2
+                origin.y: recordHighlight.height / 2
+            }
+        ]
+    }
+
     // Gives the illusion of thickness
     Rectangle {
         id: recordFormCircle
@@ -106,8 +137,8 @@ Rectangle {
         color: Config.audioSettings.accentColor
         anchors.centerIn: parent
         anchors.verticalCenterOffset: -0.65 * record.height * Math.cos(xAngle)
-        width: root.width *0.85
-        height: root.width *0.85
+        width: root.width * 0.85
+        height: root.width * 0.85
         radius: width / 2
         visible: false
         transform: XRotation {

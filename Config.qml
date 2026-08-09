@@ -172,7 +172,10 @@ Singleton {
         "trackControlTextColor": "#e1e1e1",
         "trackControlTextSize": 18,
         "playerTextSize": 14,
-        "playerTextColor": "black"
+        "playerTextColor": "black",
+        "recordHighlightAngle": -63,
+        "recordHighlightColor": '#cf9cf4',
+        "recordHighlightOpacity": 0.3
     }
 
     readonly property var bluetoothSettings: {

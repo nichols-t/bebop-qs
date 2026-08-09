@@ -140,11 +140,11 @@ Scope {
 
                 property var selectedBaseColor: {
                     if (selectedBtnItem === btnLock) {
-                        return Config.colors.lock;
+                        return Config.powerMenu.lockColor;
                     } else if (selectedBtnItem === btnReboot) {
-                        return Config.colors.reboot;
+                        return Config.powerMenu.rebootColor;
                     } else if (selectedBtnItem === btnShutdown) {
-                        return Config.colors.shutdown;
+                        return Config.powerMenu.shutdownColor;
                     } else {
                         return "transparent";
                     }
@@ -153,7 +153,7 @@ Scope {
                 Text {
                     id: menuTitleText
                     text: Config.powerMenu.menuTitleText
-                    color: Config.colors.menuItemSelected
+                    color: Config.powerMenu.menuItemTextSelectedColor
 
                     font {
                         family: Config.fontTypewriter.font.family
@@ -204,17 +204,17 @@ Scope {
                 id: lockButton
                 text: itemsContainer.selectedBtnItem.text
                 screen: root.modelData
-                textColor: Config.colors.lock
+                textColor: Config.powerMenu.lockColor
             }
             ShutdownMenuBackgroundReboot {
                 text: itemsContainer.selectedBtnItem.text
                 screen: root.modelData
-                textColor: Config.colors.reboot
+                textColor: Config.powerMenu.rebootColor
             }
             ShutdownMenuBackgroundShutdown {
                 text: itemsContainer.selectedBtnItem.text
                 screen: root.modelData
-                textColor: Config.colors.shutdown
+                textColor: Config.powerMenu.shutdownColor
             }
         }
     }
@@ -268,9 +268,9 @@ Scope {
                 text: myself.text
                 color: {
                     if (myself.selected) {
-                        return Config.colors.menuItemSelected;
+                        return Config.powerMenu.menuItemTextSelectedColor;
                     } else {
-                        return Config.colors.menuItemUnselected;
+                        return Config.powerMenu.menuItemTextColor;
                     }
                 }
 

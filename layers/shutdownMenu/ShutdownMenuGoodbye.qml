@@ -21,7 +21,7 @@ Rectangle {
         font.pointSize: Config.powerMenu.goodbyeTextSize
         font.italic: true
         font.bold: true
-        color: Config.colors.menuItemSelected
+        color: Config.powerMenu.menuItemTextSelectedColor
         text: Config.powerMenu.goodbyeText
     }
 

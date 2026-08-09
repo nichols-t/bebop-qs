@@ -45,6 +45,14 @@ Scope {
         implicitHeight: Math.max(1, column.implicitHeight)
         color: "transparent"
 
+        Component.onCompleted: {
+            if (this.WlrLayershell != null) {
+                // Note that things that take exclusive focus like menus mean we still can't click
+                // it, but we probably want it to appear nonetheless
+                this.WlrLayershell.layer = WlrLayer.Overlay;
+            }
+        }
+
         exclusionMode: ExclusionMode.Ignore
 
         ColumnLayout {

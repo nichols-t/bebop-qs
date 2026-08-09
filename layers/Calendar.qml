@@ -145,15 +145,17 @@ Scope {
                         onEntered: {
                             backgroundMouseArea.enabled = false;
                             backgroundMouseArea.visible = false;
+                            dayText.font.underline = true;
                         }
                         onExited: {
                             backgroundMouseArea.enabled = true;
                             backgroundMouseArea.visible = true;
+                            dayText.font.underline = false;
                         }
                     }
 
                     Text {
-                        id: monthText
+                        id: dayText
                         property string monthName: {
                             const x = new Date(Time.clock.date);
                             const monthsDiff = month - Qt.formatDateTime(Time.clock.date, 'MM');
@@ -221,7 +223,7 @@ Scope {
 
                                 font.bold: today
                                 font.family: Math.random() > 0.5 ? Config.fontTypewriter.font.family : Config.fontSerif.font.family
-                                font.pointSize: Config.calendar.eventsTextSize - 2 // TODO theme
+                                font.pointSize: Config.calendar.eventsTextSize
                                 font.italic: shouldShow ? Math.random() > Config.calendar.fontDaysItalicThreshold : false
                                 rotation: {
                                     if (shouldShow) {

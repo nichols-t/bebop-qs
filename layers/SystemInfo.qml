@@ -113,6 +113,15 @@ Scope {
                     onClicked: { panel.showDetails = "SSD" }
                 }
                 LayerParts.SectionStat { label: "USAGE"; value: SysInfo.diskUsage.diskText; }
+     
+                MultiEffect {
+                    id: hoverBlur
+                    anchors.fill: source
+                    blurEnabled: true
+                    blur: 1.0
+                    colorization: 0.5
+                    colorizationColor: "white"
+                }
             }
         }
 
@@ -134,7 +143,15 @@ Scope {
     }
 
     component SectionHeaderMouseArea: WrapperMouseArea {
+        id: self
         // TODO: some stronger user feedback on hover
         cursorShape: Qt.PointingHandCursor
+        hoverEnabled: true
+        onEntered: {
+            hoverBlur.source = self
+        }
+        onExited: {
+            hoverBlur.source = null
+        }
     }
 }

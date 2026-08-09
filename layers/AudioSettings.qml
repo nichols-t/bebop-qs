@@ -113,11 +113,6 @@ Scope {
             // TODO is shuffled icon/text? cols.mpris?.shuffle
             // TODO rate control cols.mpris?.rate ${cols.mpris?.minRate} - ${cols.mpris?.maxRate}
             // TODO loop cols.mpris?.loopSupported
-            // TODO position or length: cols.mpris?.length
-            //  (note for streaming this is random timestamp I thikn)
-            // TODO audio player ID (i.e. the app) cols.mpris?.identity
-            // TODO track album cols.mpris?.trackAlbum
-            // TODO track title cols.mpris?.trackTitle
             Rectangle {
                 id: displayRect
                 height: cols.width * 0.6
@@ -149,7 +144,7 @@ Scope {
                     playing: cols.mpris?.isPlaying || false
                 }
 
-                // TODO animate if it is long?
+                // TODO animate if it is too long for container?
                 Text {
                     text: cols.mpris?.trackTitle || ''
                     color: Config.audioSettings.trackTitleTextColor

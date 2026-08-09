@@ -73,7 +73,7 @@ Singleton {
         // Background color for a Day, selected at random from this list
         "backgroundColorsDays": ["#3954f0", "#d7dbf8", "#fefefe", "#b1bdf8", "#a4aef8"],
         "daysTextSize": 16,
-        "eventsTextSize": 16,
+        "eventsTextSize": 15,
         // Probability that a given Day's label will be italicized
         "fontDaysItalicThreshold": 0.5,
         "dayTextXOffsetRange": 10,

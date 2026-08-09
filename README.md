@@ -10,13 +10,19 @@ A Cowboy Bebop title sequence inspired Quickshell.
 1. Use this repo as your quickshell directory
 2. Symlink the `quickshell.lua` file into your hyprland config directory and `require` it from your config
 
+
+## Contributing
+If you'd like to contribute please note the following:
+1. I do not like LLMs and I would prefer not to accept contributions that used them in any capacity
+2. I started this project for my own learning and experience, but I also use it on my computers. So if there's a decision to be made I'm going to do what makes sense for my own personal usage.
+    1. This being said I'm still open to ideas! Particularly in order to make this more compatible with different systems
+
 ## TODOs
 - **Taskbar**:
     - **[FEATURE] Bluetooth indicator**
 - **[ERGONOMICS] SysInfo**: Make "fallback" system for modules that allows `Config` to specify a list of how things should be read
 - **[FEATURE] SystemInfo Screen**: Add details section for power and network
 - **[ERGONOMICS] Shutdown Menu**:
-    - Consider if `ListView` is better semantics for arrow key behavior
     - Additionally, consider how clickable space is laid out for each item and possibly adjust it
         - Delaunay Triangulation (Voronoi) (see [this implementation](https://github.com/mapbox/delaunator)) would be an interesting thing for this
 - **All Screens**:
@@ -25,11 +31,11 @@ A Cowboy Bebop title sequence inspired Quickshell.
     - **[ERGONOMICS] Config blur layers** so things are less magic-numbery
     - **[OPTIMIZATION] Loaders**: Use loaders to make sure ongoing resource usage is minimized
 - **[FEATURE] Audio Control**: Create menu for toggling of audio settings
-    - Started, but needs some work on controls, etc and SVGs
+    - Needs some additional controls
 - **[FEATURE] Network Control**: Create a control screen for network status, Wi-Fi etc.
-    - Started, but no controls yet
+    - Started but only displays existing connections
 - **[FEATURE] Bluetooth Control**: Create a control screen for bluetooth pairing/dc/etc.
-    - Not started
+    - Started but only displays existing connections
 - **[FEATURE] Lock Screen**: Add support for fingerprint login via PAM.
     - see https://github.com/end-4/dots-hyprland/pull/2308/changes, but this is slop so who knows
 - **[ERGONOMICS] Theme Control**: A menu for editing theme colors, maybe

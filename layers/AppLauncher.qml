@@ -9,7 +9,7 @@ import QtQuick.Controls
 import Quickshell.Hyprland
 import ".."
 import "../utils"
-import "./appLauncher" as LayerParts
+import "./appLauncher"
 
 Scope {
     id: root
@@ -49,7 +49,7 @@ Scope {
             windows: [panel]
         }
 
-        LayerParts.InputHandler {
+        InputHandler {
             id: inputHandler
             onClose: () => {
                 root.shouldShow = false;
@@ -103,7 +103,7 @@ Scope {
                         color: Config.appLauncher.searchBarBackgroundColor
                         border.width: Config.appLauncher.searchBarBorderWidth
                         border.color: Config.appLauncher.searchBarBorderColor
-                        LayerParts.InputTextField {
+                        InputTextField {
                             id: appSearchField
                             shouldShow: root.shouldShow
                             anchors.centerIn: parent
@@ -129,25 +129,25 @@ Scope {
                                     const plus = (18 - Math.min(18, inputHandler.candidateApps.length)) * 8;
                                     return Config.appLauncher.backgroundTextMinSize + plus;
                                 }
-                                LayerParts.DesktopEntryBackgroundText {
+                                DesktopEntryBackgroundText {
                                     maxHeight: randomTextContainer.height
                                     maxWidth: maxX
                                     text: modelData.categories.join(', ')
                                     maxFontSize: item.maxFontSize
                                 }
-                                LayerParts.DesktopEntryBackgroundText {
+                                DesktopEntryBackgroundText {
                                     maxHeight: randomTextContainer.height
                                     maxWidth: maxX
                                     text: modelData.genericName
                                     maxFontSize: item.maxFontSize
                                 }
-                                LayerParts.DesktopEntryBackgroundText {
+                                DesktopEntryBackgroundText {
                                     maxHeight: randomTextContainer.height
                                     maxWidth: maxX
                                     text: modelData.keywords.join(', ')
                                     maxFontSize: item.maxFontSize
                                 }
-                                LayerParts.DesktopEntryBackgroundText {
+                                DesktopEntryBackgroundText {
                                     maxHeight: randomTextContainer.height
                                     maxWidth: maxX
                                     text: modelData.comment

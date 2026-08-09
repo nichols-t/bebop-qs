@@ -120,204 +120,59 @@ Scope {
                 color: Config.audioSettings.accentColor
                 clip: true
 
-                Rectangle {
-                    z: 1
-                    visible: false
-                    color: Config.audioSettings.accentColor
-                    height: displayRect.height
-                    width: displayRect.height * 0.05
-                    anchors.left: parent.left
-                }
-
-                Rectangle {
-                    z: 1
-                    visible: false
-                    color: Config.audioSettings.accentColor
-                    height: displayRect.height
-                    width: displayRect.height * 0.05
-                    anchors.right: parent.right
-                }
-
                 AudioSettingsRecordGraphic {
                     anchors.fill: parent
                     anchors.centerIn: parent
                     playing: cols.mpris?.isPlaying || false
                 }
 
-                // TODO animate if it is too long for container?
-                Text {
+                AudioSettingsTrackTitleText {
                     text: cols.mpris?.trackTitle || ''
-                    color: Config.audioSettings.trackTitleTextColor
                     width: displayRect.width
                     horizontalAlignment: Text.AlignHCenter
                     anchors.top: parent.top
                     anchors.topMargin: displayRect.height * 0.1
-                    font.family: Config.fontTypewriter.font.family
-                    font.pointSize: Config.audioSettings.trackTitleTextSize
-                    font.bold: true
                 }
 
-                // Per docs position doesn't really update reactively unless we tell it to
-                Timer {
-                    // only emit the signal when the position is actually changing.
-                    running: cols.mpris?.playbackState == MprisPlaybackState.Playing
-                    // Make sure the position updates at least once per second.
-                    interval: 1000
-                    repeat: true
-                    // emit the positionChanged signal every second.
-                    onTriggered: cols.mpris.positionChanged()
-                }
-                Text {
-                    text: {
-                        const duration = Time.toHH_MM_SS(cols.mpris?.length || 0);
-                        const position = Time.toHH_MM_SS(cols.mpris?.position || 0);
-
-                        return `${position}/${duration}`;
-                    }
-                    color: Config.audioSettings.trackDurationTextColor
-                    visible: cols.mpris?.positionSupported || false
-                    width: displayRect.width
-                    horizontalAlignment: Text.AlignHCenter
+                AudioSettingsPositionDurationText {
+                    player: cols.mpris
                     anchors.top: parent.top
                     anchors.topMargin: displayRect.height * 0.2
-                    font.family: Config.fontTypewriter.font.family
-                    font.pointSize: Config.audioSettings.trackDurationTextSize
+                    textWidth: displayRect.width
                 }
 
-                Text {
+                AudioSettingsApplicationText {
                     z: 1
                     text: cols.mpris?.identity || ''
-                    color: Config.audioSettings.playerTextColor // TODO theme
                     anchors.top: parent.top
                     anchors.topMargin: font.pixelSize * 0.2
                     anchors.left: parent.left
                     anchors.leftMargin: font.pixelSize * 1.5
-                    font.family: Config.fontBlocky.font.family
-                    font.pointSize: Config.audioSettings.playerTextSize
-                    transform: Rotation {
-                        origin.x: 0
-                        origin.y: 0
-                        angle: 90
-                        axis {
-                            x: 0
-                            y: 0
-                            z: 1
-                        }
-                    }
                 }
 
-                Text {
+                AudioSettingsTrackArtistText {
                     z: 1
+                    text: cols.mpris?.trackArtist || ''
                     width: parent.width
                     horizontalAlignment: Text.AlignHCenter
-                    text: cols.mpris?.trackArtist || ''
-                    color: Config.audioSettings.trackArtistTextColor // TODO
                     anchors.bottom: parent.bottom
                     anchors.bottomMargin: parent.height * 0.02
-                    font.family: Config.fontBlocky.font.family
-                    font.pointSize: Config.audioSettings.trackArtistTextSize
                 }
 
-                Rectangle {
-                    id: volumeRect
-                    // TODO: vol bars thinggy?
+                AudioSettingsVolumeIndicator {
+                    container: displayRect
                     width: displayRect.width
-                    anchors.bottom: parent.bottom
-                    anchors.horizontalCenter: parent.horizontalCenter
-                    color: Config.audioSettings.volumeBarColor
-                    property real maxHeight: displayRect.height * 0.22
-                    height: {
-                        const vol = cols.sink?.audio.volume || 0;
-
-                        if (cols.sink?.audio.muted) {
-                            return 0;
-                        }
-
-                        return vol * maxHeight;
-                    }
-
-                    Behavior on height {
-                        NumberAnimation {
-                            duration: 100
-                        }
-                    }
+                    maxHeight: container.height * 0.22
+                    anchors.bottom: displayRect.bottom
+                    anchors.horizontalCenter: displayRect.horizontalCenter
+                    sink: cols.sink
                 }
             }
 
-            Rectangle {
-                id: controlRect
-                height: cols.width * 0.1
+            AudioSettingsTrackControl {
+                player: cols.mpris
+                implicitHeight: cols.width * 0.1
                 implicitWidth: cols.width
-                color: "black"
-
-                RowLayout {
-                    width: parent.width
-                    spacing: cols.itemsMargin
-
-                    AudioControlButton {
-                        onClicked: {
-                            if (cols.mpris?.canGoPrevious) {
-                                cols.mpris.previous();
-                            }
-                        }
-                        layoutAlignment: Qt.AlignLeft
-                        implicitHeight: controlRect.height
-                        implicitWidth: controlRect.width * .25
-                        enabled: cols.mpris?.canGoPrevious || false
-                        text: "PREV"
-                    }
-
-                    AudioControlButton {
-                        onClicked: {
-                            if (cols.mpris) {
-                                cols.mpris.isPlaying = !cols.mpris.isPlaying;
-                            }
-                        }
-                        layoutAlignment: Qt.AlignCenter
-                        implicitHeight: controlRect.height
-                        implicitWidth: controlRect.width * 0.30
-                        text: {
-                            if (cols.mpris?.isPlaying) {
-                                return "PAUSE";
-                            } else {
-                                return "PLAY";
-                            }
-                        }
-                    }
-
-                    AudioControlButton {
-                        onClicked: {
-                            if (cols.mpris?.canGoNext) {
-                                cols.mpris.next();
-                            }
-                        }
-                        layoutAlignment: Qt.AlignRight
-                        implicitHeight: controlRect.height
-                        implicitWidth: controlRect.width * 0.25
-                        text: "NEXT"
-                        enabled: cols.mpris?.canGoPrevious || false
-                    }
-                }
-            }
-        }
-    }
-
-    component AudioControlButton: WrapperMouseArea {
-        cursorShape: Qt.PointingHandCursor
-        property alias implicitWidth: btnRect.implicitWidth
-        property alias implicitHeight: btnRect.implicitHeight
-        property alias text: btnText.text
-        property var layoutAlignment
-        Rectangle {
-            id: btnRect
-            Layout.alignment: layoutAlignment
-            color: Config.audioSettings.accentColor
-            Text {
-                id: btnText
-                anchors.centerIn: parent
-                color: Config.audioSettings.trackControlTextColor
-                font.family: Config.fontBlocky.font.family
-                font.pointSize: Config.audioSettings.trackControlTextSize
             }
         }
     }

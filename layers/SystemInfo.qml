@@ -8,7 +8,7 @@ import QtQuick.Effects
 import QtQuick.Controls
 import Quickshell.Hyprland
 import ".."
-import "./systemInfoMenu" as LayerParts
+import "./systemInfoMenu"
 import "../utils"
 
 Scope {
@@ -81,38 +81,38 @@ Scope {
                 anchors.leftMargin: modelData.width * 0.1
                 anchors.rightMargin: modelData.width * 0.2
                 // Layout.row and Layout.column for where an element goes
-                LayerParts.SectionHeader { text: "SYSTEM STATISTICS" }
-                LayerParts.SectionStat { label: "OS"; value: SysInfo.os.osName; }
-                LayerParts.SectionStat { label: "POWER"; value: SysInfo.power.pluggedIn ? 'AC POWER' : `${SysInfo.power.batteryPercent}%`}
+                SectionHeader { text: "SYSTEM STATISTICS" }
+                SectionStat { label: "OS"; value: SysInfo.os.osName; }
+                SectionStat { label: "POWER"; value: SysInfo.power.pluggedIn ? 'AC POWER' : `${SysInfo.power.batteryPercent}%`}
 
                 SectionSpacer {}
                 SectionHeaderMouseArea {
-                    LayerParts.SectionHeader { text: "CENTRAL PROCESSING UNIT" }
+                    SectionHeader { text: "CENTRAL PROCESSING UNIT" }
                     onClicked: { panel.showDetails = "CPU" }
                 }
-                LayerParts.SectionStat { label: "USAGE"; value: SysInfo.cpuUsage.cpuText }
+                SectionStat { label: "USAGE"; value: SysInfo.cpuUsage.cpuText }
 
                 SectionSpacer {}
                 SectionHeaderMouseArea {
-                    LayerParts.SectionHeader { text: "RANDOM ACCESS MEMORY" }
+                    SectionHeader { text: "RANDOM ACCESS MEMORY" }
                     onClicked: { panel.showDetails = "RAM" }
                 }
-                LayerParts.SectionStat { label: "USAGE"; value: SysInfo.ramUsage.memText; }
+                SectionStat { label: "USAGE"; value: SysInfo.ramUsage.memText; }
 
                 SectionSpacer {}
                 SectionHeaderMouseArea {
-                    LayerParts.SectionHeader { text: "GRAPHICS PROCESSING UNIT" }
+                    SectionHeader { text: "GRAPHICS PROCESSING UNIT" }
                     onClicked: { panel.showDetails = "GPU" }
                 }
-                LayerParts.SectionStat { label: "TEMP"; value: SysInfo.gpuUsage.gpuTempText; }
-                LayerParts.SectionStat { label: "MEM USAGE"; value: SysInfo.gpuUsage.gpuMemText; }
+                SectionStat { label: "TEMP"; value: SysInfo.gpuUsage.gpuTempText; }
+                SectionStat { label: "MEM USAGE"; value: SysInfo.gpuUsage.gpuMemText; }
 
                 SectionSpacer {}
                 SectionHeaderMouseArea {
-                    LayerParts.SectionHeader { text: "SOLID STATE DRIVE" }
+                    SectionHeader { text: "SOLID STATE DRIVE" }
                     onClicked: { panel.showDetails = "SSD" }
                 }
-                LayerParts.SectionStat { label: "USAGE"; value: SysInfo.diskUsage.diskText; }
+                SectionStat { label: "USAGE"; value: SysInfo.diskUsage.diskText; }
      
                 MultiEffect {
                     id: hoverBlur
@@ -131,10 +131,10 @@ Scope {
             height: modelData.height
             anchors.right: parent.right
             color: Config.systemInfo.accentColor
-            LayerParts.CpuDetails { visible: panel.showDetails === "CPU" }
-            LayerParts.RamDetails { visible: panel.showDetails === "RAM" }
-            LayerParts.GpuDetails { visible: panel.showDetails === "GPU" }
-            LayerParts.DiskDetails { visible: panel.showDetails === "SSD" }
+            CpuDetails { visible: panel.showDetails === "CPU" }
+            RamDetails { visible: panel.showDetails === "RAM" }
+            GpuDetails { visible: panel.showDetails === "GPU" }
+            DiskDetails { visible: panel.showDetails === "SSD" }
         }
     }
 

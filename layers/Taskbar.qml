@@ -2,7 +2,7 @@ import Quickshell
 import QtQuick
 import QtQuick.Layouts
 import ".."
-import "./taskbar" as LayerParts
+import "./taskbar"
 
 PanelWindow {
     id: root
@@ -24,19 +24,19 @@ PanelWindow {
 
     implicitHeight: Config.taskbar.taskbarHeight
 
-    LayerParts.Workspaces {
+    Workspaces {
         anchors.horizontalCenter: parent.horizontalCenter
     }
     RowLayout {
         spacing: 0
         anchors.fill: parent
-        LayerParts.User { shutdownMenu: root.shutdownMenu }
+        User { shutdownMenu: root.shutdownMenu }
         Item { Layout.fillWidth: true }
         // Debug app menu launcher
-        LayerParts.Network {}
-        LayerParts.Battery {}
-        LayerParts.AudioButton { audioSettings: root.audioSettings }
-        LayerParts.Clock { calendar: root.calendar }
-        LayerParts.SettingsButton { settings: root.settings }
+        Network {}
+        Battery {}
+        AudioButton { audioSettings: root.audioSettings }
+        Clock { calendar: root.calendar }
+        SettingsButton { settings: root.settings }
     }
 }

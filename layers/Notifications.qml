@@ -7,7 +7,7 @@ import QtQuick.Layouts
 import QtQuick.Effects
 import ".."
 import "../.."
-import "./notifications" as LayerParts
+import "./notifications"
 
 import QtQuick.Shapes
 
@@ -114,7 +114,7 @@ Scope {
                                     source: card.modelData.image || card.modelData.appIcon || ""
                                 }
 
-                                LayerParts.BlurLine {
+                                BlurLine {
                                     Layout.alignment: Qt.AlignRight
                                     rectHeight: image.hasImage ? image.size * 1.5 : image.size * 3
                                     rectWidth: 2
@@ -169,7 +169,7 @@ Scope {
                                 }
                             }
 
-                            LayerParts.BlurLine {
+                            BlurLine {
                                 Layout.topMargin: -30 // TODO theme it or var
                                 id: horizontalYellowLine
                                 rectHeight: 2

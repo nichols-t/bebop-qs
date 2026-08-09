@@ -7,7 +7,7 @@ import QtQuick.Effects
 import QtQuick.Controls
 import Quickshell.Hyprland
 import ".."
-import "./shutdownMenu" as LayerParts
+import "./shutdownMenu"
 
 Scope {
     id: root
@@ -59,7 +59,7 @@ Scope {
         }
 
         // This rectangle loaded as a goodbye message
-        LayerParts.ShutdownMenuGoodbye {
+        ShutdownMenuGoodbye {
             id: goodbyeMessage
             visible: false // Becomes visible only when clicked
             z: 128
@@ -200,18 +200,18 @@ Scope {
 
             // We load each background, but they're only displayed when the text
             // actually matches
-            LayerParts.ShutdownMenuBackgroundLock {
+            ShutdownMenuBackgroundLock {
                 id: lockButton
                 text: itemsContainer.selectedBtnItem.text
                 screen: root.modelData
                 textColor: Config.colors.lock
             }
-            LayerParts.ShutdownMenuBackgroundReboot {
+            ShutdownMenuBackgroundReboot {
                 text: itemsContainer.selectedBtnItem.text
                 screen: root.modelData
                 textColor: Config.colors.reboot
             }
-            LayerParts.ShutdownMenuBackgroundShutdown {
+            ShutdownMenuBackgroundShutdown {
                 text: itemsContainer.selectedBtnItem.text
                 screen: root.modelData
                 textColor: Config.colors.shutdown

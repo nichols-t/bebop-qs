@@ -8,7 +8,7 @@ import QtQuick.Controls
 import Quickshell.Hyprland
 import ".."
 import "../utils"
-import "./calendar" as LayerParts
+import "./calendar"
 
 // TODO interactivity: What should happen when we click on a day?
 Scope {
@@ -74,7 +74,7 @@ Scope {
                 }
             }
 
-            LayerParts.DayView {
+            DayView {
                 id: dayView
                 shouldShow: !!dayInfo && !!date
                 screen: root.modelData

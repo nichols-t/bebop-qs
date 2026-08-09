@@ -6,7 +6,7 @@ import Quickshell.Io
 import Quickshell.Wayland
 import Quickshell.Hyprland
 import QtQuick.Layouts
-import "./lockScreen" as LayerParts
+import "./lockScreen"
 import "../utils"
 import ".."
 
@@ -20,7 +20,7 @@ Scope {
         lock.locked = true;
     }
 
-    LayerParts.LockContext {
+    LockContext {
         id: lockContext
         onUnlocked: {
             lock.locked = false
@@ -50,13 +50,13 @@ Scope {
                     }
                     ColumnLayout {
                         spacing: 0
-                        LayerParts.LockTitleText {
+                        LockTitleText {
                             verticalAlignment: Qt.AlignBottom
                             id: user
                             text: `Log in as ${lockContext.user}`
                             font.pixelSize: Math.floor(backgroundRect.height / 25)
                         }
-                        LayerParts.LockTitleText {
+                        LockTitleText {
                             id: clock
                             verticalAlignment: Qt.AlignTop
                             font.pixelSize: Math.floor(backgroundRect.height / 15)

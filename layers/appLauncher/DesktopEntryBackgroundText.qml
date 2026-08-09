@@ -10,7 +10,7 @@ Text {
     x: Math.random() * maxX
     y: Math.random() * randomTextContainer.height
     font.family: Config.fontBlocky.font.family
-    font.pointSize: Math.random() * maxFontSize
+    font.pointSize: Math.random() * maxFontSize + 1
     font.italic: Math.random() > 0.5
     font.bold: Math.random() > 0.5
 }

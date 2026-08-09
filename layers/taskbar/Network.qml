@@ -34,6 +34,8 @@ WrapperRectangle {
                         case DeviceType.None:
                             return Qt.resolvedUrl("../../assets/network-none-icon.svg");
                     }
+                } else {
+                    return null;
                 }
                 
             }

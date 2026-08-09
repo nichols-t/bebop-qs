@@ -117,41 +117,49 @@ Scope {
                         anchors.left: parent.left
                         height: parent.height
                         clip: true
-                        Repeater {
-                            model: inputHandler.candidateApps
-                            Item {
-                                id: item
-                                required property var modelData
-                                property real maxX: randomTextContainer.width * 0.75
-                                property int maxFontSize: {
-                                    const threshold = Config.appLauncher.backgroundTextGrowThreshold;
-                                    const step = Config.appLauncher.backgroundTextGrowStep;
-                                    const plus = (threshold - Math.min(threshold, inputHandler.candidateApps.length)) * step;
-                                    return Config.appLauncher.backgroundTextMinSize + plus;
-                                }
-                                DesktopEntryBackgroundText {
-                                    maxHeight: randomTextContainer.height
-                                    maxWidth: maxX
-                                    text: modelData.categories.join(', ')
-                                    maxFontSize: item.maxFontSize
-                                }
-                                DesktopEntryBackgroundText {
-                                    maxHeight: randomTextContainer.height
-                                    maxWidth: maxX
-                                    text: modelData.genericName
-                                    maxFontSize: item.maxFontSize
-                                }
-                                DesktopEntryBackgroundText {
-                                    maxHeight: randomTextContainer.height
-                                    maxWidth: maxX
-                                    text: modelData.keywords.join(', ')
-                                    maxFontSize: item.maxFontSize
-                                }
-                                DesktopEntryBackgroundText {
-                                    maxHeight: randomTextContainer.height
-                                    maxWidth: maxX
-                                    text: modelData.comment
-                                    maxFontSize: item.maxFontSize
+                        Loader {
+                            asynchronous: true
+                            anchors.fill: parent
+                            sourceComponent: backgroundTextComponents
+                        }
+                        Component {
+                            id: backgroundTextComponents
+                            Repeater {
+                                model: inputHandler.candidateApps
+                                Item {
+                                    id: item
+                                    required property var modelData
+                                    property real maxX: randomTextContainer.width * 0.75
+                                    property int maxFontSize: {
+                                        const threshold = Config.appLauncher.backgroundTextGrowThreshold;
+                                        const step = Config.appLauncher.backgroundTextGrowStep;
+                                        const plus = (threshold - Math.min(threshold, inputHandler.candidateApps.length)) * step;
+                                        return Config.appLauncher.backgroundTextMinSize + plus;
+                                    }
+                                    DesktopEntryBackgroundText {
+                                        maxHeight: randomTextContainer.height
+                                        maxWidth: maxX
+                                        text: modelData.categories.join(', ')
+                                        maxFontSize: item.maxFontSize
+                                    }
+                                    DesktopEntryBackgroundText {
+                                        maxHeight: randomTextContainer.height
+                                        maxWidth: maxX
+                                        text: modelData.genericName
+                                        maxFontSize: item.maxFontSize
+                                    }
+                                    DesktopEntryBackgroundText {
+                                        maxHeight: randomTextContainer.height
+                                        maxWidth: maxX
+                                        text: modelData.keywords.join(', ')
+                                        maxFontSize: item.maxFontSize
+                                    }
+                                    DesktopEntryBackgroundText {
+                                        maxHeight: randomTextContainer.height
+                                        maxWidth: maxX
+                                        text: modelData.comment
+                                        maxFontSize: item.maxFontSize
+                                    }
                                 }
                             }
                         }

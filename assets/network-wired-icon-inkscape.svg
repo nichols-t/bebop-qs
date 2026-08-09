@@ -9,7 +9,7 @@
    id="svg1"
    sodipodi:docname="network-wired-icon-inkscape.svg"
    inkscape:version="1.4.4 (dcaf3e7d9e, 2026-05-05)"
-   inkscape:export-filename="network-wired-icon.svg"
+   inkscape:export-filename="/home/ty/network-wired-icon.svg"
    inkscape:export-xdpi="96"
    inkscape:export-ydpi="96"
    xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
@@ -28,9 +28,9 @@
      inkscape:document-units="px"
      showgrid="true"
      inkscape:zoom="54.447222"
-     inkscape:cx="6.9608694"
+     inkscape:cx="6.9516862"
      inkscape:cy="10.560686"
-     inkscape:window-width="2546"
+     inkscape:window-width="1269"
      inkscape:window-height="1396"
      inkscape:window-x="0"
      inkscape:window-y="0"
@@ -63,17 +63,17 @@
        id="path3"
        sodipodi:nodetypes="cccccccccc" />
     <path
-       style="fill:none;fill-opacity:1;stroke:#ffffff;stroke-linejoin:bevel;stroke-opacity:1"
+       style="fill:none;fill-opacity:1;stroke:#ffffff;stroke-linejoin:bevel;stroke-opacity:1;stroke-width:1.75748031;stroke-dasharray:none"
        d="M 8,13 V 10"
        id="path4"
        sodipodi:nodetypes="cc" />
     <path
-       style="fill:#ffffff;stroke:#ffffff;stroke-width:1;stroke-linejoin:bevel;stroke-dasharray:none;stroke-opacity:1"
+       style="fill:#ffffff;stroke:#ffffff;stroke-width:1.75748031;stroke-linejoin:bevel;stroke-dasharray:none;stroke-opacity:1"
        d="M 10,13 V 10"
        id="path1"
        sodipodi:nodetypes="cc" />
     <path
-       style="fill:#ffffff;stroke:#ffffff;stroke-width:1;stroke-linejoin:bevel;stroke-dasharray:none;stroke-opacity:1"
+       style="fill:#ffffff;stroke:#ffffff;stroke-width:1.75748031;stroke-linejoin:bevel;stroke-dasharray:none;stroke-opacity:1"
        d="M 6,13 V 10"
        id="path2"
        sodipodi:nodetypes="cc" />

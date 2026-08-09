@@ -11,7 +11,6 @@ A Cowboy Bebop title sequence inspired Quickshell.
 2. Symlink the `quickshell.lua` file into your hyprland config directory and `require` it from your config
 
 ## TODOs
-- **[BUG] Sub-menu IDs**: Check if I'm still opening any windows by implicitly relying on the ID. I think I fixed this, but need to check.
 - **Taskbar**:
     - **[FEATURE] Bluetooth indicator**
 - **[ERGONOMICS] SysInfo**: Make "fallback" system for modules that allows `Config` to specify a list of how things should be read

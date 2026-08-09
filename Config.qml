@@ -159,16 +159,20 @@ Singleton {
     }
 
     readonly property var audioSettings: {
-        "accentColor": "#4f65ef",
-        "volumeBarColor": '#000000',
+        "accentColor": "#8d41c5",
+        "volumeBarColor": '#5b2f7a',
         "trackTitleTextSize": 14,
-        "artistTextSize": 32,
-        "recordOuterRotationDuration": 5000,
-        "recordMiddleRotationDuration": 4000,
-        "recordInnerRotationDuration": 3000,
+        "trackTitleTextColor": "black",
+        "trackDurationTextSize": 14,
+        "trackDurationTextColor": "black",
+        "trackArtistTextSize": 32,
+        "trackArtistTextColor": "black",
+        "recordRotationDuration": 5000,
+        "recordAccentColor": '#703798',
         "trackControlTextColor": "#e1e1e1",
         "trackControlTextSize": 18,
-        "playerTextSize": 14
+        "playerTextSize": 14,
+        "playerTextColor": "black"
     }
 
     readonly property var bluetoothSettings: {

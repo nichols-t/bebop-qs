@@ -94,6 +94,14 @@ Scope {
                 if (event.key === Qt.Key_Escape) {
                     event.accepted = true;
                     panel.close();
+                } else if (!!cols.mpris) {
+                    if (event.key === Qt.Key_Space) {
+                        cols.mpris.isPlaying = !cols.mpris.isPlaying;
+                    } else if (event.key === Qt.Key_Left) {
+                        cols.mpris.previous();
+                    } else if (event.key === Qt.Key_Right) {
+                        cols.mpris.next();
+                    }
                 }
             }
 
@@ -119,6 +127,7 @@ Scope {
 
                 Rectangle {
                     z: 1
+                    visible: false
                     color: Config.audioSettings.accentColor
                     height: displayRect.height
                     width: displayRect.height * 0.05
@@ -127,6 +136,7 @@ Scope {
 
                 Rectangle {
                     z: 1
+                    visible: false
                     color: Config.audioSettings.accentColor
                     height: displayRect.height
                     width: displayRect.height * 0.05
@@ -142,13 +152,14 @@ Scope {
                 // TODO animate if it is long?
                 Text {
                     text: cols.mpris?.trackTitle || ''
-                    color: "white"
+                    color: Config.audioSettings.trackTitleTextColor
                     width: displayRect.width
                     horizontalAlignment: Text.AlignHCenter
                     anchors.top: parent.top
                     anchors.topMargin: displayRect.height * 0.1
                     font.family: Config.fontTypewriter.font.family
                     font.pointSize: Config.audioSettings.trackTitleTextSize
+                    font.bold: true
                 }
 
                 // Per docs position doesn't really update reactively unless we tell it to
@@ -168,22 +179,22 @@ Scope {
 
                         return `${position}/${duration}`;
                     }
-                    color: "white"
+                    color: Config.audioSettings.trackDurationTextColor
                     visible: cols.mpris?.positionSupported || false
                     width: displayRect.width
                     horizontalAlignment: Text.AlignHCenter
                     anchors.top: parent.top
                     anchors.topMargin: displayRect.height * 0.2
                     font.family: Config.fontTypewriter.font.family
-                    font.pointSize: Config.audioSettings.trackTitleTextSize
+                    font.pointSize: Config.audioSettings.trackDurationTextSize
                 }
 
                 Text {
                     z: 1
                     text: cols.mpris?.identity || ''
-                    color: "black" // TODO theme
+                    color: Config.audioSettings.playerTextColor // TODO theme
                     anchors.top: parent.top
-                    anchors.verticalCenterOffset: -parent.height / 4
+                    anchors.topMargin: font.pixelSize * 0.2
                     anchors.left: parent.left
                     anchors.leftMargin: font.pixelSize * 1.5
                     font.family: Config.fontBlocky.font.family
@@ -201,34 +212,36 @@ Scope {
                 }
 
                 Text {
+                    z: 1
                     width: parent.width
                     horizontalAlignment: Text.AlignHCenter
                     text: cols.mpris?.trackArtist || ''
-                    color: Config.audioSettings.trackControlTextColor // TODO
+                    color: Config.audioSettings.trackArtistTextColor // TODO
                     anchors.bottom: parent.bottom
-                    anchors.bottomMargin: parent.height * 0.05
+                    anchors.bottomMargin: parent.height * 0.02
                     font.family: Config.fontBlocky.font.family
-                    font.pointSize: Config.audioSettings.artistTextSize
+                    font.pointSize: Config.audioSettings.trackArtistTextSize
                 }
 
                 Rectangle {
                     id: volumeRect
                     // TODO: vol bars thinggy?
-                    height: displayRect.height * 0.06
-                    anchors.top: parent.top
+                    width: displayRect.width
+                    anchors.bottom: parent.bottom
                     anchors.horizontalCenter: parent.horizontalCenter
                     color: Config.audioSettings.volumeBarColor
-                    width: {
+                    property real maxHeight: displayRect.height * 0.22
+                    height: {
                         const vol = cols.sink?.audio.volume || 0;
 
                         if (cols.sink?.audio.muted) {
                             return 0;
                         }
 
-                        return vol * displayRect.width;
+                        return vol * maxHeight;
                     }
 
-                    Behavior on width {
+                    Behavior on height {
                         NumberAnimation {
                             duration: 100
                         }
@@ -255,7 +268,7 @@ Scope {
                         layoutAlignment: Qt.AlignLeft
                         implicitHeight: controlRect.height
                         implicitWidth: controlRect.width * .25
-                        enabled: cols.mpris?.canGoPrevious
+                        enabled: cols.mpris?.canGoPrevious || false
                         text: "PREV"
                     }
 
@@ -287,7 +300,7 @@ Scope {
                         implicitHeight: controlRect.height
                         implicitWidth: controlRect.width * 0.25
                         text: "NEXT"
-                        enabled: cols.mpris?.canGoPrevious
+                        enabled: cols.mpris?.canGoPrevious || false
                     }
                 }
             }

@@ -41,8 +41,7 @@ Scope {
 
         property real notificationWidth: screen.width * 0.166
         implicitWidth: notificationWidth
-        // TODO why is this max here?
-        implicitHeight: Math.max(1, column.implicitHeight)
+        implicitHeight: column.implicitHeight
         color: "transparent"
 
         Component.onCompleted: {
@@ -59,7 +58,6 @@ Scope {
             id: column
             spacing: -20
             Layout.fillWidth: true
-            // TODO: this is choppy when a lot of notifications come in. I'm not sure if that's fixable
             // This lets animations come in from the right edge; by default they come in from the left
             layoutDirection: Qt.RightToLeft
             // This allows the first notification to come in from the right. Otherwise it plays only
@@ -70,14 +68,13 @@ Scope {
                 model: server.trackedNotifications
 
                 WrapperMouseArea {
-                    // TODO: Style and prep this for re-use
                     id: card
                     onClicked: modelData.dismiss()
                     cursorShape: Qt.PointingHandCursor
                     required property var modelData
                     WrapperRectangle {
                         id: cardBackground
-                        color: "black"
+                        color: Config.notifications.backgroundColor
                         margin: 0
                         radius: 2
                         Layout.fillWidth: true
@@ -149,7 +146,6 @@ Scope {
                                         }
 
                                         Text {
-                                            // TODO preferred height? or we just do max lines and calc font sizes?
                                             Layout.fillWidth: true
                                             Layout.leftMargin: colLayout.itemsLeftMargin
                                             text: card.modelData.body
@@ -170,7 +166,7 @@ Scope {
                             }
 
                             BlurLine {
-                                Layout.topMargin: -30 // TODO theme it or var
+                                Layout.topMargin: -Config.notifications.horizontalLineHeight
                                 id: horizontalYellowLine
                                 rectHeight: 2
                                 rectWidth: cardBackground.width

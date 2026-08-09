@@ -42,7 +42,8 @@ Singleton {
         "dateTextColor": "#e1e1e1",
         "passwordTextColor": "black",
         "passwordTextSize": 16,
-        "accentColor": "#a21e1d"
+        "accentColor": "#a21e1d",
+        "baseColor": "black"
     }
 
     readonly property var appLauncher: {
@@ -51,6 +52,8 @@ Singleton {
         "textInputColor": "black",
         "backgroundColor": "#20236d",
         "backgroundTextMinSize": 16,
+        "backgroundTextGrowThreshold": 18,
+        "backgroundTextGrowStep": 8,
         "searchBarBackgroundColor": "#c3bb05",
         "searchBarBorderColor": "black",
         "searchBarBorderWidth": 2,
@@ -64,7 +67,9 @@ Singleton {
         // Background color for a Day, selected at random from this list
         "backgroundColorsDays": ["#3954f0", "#d7dbf8", "#fefefe", "#b1bdf8", "#a4aef8"],
         "daysTextSize": 16,
+        "daysTextColor": "black",
         "eventsTextSize": 15,
+        "eventsTextColor": "black",
         // Probability that a given Day's label will be italicized
         "fontDaysItalicThreshold": 0.5,
         "dayTextXOffsetRange": 10,
@@ -83,13 +88,17 @@ Singleton {
         "accentColor": "#641c1a",
         "headerTextSize": 12,
         "bodyTextSize": 12,
+        "horizontalLineHeight": 30
     }
 
     readonly property var systemInfo: {
         "backgroundColor": "black",
         "accentColor": "#226499",
         "textColor": "#fabb3f",
-        "detailsTextSize": 18
+        "detailsTextSize": 18,
+        "disk": {
+            "movingTextColor": "black"
+        }
     }
 
     readonly property var taskbar: {
@@ -101,11 +110,6 @@ Singleton {
             "backgroundColor": "black"
         },
         "audio": {
-            // TODO previously #4f65ef which is a nice blue
-            // and 1b1835 which is a nice purple
-            "textColor": "#e1e1e1",
-            "barsColor": '#de5c5c',
-            "barsBorderColor": "#250000", 
             "backgroundColor": "black"
         },
         "battery": {
@@ -115,8 +119,9 @@ Singleton {
             "barsBorderColor": 'white',
             "backgroundColor": "black"
         },
-        // TODO theme dark mid light border
-        // TODO these also need a new "hover color" above the lightest shade
+        // theme dark mid light border
+        // Some other palettes from cowboy bebop:
+        // 
         // 641c1a a21e1d cf2d1d 250000 reds
         // 6a0b50 bc128d e27abd 2f0020 purples
         // 5f5702 a49e02 eae104 0d0000 yellows

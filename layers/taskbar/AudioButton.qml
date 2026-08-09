@@ -8,8 +8,6 @@ import Quickshell.Widgets
 import ".."
 import "../.."
 
-// TODO some kind of image background or something?
-// TODO not entirely happy with the text here
 WrapperMouseArea {
     id: root
     property AudioSettings audioSettings

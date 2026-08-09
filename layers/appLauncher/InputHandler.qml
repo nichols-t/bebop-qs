@@ -44,7 +44,6 @@ WrapperMouseArea {
         if (event.key === Qt.Key_Return) {
             if (targetedApp) {
                 event.accepted = true;
-                // TODO: This seems to launch on the other monitor, and not sure why
                 targetedApp.execute();
                 targetedApp = null;
                 root.onClose();

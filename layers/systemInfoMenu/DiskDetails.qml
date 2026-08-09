@@ -6,10 +6,6 @@ import Quickshell
 import "../.."
 import "../../utils"
 
-// TODO: This could work for multiple drives a little better than it does,
-// and needs more data in general
-// NOTE: NEED TO CHECK "FLATTEN CLIP" IN INKSCAPE FOR IT TO RENDER HOLES PROPERLY!!!
-// AGH!!!
 Rectangle {
     id: root
     anchors.fill: parent
@@ -73,7 +69,6 @@ Rectangle {
     }
 
     ColumnLayout {
-        // TODO: this should be done in a more sophisticated way, more data
         anchors.centerIn: parent
         anchors.verticalCenterOffset: parent.height * 0.1
         DetailsInfoText {
@@ -88,7 +83,7 @@ Rectangle {
             id: primary
             wrapMode: Text.WrapAnywhere
             text: self.text
-            color: "black"
+            color: Config.systemInfo.disk.movingTextColor
             font.pixelSize: root.movingTextSize
             font.family: Config.fontTypewriter.font.family
             width: font.pixelSize

@@ -7,7 +7,6 @@ import Quickshell.Widgets
 import "../.."
 import "../../utils"
 
-// TODO: Some layout issues here because I'm trying to do proper layouts
 Rectangle {
     id: root
     anchors.fill: parent
@@ -17,7 +16,7 @@ Rectangle {
         anchors.fill: parent
         anchors.top: parent.top
         spacing: 0
-        // TODO make a battery image
+        // make a battery image - this is a placeholder
         Image {
             id: diskImage
             Layout.alignment: Qt.AlignHCenter | Qt.AlignTop

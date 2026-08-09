@@ -75,16 +75,11 @@ void main()
 {
     vec4 p = texture(source, qt_TexCoord0);
 
-    // TODO something in the coords is messed up, bc I don't have a resolution uniform
-    // in the same way that the book of shaders does
-    // https://thebookofshaders.com/11/
 	vec2 uv = vec2( 10. * qt_TexCoord0);
 		
     // left: noise	
     float f = noise( noiseSize *uv );
 
-    // TODO: Add an offset so I can control how white/black things are
-    // TODO: Edge detect so middle parts of letters are more visible?
 	vec4 color = p.rgba;
 	fragColor =  vec4(color.r, color.g, color.b, 0.)* f;
 }

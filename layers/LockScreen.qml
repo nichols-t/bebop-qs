@@ -36,7 +36,7 @@ Scope {
             Rectangle {
                 id: backgroundRect
                 anchors.fill: parent
-                color: "black" // TODO color
+                color: Config.lockScreen.baseColor
 
                 WrapperRectangle {
                     color: "transparent"
@@ -103,7 +103,7 @@ Scope {
                     width: parent.width
                     height: parent.height * 0.05
                     anchors.bottom: parent.bottom
-                    color: "black" // TODO color
+                    color:  Config.lockScreen.baseColor
                     z: 2
                 }
 
@@ -140,7 +140,6 @@ Scope {
                     horizontalAlignment: Text.AlignHCenter
                     verticalAlignment: Text.AlignVCenter
                     passwordCharacter: '*'
-                    // TODO: Maybe there's a more interesting shape to use?
                     cursorDelegate: Rectangle {
                         color: Config.lockScreen.passwordTextColor
                         width: 4

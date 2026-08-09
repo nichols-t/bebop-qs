@@ -2,7 +2,7 @@ import QtQuick
 import "../../.."
 
 Text {
-    color: Config.audioSettings.playerTextColor // TODO theme
+    color: Config.audioSettings.playerTextColor
     font.family: Config.fontBlocky.font.family
     font.pointSize: Config.audioSettings.playerTextSize
     transform: Rotation {

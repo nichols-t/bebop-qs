@@ -66,7 +66,6 @@ Scope {
         }
 
         // Overall rectangle forms the base background of the items
-        // TODO: Maybe this should be a ListItem of Buttons instead??
         Rectangle {
             anchors.fill: parent
             color: "#000000"
@@ -172,8 +171,6 @@ Scope {
                     anchors.fill: menuTitleText
                 }
 
-                // TODO insane idea: Voronoi mouse area lmao
-                // wonder if this is smarter way: https://doc.qt.io/qt-6/qml-qtquick-controls-buttongroup.html
                 LogoutClickableButtonItem {
                     id: btnLock
                     text: "LOCK"
@@ -219,8 +216,6 @@ Scope {
         }
     }
 
-    // TODO should this be in a separate file
-    // TODO should this be a Button? Does that automatically give us arrow key controls?
     component LogoutClickableButtonItem: Item {
         id: myself
         required property string text
@@ -288,7 +283,6 @@ Scope {
                 source: myText
                 anchors.fill: myText
                 layer.enabled: false
-                // TODO need to TWEAK IT
                 layer.effect: ShaderEffect {
                     fragmentShader: Qt.resolvedUrl("../shaders/textErosionNoise.frag.qsb")
                     property real noiseSize: 64

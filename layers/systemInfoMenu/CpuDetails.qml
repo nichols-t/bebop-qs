@@ -72,6 +72,7 @@ Rectangle {
     component MovingRectangle: Rectangle {
         anchors.centerIn: parent
         width: parent.width / 50
+        // This one is NOT themed because the SVGs are fixed to black
         color: "black"
         height: parent.width / 3
         radius: 4

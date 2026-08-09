@@ -29,12 +29,14 @@ Rectangle {
 
         Repeater {
             id: repeater
-            model: 6 // TODO how to control this more dynamically? Some people use different number of workspaces
+            // Hyprland.workspaces.values.length only shows this monitor
+            model: 6
             WrapperMouseArea {
                 id: area
                 required property var modelData
                 required property int index
                 property bool isActive: Hyprland.focusedWorkspace?.id === (index + 1)
+                property bool hasWindows: !!Hyprland.workspaces.values.find(w => w.id === area.index + 1)
 
                 // Lua version is uncommented. If hyprland config is old switch to that other one
                 onClicked: Hyprland.dispatch("hl.dsp.focus({ workspace = " + (index + 1) + "})")
@@ -76,7 +78,6 @@ Rectangle {
                         border.width: 2
                         border.color: Config.taskbar.workspaces.borderColor
                         z: area.isActive ? 3 : 2
-                        property var hasWindows: Hyprland.workspaces.values.find(w => w.id === area.index + 1)
 
                         property bool isHovered: false
                         // Creates a shape that is the right size for bounds of a regular hexagon

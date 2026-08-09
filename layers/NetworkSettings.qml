@@ -70,7 +70,6 @@ Scope {
         ColumnLayout {
             anchors.top: parent.top
             anchors.topMargin: Config.networkSettings.deviceTextSize
-            // TODO maybe repeat with empty cells?
             Text {
                 id: titleText
                 text: "NETWORK"

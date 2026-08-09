@@ -12,7 +12,7 @@ WrapperRectangle {
 
     Item {
         implicitHeight: Config.taskbar.taskbarHeight
-        implicitWidth: rows.width + 10 // TODO should be using a wrapper rect here, I think
+        implicitWidth: rows.width + 10
         RowLayout {
             id: rows
           anchors.centerIn: parent
@@ -31,16 +31,16 @@ WrapperRectangle {
                         required property int index
                         width: {
                             if (index === 0) {
-                                return 6;
+                                return Config.taskbar.taskbarHeight / 5;
                             } else {
-                                return 10;
+                                return Config.taskbar.taskbarHeight / 3;
                             }
                         }
                         height: {
                             if (index === 0) {
-                                return 3;
+                                return Config.taskbar.taskbarHeight / 10;
                             } else {
-                                return 5;
+                                return Config.taskbar.taskbarHeight / 6;
                             }
                         }
                         radius: 0
@@ -61,10 +61,7 @@ WrapperRectangle {
                 text: {
                     if (SysInfo.power.hasBattery) {
                         const str = SysInfo.power.pluggedIn ? 'CHARGE ' : ''
-                        // TODO extra space is for layout issues - overall width
-                        // of this widget should have a margin that can accommodate
-                        // this
-                        return `${str}${SysInfo.power.batteryPercent}% `
+                        return `${str}${SysInfo.power.batteryPercent}%`
                     } else {
                         return 'AC'
                     }
@@ -73,8 +70,6 @@ WrapperRectangle {
                 font.pointSize: Config.taskbar.fontSize
                 verticalAlignment: Qt.AlignVCenter
                 horizontalAlignment: Qt.AlignHCenter
-                // TODO why is this extra margin needed?
-                Layout.topMargin: 4
                 color: Config.taskbar.battery.textColor
             }
         }

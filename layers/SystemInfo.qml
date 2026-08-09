@@ -76,7 +76,6 @@ Scope {
                 anchors.left: parent.left
                 anchors.right: parent.right
                 anchors.top: parent.top
-                // TODO put these in properties and maybe configurable
                 anchors.topMargin: modelData.height * 0.05
                 anchors.leftMargin: modelData.width * 0.1
                 anchors.rightMargin: modelData.width * 0.2
@@ -144,7 +143,6 @@ Scope {
 
     component SectionHeaderMouseArea: WrapperMouseArea {
         id: self
-        // TODO: some stronger user feedback on hover
         cursorShape: Qt.PointingHandCursor
         hoverEnabled: true
         onEntered: {

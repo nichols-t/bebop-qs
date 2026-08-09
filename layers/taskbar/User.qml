@@ -30,8 +30,6 @@ WrapperMouseArea {
                 font.bold: false
                 anchors.verticalCenter: parent.verticalCenter
                 anchors.right: parent.right
-                // TODO why it is needed?? I think its font related
-                anchors.verticalCenterOffset: 2
                 color: Config.taskbar.clock.textColor
             }
         }

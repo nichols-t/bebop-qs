@@ -2,8 +2,6 @@ import QtQuick
 import QtQuick.Effects
 import "../../.."
 
-// TODO could go crazy mode and put some of the track text and stuff onto a curved path
-// in the center of the record. That sounds very hard but would be truly incredibly sick
 // Should be same size as its container rect
 Rectangle {
     id: root
@@ -119,6 +117,7 @@ Rectangle {
     Rectangle {
         id: recordFormCircle
         z: 2
+        // This one is NOT themed because the SVG is fixed to black
         color: "black"
         anchors.centerIn: parent
         anchors.verticalCenterOffset: -0.1 * record.height * Math.cos(xAngle)

@@ -6,8 +6,6 @@ import "./base"
 
 // Uses UPower daemon to get changes in battery state automatically,
 // without needing to spawn processes
-// TODO: Upower has other useful stuff like battery health, time to discharge,
-// et cetera. That could be implemented into the System Info menu or elsewhere
 UserModule {
     id: root
     

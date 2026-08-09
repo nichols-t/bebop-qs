@@ -87,8 +87,6 @@ Scope {
                     required property var modelData
                     Layout.alignment: Qt.AlignCenter
                     cursorShape: Qt.PointingHandCursor
-                    // TODO: Not working bc laptop has adapter issue - figure out
-                    // how to have bt adapter turned on
                     onClicked: {
                         if (modelData.paired) {
                             modelData.connected = !modelData.connected;

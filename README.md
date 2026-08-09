@@ -20,10 +20,13 @@ If you'd like to contribute please note the following:
 ## TODOs
 - **Taskbar**:
     - **[FEATURE] Bluetooth indicator**
+    - **[FEATURE] Network icons for captive/limited connection**
 - **[ERGONOMICS] SysInfo**: Make "fallback" system for modules that allows `Config` to specify a list of how things should be read
-- **[FEATURE] SystemInfo Screen**: Add details section for power and network
+- **SystemInfo Screen**: 
+    - **[FEATURE] Add details section for power and network**
+    - **[FEATURE] Make disk details work better for multiple drives and have more data**
 - **[ERGONOMICS] Shutdown Menu**:
-    - Additionally, consider how clickable space is laid out for each item and possibly adjust it
+    - Consider how clickable space is laid out for each item and possibly adjust it
         - Delaunay Triangulation (Voronoi) (see [this implementation](https://github.com/mapbox/delaunator)) would be an interesting thing for this
 - **All Screens**:
     - **[DESIGN] Shaders** to modify certain elements' appearance
@@ -31,14 +34,30 @@ If you'd like to contribute please note the following:
     - **[ERGONOMICS] Config blur layers** so things are less magic-numbery
     - **[OPTIMIZATION] Loaders**: Use loaders to make sure ongoing resource usage is minimized
 - **[FEATURE] Audio Control**: Create menu for toggling of audio settings
-    - Needs some additional controls
+    - **[FEATURE] Shuffle control/indicator**
+    - **[FEATURE] Playback rate control/indicator**
+    - **[FEATURE] Loop control/indicator**
+    - **[DESIGN] Evaluate volume indicator design**
+    - **[BUG] Track text is cut off when it is too long - should animate scroll instead**
 - **[FEATURE] Network Control**: Create a control screen for network status, Wi-Fi etc.
     - Started but only displays existing connections
 - **[FEATURE] Bluetooth Control**: Create a control screen for bluetooth pairing/dc/etc.
     - Started but only displays existing connections
+- **[ERGONOMICS] Theme Control**: A menu for editing theme colors, maybe
+- **[BUG] Notifications get choppy when spammed**
+- **[BUG] On first app launch, it opens on workspace 6 instead of 1**
+- **[BUG] Workspace 6 on TV always showing as having windows**
+
+## Improvement Ideas
+- **[DESIGN] Tweak shutdown menu `textErosionNoise` shader**
+- **[DESIGN] Improve randomness in app launcher font size**
+    - Could be a "bias" instead of uniform random
 - **[FEATURE] Lock Screen**: Add support for fingerprint login via PAM.
     - see https://github.com/end-4/dots-hyprland/pull/2308/changes, but this is slop so who knows
-- **[ERGONOMICS] Theme Control**: A menu for editing theme colors, maybe
+- **[DESIGN] Put some audio info in settings as curved text on top of the record SVG**
+- **[FEATURE] Make workspaces work more dynamically with # of workspaces actually used**
+## Random Notes
+- Must check "Flatten Clip" in Inkscape for holes to render properly when exported
 
 ## Acknowledgements, Inspirations
 - Cowboy Bebop, obviously

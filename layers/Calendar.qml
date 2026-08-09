@@ -10,7 +10,6 @@ import ".."
 import "../utils"
 import "./calendar"
 
-// TODO interactivity: What should happen when we click on a day?
 Scope {
     id: root
     // This is the screen from Quickshell.screens
@@ -132,7 +131,6 @@ Scope {
             }
 
             // Additional failsafe to let you close menu via mouse
-            // TODO need to add onClick submenu to each day
             MouseArea {
                 id: backgroundMouseArea
                 enabled: !dayView.shouldShow

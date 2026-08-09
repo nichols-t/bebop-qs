@@ -8,14 +8,6 @@ import "./"
 Singleton {
     id: root
 
-    // TODO: We probably should clear stuff on close, but realistically I don't think this will matter
-    // very much unless I implement a full calendar search
-    function clear() {
-    }
-
-    // TODO probably use this for some user feedback or something
-    // property bool loaded: false
-
     property string debug: ''
     property string firstDay: ''
     property string lastDay: ''

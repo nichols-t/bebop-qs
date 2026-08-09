@@ -1,6 +1,5 @@
 import Quickshell
 import Quickshell.Io
-// TODO should audio info be from singleton? Is it already??
 import Quickshell.Services.Pipewire
 import Quickshell.Services.Mpris
 import Quickshell.Wayland
@@ -110,9 +109,6 @@ Scope {
                 text: "AUDIO"
             }
 
-            // TODO is shuffled icon/text? cols.mpris?.shuffle
-            // TODO rate control cols.mpris?.rate ${cols.mpris?.minRate} - ${cols.mpris?.maxRate}
-            // TODO loop cols.mpris?.loopSupported
             Rectangle {
                 id: displayRect
                 height: cols.width * 0.6

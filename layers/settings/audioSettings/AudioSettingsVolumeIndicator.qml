@@ -2,7 +2,6 @@ import QtQuick
 import Quickshell.Services.Pipewire 
 import "../../.."
 
-// TODO not sure on this...
 Rectangle {
     required property var container
     required property PwNode sink

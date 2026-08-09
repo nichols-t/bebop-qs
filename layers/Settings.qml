@@ -83,14 +83,14 @@ Scope {
         ColumnLayout {
             id: cols
             anchors.top: parent.top
-            anchors.topMargin: panel.height * 0.1
+            anchors.topMargin: panel.height * 0.05
 
             SettingsMenuTitleText {
                 text: "SETTINGS"
             }
 
             Item {}
-            // TODO heading and I am questioning my font choices
+
             SettingsMenuButton {
                 text: "SYSTEM INFO"
 

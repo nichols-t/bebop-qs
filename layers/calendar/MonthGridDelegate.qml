@@ -98,7 +98,7 @@ Rectangle {
             }
         }
         z: root.z + 1
-        color: "black"
+        color: Config.calendar.daysTextColor
         anchors.horizontalCenter: parent.horizontalCenter
         anchors.horizontalCenterOffset: {
             if (shouldShow) {
@@ -115,10 +115,6 @@ Rectangle {
         Repeater {
             model: CalendarData.dayInfo[index]
 
-            // TODO I copied this from the above segment; put it into a proper component
-            // as like RandomText or something
-            // The ranges also are a bit weird for these particular event, needed to reduce them a lot
-            // and also they don't work in a layout the same way (but the above text should probably also be in a Layout)
             Text {
                 required property var modelData
                 text: modelData.title
@@ -136,7 +132,7 @@ Rectangle {
                     }
                 }
                 z: root.z + 1
-                color: "black"
+                color: Config.calendar.eventsTextColor
                 // Need to set both this and width explicitly to make it work inside a Layout
                 Layout.preferredWidth: width
                 wrapMode: Text.WordWrap

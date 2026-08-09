@@ -124,9 +124,9 @@ Scope {
                                 required property var modelData
                                 property real maxX: randomTextContainer.width * 0.75
                                 property int maxFontSize: {
-                                    // TODO should this 18 be configurable?
-                                    // TODO this may look better as "bias" rather than a hard cap, but TBD
-                                    const plus = (18 - Math.min(18, inputHandler.candidateApps.length)) * 8;
+                                    const threshold = Config.appLauncher.backgroundTextGrowThreshold;
+                                    const step = Config.appLauncher.backgroundTextGrowStep;
+                                    const plus = (threshold - Math.min(threshold, inputHandler.candidateApps.length)) * step;
                                     return Config.appLauncher.backgroundTextMinSize + plus;
                                 }
                                 DesktopEntryBackgroundText {

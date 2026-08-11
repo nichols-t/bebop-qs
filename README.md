@@ -45,6 +45,7 @@ If you'd like to contribute please note the following:
     - Started but only displays existing connections
 - **[ERGONOMICS] Theme Control**: A menu for editing theme colors, maybe
 - **[BUG] Notifications get choppy when spammed**
+- **[BUG] Notifications are too small on laptop - need a different way of calculating the maximum width**
 - **[BUG] On first app launch, it opens on workspace 6 instead of 1**
 - **[BUG] Workspace 6 on TV always showing as having windows**
 

@@ -167,6 +167,7 @@ Singleton {
         "trackArtistTextColor": "black",
         "recordRotationDuration": 5000,
         "recordAccentColor": '#703798',
+        "recordTextColor": "#e1e1e1",
         "playerTextSize": 14,
         "playerTextColor": "black",
         "recordHighlightAngle": -63,

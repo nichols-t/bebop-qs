@@ -171,7 +171,7 @@ Rectangle {
                 anchors.centerIn: parent
                 width: isHovered ? parent.width : 0
                 height: btnText.height * 1.1
-                color: Config.audioSettings.volumeBarColor
+                color: Config.audioSettings.trackControlHoverRectColor
                 border.width: 2
                 border.color: pressed ? Config.audioSettings.trackControlClickedBorderColor : Config.audioSettings.trackControlHoverBorderColor
 

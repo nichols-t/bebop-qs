@@ -36,6 +36,9 @@ If you'd like to contribute please note the following:
 - **[FEATURE] Audio Control**: Create menu for toggling of audio settings
     - **[DESIGN] Evaluate volume indicator design**
     - **[BUG] Track text is cut off when it is too long - should animate scroll instead**
+    - **[BUG] Make record angle not change when switching tracks**
+    - **[BUG] Make record shadow not bug out the form circle**
+    - **[BUG] Make record artist text curved on bottom edge**
 - **[FEATURE] Network Control**: Create a control screen for network status, Wi-Fi etc.
     - Started but only displays existing connections
 - **[FEATURE] Bluetooth Control**: Create a control screen for bluetooth pairing/dc/etc.

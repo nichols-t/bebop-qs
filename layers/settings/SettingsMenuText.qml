@@ -16,6 +16,7 @@ WrapperRectangle {
         font.pointSize: Config.settings.menuTextSize
         font.bold: false
         font.italic: root.hovered
+        font.underline: root.hovered
         font.letterSpacing: 2
     }
 }

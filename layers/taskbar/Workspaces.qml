@@ -93,7 +93,7 @@ Rectangle {
                             // file that we imported
                             anchors.verticalCenterOffset: area.isActive ? -2 : 0
                             font.family: area.isActive ? Config.fontBlocky.font.family : Config.fontTypewriter.font.family
-                            font.italic: wsButton.isHovered
+                            font.bold: wsButton.isHovered
                             font.pointSize: Config.taskbar.workspaces.fontSize
 
                             color: {

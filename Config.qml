@@ -165,13 +165,20 @@ Singleton {
         "trackArtistTextColor": "black",
         "recordRotationDuration": 5000,
         "recordAccentColor": '#703798',
-        "trackControlTextColor": "#e1e1e1",
-        "trackControlTextSize": 18,
         "playerTextSize": 14,
         "playerTextColor": "black",
         "recordHighlightAngle": -63,
         "recordHighlightColor": '#cf9cf4',
-        "recordHighlightOpacity": 0.3
+        "recordHighlightOpacity": 0.3,
+        "trackControlTextColor": "#e1e1e1",
+        "trackControlDisabledTextColor": '#421a5e',
+        "trackControlTextSize": 18,
+        "trackControlBackgroundColor": "#8d41c5",
+        "trackControlDisabledBackgroundColor": "#5b2f7a",
+        "trackControlHoverBorderColor": '#150c1b',
+        "trackControlClickedBorderColor": "#cf9cf4",
+        "trackControlHoverRectColor": "#5b2f7a",
+        "trackControlIndicatorTextSize": 12
     }
 
     readonly property var bluetoothSettings: {

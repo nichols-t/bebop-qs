@@ -11,77 +11,187 @@ Rectangle {
 
     required property MprisPlayer player
 
-    RowLayout {
+    ColumnLayout {
         width: root.width
-        spacing: 0
+        // TODO copied this from base audio settings maybe I need to pass it down?
+        spacing: root.width * 0.1 / 2
+        RowLayout {
+            width: root.width
+            spacing: 0
 
-        AudioControlButton {
-            onClicked: {
-                if (root.player?.canGoPrevious) {
-                    root.player.previous();
+            AudioControlButton {
+                onClicked: {
+                    if (root.player?.canGoPrevious) {
+                        root.player.previous();
+                    }
+                }
+                layoutAlignment: Qt.AlignLeft
+                implicitHeight: root.height
+                implicitWidth: root.width * .25
+                enabled: root.player?.canGoPrevious || false
+                text: "PREV"
+            }
+
+            Item {
+                Layout.fillWidth: true
+            }
+
+            AudioControlButton {
+                onClicked: {
+                    if (root.player) {
+                        root.player.isPlaying = !root.player.isPlaying;
+                    }
+                }
+                layoutAlignment: Qt.AlignCenter
+                implicitHeight: root.height
+                implicitWidth: root.width * 0.3
+                text: {
+                    if (root.player?.isPlaying) {
+                        return "PAUSE";
+                    } else {
+                        return "PLAY";
+                    }
+                }
+                enabled: !!root.player
+            }
+
+            Item {
+                Layout.fillWidth: true
+            }
+
+            AudioControlButton {
+                onClicked: {
+                    if (root.player?.canGoNext) {
+                        root.player.next();
+                    }
+                }
+                layoutAlignment: Qt.AlignRight
+                implicitHeight: root.height
+                implicitWidth: root.width * 0.25
+                text: "NEXT"
+                enabled: root.player?.canGoPrevious || false
+            }
+        }
+        RowLayout {
+            width: root.width
+            spacing: 0
+
+            AudioControlButton {
+                layoutAlignment: Qt.AlignLeft
+                implicitHeight: root.height
+                implicitWidth: root.width * 0.25
+                text: "SHUFFLE"
+                enabled: root.player?.loopSupported || false
+                onClicked: {
+                    if (root.player) {
+                        root.player.shuffle = !root.player.shuffle
+                    }
                 }
             }
-            layoutAlignment: Qt.AlignLeft
-            implicitHeight: root.height
-            implicitWidth: root.width * .25
-            enabled: root.player?.canGoPrevious || false
-            text: "PREV"
-        }
 
-        Item {
-            Layout.fillWidth: true
-        }
+            Item {
+                Layout.fillWidth: true
+            }
 
-        AudioControlButton {
-            onClicked: {
-                if (root.player) {
-                    root.player.isPlaying = !root.player.isPlaying;
+            ColumnLayout {
+                implicitHeight: root.height
+                implicitWidth: root.width * 0.3
+                Text {
+                    Layout.alignment: Qt.AlignCenter
+                    text: {
+                        switch (root.player?.loopState) {
+                            case MprisLoopState.None:
+                                return "";
+                            case MprisLoopState.Track:
+                                return "LOOPING TRACK";
+                            case MprisLoopState.Playlist:
+                                return "LOOPING ALL";
+                        }
+                    }
+                    font.family: Config.fontTypewriter.font.family
+                    font.pointSize: Config.audioSettings.trackControlIndicatorTextSize
+                    color: Config.audioSettings.trackControlTextColor
+                }
+                Text {
+                    Layout.alignment: Qt.AlignCenter
+                    font.family: Config.fontTypewriter.font.family
+                    font.pointSize: Config.audioSettings.trackControlIndicatorTextSize
+                    text: root.player?.shuffle ? "SHUFFLING" : ""
+                    color: Config.audioSettings.trackControlTextColor
                 }
             }
-            layoutAlignment: Qt.AlignCenter
-            implicitHeight: root.height
-            implicitWidth: root.width * 0.3
-            text: {
-                if (root.player?.isPlaying) {
-                    return "PAUSE";
-                } else {
-                    return "PLAY";
+
+            Item {
+                Layout.fillWidth: true
+            }
+
+            AudioControlButton {
+                layoutAlignment: Qt.AlignLeft
+                implicitHeight: root.height
+                implicitWidth: root.width * 0.25
+                text: "LOOP"
+                enabled: root.player?.loopSupported || false
+                onClicked: {
+                    if (root.player) {
+                        let current = root.player.loopState;
+                        if (current == MprisLoopState.None) {
+                            root.player.loopState = MprisLoopState.Playlist;
+                        } else if (current == MprisLoopState.Playlist) {
+                            root.player.loopState = MprisLoopState.Track;
+                        } else {
+                            // it is track -> none
+                            root.player.loopState = MprisLoopState.None;
+                        }
+                    }
                 }
             }
-        }
-
-        Item {
-            Layout.fillWidth: true
-        }
-
-        AudioControlButton {
-            onClicked: {
-                if (root.player?.canGoNext) {
-                    root.player.next();
-                }
-            }
-            layoutAlignment: Qt.AlignRight
-            implicitHeight: root.height
-            implicitWidth: root.width * 0.25
-            text: "NEXT"
-            enabled: root.player?.canGoPrevious || false
         }
     }
 
     component AudioControlButton: WrapperMouseArea {
-        cursorShape: Qt.PointingHandCursor
+        id: self
+        cursorShape: enabled ? Qt.PointingHandCursor : Qt.ArrowCursor
         property alias implicitWidth: btnRect.implicitWidth
         property alias implicitHeight: btnRect.implicitHeight
         property alias text: btnText.text
         property var layoutAlignment
+        hoverEnabled: true
+        property bool isHovered: false
+        onEntered: {
+            isHovered = true;
+        }
+        onExited: {
+            isHovered = false;
+        }
         Rectangle {
             id: btnRect
             Layout.alignment: layoutAlignment
-            color: Config.audioSettings.accentColor
+            color: self.enabled ? Config.audioSettings.trackControlBackgroundColor : Config.audioSettings.trackControlDisabledBackgroundColor
+            Rectangle {
+                anchors.centerIn: parent
+                width: isHovered ? parent.width : 0
+                height: btnText.height * 1.1
+                color: Config.audioSettings.volumeBarColor
+                border.width: 2
+                border.color: pressed ? Config.audioSettings.trackControlClickedBorderColor : Config.audioSettings.trackControlHoverBorderColor
+
+                Behavior on width {
+                    NumberAnimation {
+                        duration: 100
+                    }
+                }
+                Behavior on border.color {
+                    ColorAnimation {
+                        duration: 100
+                    }
+                }
+            }
             Text {
                 id: btnText
+                z: 1
+                font.underline: self.isHovered
                 anchors.centerIn: parent
-                color: Config.audioSettings.trackControlTextColor
+                color: self.enabled ? Config.audioSettings.trackControlTextColor : Config.audioSettings.trackControlDisabledTextColor
                 font.family: Config.fontBlocky.font.family
                 font.pointSize: Config.audioSettings.trackControlTextSize
             }

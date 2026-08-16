@@ -34,9 +34,6 @@ If you'd like to contribute please note the following:
     - **[ERGONOMICS] Config blur layers** so things are less magic-numbery
     - **[OPTIMIZATION] Loaders**: Use loaders to make sure ongoing resource usage is minimized
 - **[FEATURE] Audio Control**: Create menu for toggling of audio settings
-    - **[FEATURE] Shuffle control/indicator**
-    - **[FEATURE] Playback rate control/indicator**
-    - **[FEATURE] Loop control/indicator**
     - **[DESIGN] Evaluate volume indicator design**
     - **[BUG] Track text is cut off when it is too long - should animate scroll instead**
 - **[FEATURE] Network Control**: Create a control screen for network status, Wi-Fi etc.

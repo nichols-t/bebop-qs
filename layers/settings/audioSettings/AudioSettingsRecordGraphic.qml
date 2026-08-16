@@ -7,26 +7,29 @@ import "../../.."
 Rectangle {
     id: root
     color: "transparent"
+    required property MprisPlayer player
     // Whether or not audio is currently playing
     property bool playing: true
     // Graphic is a view of a record player; this controls what angle that view is at
-    property real xAngle: playing ? maxXAngle : minXAngle
+    // min X = playing
+    // max X = not playing and state is paused
+    property real xAngle: !playing && player?.playbackState == MprisPlaybackState.Paused ? minXAngle : maxXAngle
     property real maxXAngle: 80
     property real minXAngle: 20
 
+    // Need these defined separately so we can signal canvas to repaint them when they change.
+    property string trackTitle: player?.trackTitle || ''
+    property string trackArtist: player?.trackArtist || ''
+    property string trackAlbum: player?.trackAlbum || ''
+
     Behavior on xAngle {
         SequentialAnimation {
-            NumberAnimation { duration: 250 }
+            NumberAnimation { duration: xAngle === minXAngle ? 75 : 150 }
         }
     }
 
     property int maxBlur: 2
-    property var mpris: Mpris.players.values[0] || null
 
-    // Need these defined separately so we can signal canvas to repaint them
-    property string trackTitle: mpris?.trackTitle || ''
-    property string trackArtist: mpris?.trackArtist || ''
-    property string trackAlbum: mpris?.trackAlbum || ''
     onTrackTitleChanged: {
         trackDetailsCanvas.requestPaint();
     }
@@ -132,58 +135,79 @@ Rectangle {
             }
         ]
     }
-
-    // Gives the illusion of thickness
-    Rectangle {
-        id: recordFormCircle
+    RecordFormCircle {
         z: 2
-        visible: root.xAngle === maxXAngle && root.playing
-        // This one is NOT themed because the SVG is fixed to black
-        color: "black"
         anchors.centerIn: parent
-        anchors.verticalCenterOffset: -0.1 * root.height * Math.cos(xAngle)
-        width: root.width * 0.81
-        height: root.width * 0.81
-        radius: width / 2
         transform: XRotation {
-            origin.x: recordFormCircle.width / 2
-            origin.y: recordFormCircle.height / 2
-        }
-        Behavior on height {
-            NumberAnimation {}
+            origin.x: 0
+            origin.y: root.height * 0.01
         }
     }
 
-    // TODO for some reason, this renders above the form circle no matter what z I make it
-    Rectangle {
-        id: highlightCircle
-        z: -1
-        color: Config.audioSettings.accentColor
+    RecordShadowCircle {
+        z: 0
         anchors.centerIn: parent
-        anchors.verticalCenterOffset: -0.65 * record.height * Math.cos(xAngle)
-        width: root.width * 0.85
-        height: root.width * 0.85
-        radius: width / 2
-        visible: false
-        transform: XRotation {
-            origin.x: highlightCircle.width / 2
-            origin.y: highlightCircle.height / 2
+    }
+
+    // Gives the illusion of thickness to the record SVG
+    component RecordFormCircle: Item {
+        Rectangle {
+            id: recordFormCircle
+            z: 2
+            visible: false
+            // This one is NOT themed because the SVG is fixed to black
+            color: "black"
+            anchors.centerIn: parent
+            anchors.verticalCenterOffset: -0.2 * root.height * Math.cos(xAngle)
+            width: root.width * 0.81
+            height: root.width * 0.81
+            radius: width / 2
+            
+        }
+
+        // I only actually added this because having it on the RecordShadowCircle but not
+        // here causes the RecordShadowCircle to render its effect above this circle, no
+        // matter what its z is.
+        MultiEffect {
+            blurEnabled: true
+            anchors.fill: recordFormCircle
+            source: recordFormCircle
+            visible: root.xAngle === maxXAngle
         }
     }
 
-    // MultiEffect {
-    //     z: -1
-    //     blurEnabled: true
-    //     blur: 1.0
-    //     blurMax: root.maxBlur
-    //     colorizationColor: 'black'
-    //     colorization: 0.3
-    //     source: highlightCircle
-    //     anchors.fill: highlightCircle
-    //     opacity: root.xAngle === maxXAngle && root.playing ? 1.0 : 0.0
-    //     transform: XRotation {
-    //         origin.x: highlightCircle.width / 2
-    //         origin.y: highlightCircle.height / 2
-    //     }
-    // }
+    component RecordShadowCircle: Item {
+        // TODO for some reason, this renders above the form circle no matter what z I make it
+        Rectangle {
+            id: highlightCircle
+            z: -1
+            color: Config.audioSettings.accentColor
+            anchors.centerIn: parent
+            anchors.verticalCenterOffset: -0.65 * record.height * Math.cos(xAngle)
+            width: root.width * 0.82
+            height: root.width * 0.82
+            radius: width / 2
+            visible: false
+            transform: XRotation {
+                origin.x: highlightCircle.width / 2
+                origin.y: highlightCircle.height / 2
+            }
+        }
+
+        MultiEffect {
+            z: -1
+            blurEnabled: true
+            blur: 1.0
+            blurMax: root.maxBlur * 2
+            colorizationColor: 'black'
+            colorization: 0.4
+            source: highlightCircle
+            anchors.fill: highlightCircle
+            opacity: root.xAngle === maxXAngle ? 1 : 0
+            transform: XRotation {
+                origin.x: highlightCircle.width / 2
+                origin.y: highlightCircle.height / 2
+            }
+        }
+    }
 }

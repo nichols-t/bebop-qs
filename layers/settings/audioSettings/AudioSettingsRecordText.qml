@@ -9,19 +9,16 @@ Canvas {
     required property string trackAlbum
     // Base angle for curved text, which is used to determine how far apart the letters are placed.
     // Value determined by experimentation.
-    property real curvedTextBaseAngle: Math.PI * 0.04
+    property real curvedTextBaseAngle: Config.audioSettings.recordTextBaseAngle
     // Base radius determined via experimentation; this will depend on how big the central
     // circle of the underlying SVG icon is. But since our canvas' width should be keyed off of
     // that, we can just make it some fraction of our own width.
-    property real curvedTextBaseRadius: width * 0.12
-    // The max length here is based on a semicircle of our total, so PI * radius would be a semicircle.
-    // The 0.75 just comes from experimentation: sometimes the word wrapping takes us a bit over the
-    // max so we can set the max a bit lower to give it more breathing room.
-    property real titleMaxWidth: Math.PI * curvedTextBaseRadius * 0.75
-    // Similar for the artist max width. I'm setting this to the same fraction of a semicircle that
-    // the track title is for now, but could see this possibly being altered for whatever reason in
-    // the future.
-    property real artistMaxWidth: Math.PI * curvedTextBaseRadius * 0.75
+    property real curvedTextBaseRadius: width * Config.audioSettings.recordTextBaseRadiusFactor
+    // The text can exceed this arc angle based on how the words wrap, so the config setting is just a target
+    property real titleMaxWidth: 2 * Math.PI * curvedTextBaseRadius * Config.audioSettings.recordTextTitleTargetArcFactor
+    // Similar for the artist max width.
+    property real artistMaxWidth: 2 * Math.PI * curvedTextBaseRadius * Config.audioSettings.recordTextArtistTargetArcFactor
+    property real fontSize: Math.floor(width * Config.audioSettings.recordTextFontSizeFactor)
 
     onPaint: {
         var ctx = getContext("2d");
@@ -29,14 +26,13 @@ Canvas {
         // the section that changed but is that really necessary?)
         ctx.clearRect(0, 0, root.width, root.height);
 
-        const fontSize = Math.floor(root.width * 0.02);
+        const fontSize = root.fontSize;
         ctx.font = `${fontSize}px '${Config.fontTypewriter.font.family}'`;
         ctx.textAlign = "center";
         ctx.fillStyle = Config.audioSettings.recordTextColor;
 
         var centerX = width / 2;
         var centerY = height / 2;
-        var radius = root.width * 0.12;
         const titleLines = getLines(ctx, root.trackTitle, titleMaxWidth);
         drawTextAlongArcWrapped(ctx, root.trackTitle, centerX, centerY, curvedTextBaseRadius, curvedTextBaseAngle, fontSize, titleMaxWidth);
         // We determine max width of this "center" text based on how many lines we needed to write the

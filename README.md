@@ -35,8 +35,7 @@ If you'd like to contribute please note the following:
     - **[OPTIMIZATION] Loaders**: Use loaders to make sure ongoing resource usage is minimized
 - **[FEATURE] Audio Control**: Create menu for toggling of audio settings
     - **[BUG] Track text is cut off when it is too long - should animate scroll instead**
-    - **[BUG] Make record angle not change when switching tracks**
-    - **[BUG] Make record shadow not bug out the form circle**
+    - **[FEATURE] Switch between players maybe with different colors for each**
 - **[FEATURE] Network Control**: Create a control screen for network status, Wi-Fi etc.
     - Started but only displays existing connections
 - **[FEATURE] Bluetooth Control**: Create a control screen for bluetooth pairing/dc/etc.

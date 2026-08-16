@@ -1,6 +1,5 @@
 import Quickshell
 import Quickshell.Services.Pipewire
-import Quickshell.Services.Mpris
 import QtQuick
 import QtQuick.Effects
 import QtQuick.Layouts
@@ -22,10 +21,6 @@ WrapperMouseArea {
     readonly property bool ready: sink && sink.ready
     readonly property bool muted: ready && sink.audio.muted
     readonly property int vol: ready ? Math.round(sink.audio.volume * 100) : 0
-
-    // Used for track information
-    // https://quickshell.org/docs/v0.3.0/types/Quickshell.Services.Mpris/MprisPlayer/
-    property var mpris: Mpris.players.values[0] || null
 
     readonly property int audioLevel: {
         // Got from https://www.nerdfonts.com/cheat-sheet

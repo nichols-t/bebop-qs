@@ -131,10 +131,12 @@ Scope {
                         anchors.fill: parent
                         anchors.centerIn: parent
                         playing: cols.mpris?.isPlaying || false
+                        player: cols.mpris
                     }
 
                     AudioSettingsTrackTitleText {
                         z: 1
+                        id: titleText
                         text: cols.mpris?.trackTitle || ''
                         width: displayRect.width
                         horizontalAlignment: Text.AlignHCenter
@@ -153,8 +155,8 @@ Scope {
                     AudioSettingsApplicationText {
                         z: 1
                         text: cols.mpris?.identity || ''
-                        anchors.top: parent.top
-                        anchors.topMargin: font.pixelSize * 0.2
+                        anchors.verticalCenter: parent.verticalCenter
+                        anchors.verticalCenterOffset: -width / 2
                         anchors.left: parent.left
                         anchors.leftMargin: font.pixelSize * 1.5
                     }
@@ -171,7 +173,7 @@ Scope {
                     AudioSettingsVolumeIndicator {
                         container: displayRect
                         width: displayRect.width
-                        maxHeight: container.height //* 0.22
+                        maxHeight: container.height
                         anchors.bottom: displayRect.bottom
                         anchors.horizontalCenter: displayRect.horizontalCenter
                         sink: cols.sink

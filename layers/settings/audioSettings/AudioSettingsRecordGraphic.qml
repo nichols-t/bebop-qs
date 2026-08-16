@@ -47,6 +47,7 @@ Rectangle {
         }
     }
 
+
     component RotatingRecord: Item {
         id: record
         Image {
@@ -106,78 +107,13 @@ Rectangle {
         anchors.centerIn: parent
     }
 
-    // This technique from https://stackoverflow.com/questions/50010671/how-i-can-create-a-curved-text-in-qml-canvas-element
-    Canvas {
+    AudioSettingsRecordText {
         id: trackDetailsCanvas
         z: 4
         anchors.fill: parent
-        // https://stackoverflow.com/questions/2936112/text-wrap-in-a-canvas-element
-        function getLines(ctx, text, maxWidth) {
-            var words = text.split(" ");
-            var lines = [];
-            var currentLine = words[0];
-
-            for (var i = 1; i < words.length; i++) {
-                var word = words[i];
-                var width = ctx.measureText(currentLine + " " + word).width;
-                if (width < maxWidth) {
-                    currentLine += " " + word;
-                } else {
-                    lines.push(currentLine);
-                    currentLine = word;
-                }
-            }
-            lines.push(currentLine);
-            return lines;
-        }
-        function drawTextAlongArc(context, str, centerX, centerY, radius, angle) {
-            context.save();
-            context.translate(centerX, centerY);
-            context.rotate(-1 * angle / 2);
-            context.rotate(-1 * (angle / str.length) / 2);
-            for (var n = 0; n < str.length; n++) {
-                context.rotate(angle / str.length);
-                context.save();
-                context.translate(0, -1 * radius);
-                var char1 = str[n];
-                context.fillText(char1, 0, 0);
-                context.restore();
-            }
-            context.restore();
-        }
-        function drawText(context, str, centerX, centerY) {
-            context.save();
-            context.translate(centerX, centerY);
-            context.fillText(str, 0, 0);
-            context.restore();
-        }
-        onPaint: {
-            var ctx = getContext("2d");
-            context.clearRect(0, 0, trackDetailsCanvas.width, trackDetailsCanvas.height);
-
-            const fontSize = Math.floor(trackDetailsCanvas.width * 0.02);
-            ctx.font = `${fontSize}px '${Config.fontTypewriter.font.family}'`;
-
-            ctx.textAlign = "center";
-
-            var centerX = width / 2;
-            var centerY = height / 2;
-            var angle = Math.PI * 0.04 * root.trackTitle.length; // radians
-            var radius = trackDetailsCanvas.width * 0.12;
-            ctx.fillStyle = Config.audioSettings.recordTextColor;
-            drawTextAlongArc(ctx, root.trackTitle, centerX, centerY, radius, angle);
-            const lines = getLines(ctx, root.trackAlbum, radius * 1.8);
-            context.save();
-            ctx.translate(0, -fontSize * lines.length * 0.5)
-            for (let i = 0; i < lines.length; i++) {
-                const line = lines[i];
-                ctx.translate(0, fontSize);
-                drawText(ctx, line, centerX, centerY);
-            }
-            ctx.translate(0, fontSize);
-            drawText(ctx, trackArtist, centerX, centerY);
-            context.restore();
-        }
+        trackAlbum: root.trackAlbum
+        trackArtist: root.trackArtist
+        trackTitle: root.trackTitle
         transform: [
             Rotation {
                 origin.x: trackDetailsCanvas.x + trackDetailsCanvas.width / 2
@@ -218,6 +154,7 @@ Rectangle {
         }
     }
 
+    // TODO for some reason, this renders above the form circle no matter what z I make it
     Rectangle {
         id: highlightCircle
         z: -1

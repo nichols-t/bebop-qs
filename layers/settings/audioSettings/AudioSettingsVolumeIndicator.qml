@@ -20,7 +20,8 @@ Rectangle {
         return vol * maxHeight;
     }
 
-    // For some reason if they're in a RowLayout they don't anchor to bottom correctly
+    // For some reason if they're in a RowLayout they don't anchor to bottom correctly, so I
+    // placed them manually
     Repeater {
         id: repeater
         model: 18

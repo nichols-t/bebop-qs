@@ -34,11 +34,9 @@ If you'd like to contribute please note the following:
     - **[ERGONOMICS] Config blur layers** so things are less magic-numbery
     - **[OPTIMIZATION] Loaders**: Use loaders to make sure ongoing resource usage is minimized
 - **[FEATURE] Audio Control**: Create menu for toggling of audio settings
-    - **[DESIGN] Evaluate volume indicator design**
     - **[BUG] Track text is cut off when it is too long - should animate scroll instead**
     - **[BUG] Make record angle not change when switching tracks**
     - **[BUG] Make record shadow not bug out the form circle**
-    - **[BUG] Make record artist text curved on bottom edge**
 - **[FEATURE] Network Control**: Create a control screen for network status, Wi-Fi etc.
     - Started but only displays existing connections
 - **[FEATURE] Bluetooth Control**: Create a control screen for bluetooth pairing/dc/etc.
@@ -46,6 +44,7 @@ If you'd like to contribute please note the following:
 - **[ERGONOMICS] Theme Control**: A menu for editing theme colors, maybe
 - **[BUG] Notifications get choppy when spammed**
 - **[BUG] Notifications are too small on laptop - need a different way of calculating the maximum width**
+- **[BUG] Notification text should wrap if it gets too wide, it's cut off right now**
 - **[BUG] On first app launch, it opens on workspace 6 instead of 1**
 - **[BUG] Workspace 6 on TV always showing as having windows**
 

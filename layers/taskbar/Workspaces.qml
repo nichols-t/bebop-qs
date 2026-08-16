@@ -96,14 +96,7 @@ Rectangle {
                             font.bold: wsButton.isHovered
                             font.pointSize: Config.taskbar.workspaces.fontSize
 
-                            color: {
-                                return Config.taskbar.workspaces.textColorWithWindows;
-                                if (area.isActive)
-                                    return Config.taskbar.workspaces.textColorActive;
-                                if (wsButton.hasWindows)
-                                    return Config.taskbar.workspaces.textColorWithWindows;
-                                return Config.taskbar.workspaces.textColorInactive;
-                            }
+                            color: Config.taskbar.workspaces.textColor
                         }
 
                         Rectangle {

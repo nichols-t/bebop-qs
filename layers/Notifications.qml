@@ -137,7 +137,7 @@ Scope {
                                             id: applicationText
                                             text: card.modelData.summary
                                             Layout.fillWidth: true
-                                            color: Config.notifications.applicationTextColor
+                                            color: Config.notifications.headerTextColor
                                             font.bold: false
                                             font.family: Config.fontBlocky.font.family
                                             font.pointSize: Config.notifications.headerTextSize

@@ -181,7 +181,7 @@ Rectangle {
         Rectangle {
             id: highlightCircle
             z: -1
-            color: Config.audioSettings.accentColor
+            color: Config.audioSettings.recordAccentColor
             anchors.centerIn: parent
             anchors.verticalCenterOffset: -0.65 * record.height * Math.cos(xAngle)
             width: root.width * 0.82
@@ -200,7 +200,7 @@ Rectangle {
             blur: 1.0
             blurMax: root.maxBlur * 2
             colorizationColor: 'black'
-            colorization: 0.4
+            colorization: Config.audioSettings.recordShadowFactor
             source: highlightCircle
             anchors.fill: highlightCircle
             opacity: root.xAngle === maxXAngle ? 1 : 0

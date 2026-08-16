@@ -123,7 +123,7 @@ Scope {
                 Rectangle {
                     id: displayRect
                     implicitWidth: cols.width
-                    color: Config.audioSettings.accentColor
+                    color: Config.audioSettings.recordBackgroundColor
                     clip: true
 
                     AudioSettingsRecordGraphic {

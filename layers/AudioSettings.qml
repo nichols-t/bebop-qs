@@ -127,12 +127,14 @@ Scope {
                     clip: true
 
                     AudioSettingsRecordGraphic {
+                        z: 1
                         anchors.fill: parent
                         anchors.centerIn: parent
                         playing: cols.mpris?.isPlaying || false
                     }
 
                     AudioSettingsTrackTitleText {
+                        z: 1
                         text: cols.mpris?.trackTitle || ''
                         width: displayRect.width
                         horizontalAlignment: Text.AlignHCenter
@@ -141,6 +143,7 @@ Scope {
                     }
 
                     AudioSettingsPositionDurationText {
+                        z: 1
                         player: cols.mpris
                         anchors.top: parent.top
                         anchors.topMargin: displayRect.height * 0.2
@@ -168,7 +171,7 @@ Scope {
                     AudioSettingsVolumeIndicator {
                         container: displayRect
                         width: displayRect.width
-                        maxHeight: container.height * 0.22
+                        maxHeight: container.height //* 0.22
                         anchors.bottom: displayRect.bottom
                         anchors.horizontalCenter: displayRect.horizontalCenter
                         sink: cols.sink

@@ -156,7 +156,9 @@ Singleton {
 
     readonly property var audioSettings: {
         "accentColor": "#8d41c5",
-        "volumeBarColor": '#5b2f7a',
+        "volumeBarColor": '#cf9cf4',
+        "volumeBarBorderColor": "#150c1b",
+        "volumeBarMaxRandomHeight": 50,
         "trackTitleTextSize": 14,
         "trackTitleTextColor": "black",
         "trackDurationTextSize": 14,

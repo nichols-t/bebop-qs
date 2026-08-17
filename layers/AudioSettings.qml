@@ -87,19 +87,19 @@ Scope {
             property var sink: Pipewire.defaultAudioSink
             // Used for track information
             // https://quickshell.org/docs/v0.3.0/types/Quickshell.Services.Mpris/MprisPlayer/
-            property var mpris: Mpris.players.values[0] || null
+            property var player: Mpris.players.values[0] || null
 
             Keys.onPressed: event => {
                 if (event.key === Qt.Key_Escape) {
                     event.accepted = true;
                     panel.close();
-                } else if (!!cols.mpris) {
+                } else if (!!cols.player) {
                     if (event.key === Qt.Key_Space) {
-                        cols.mpris.isPlaying = !cols.mpris.isPlaying;
+                        cols.player.isPlaying = !cols.player.isPlaying;
                     } else if (event.key === Qt.Key_Left) {
-                        cols.mpris.previous();
+                        cols.player.previous();
                     } else if (event.key === Qt.Key_Right) {
-                        cols.mpris.next();
+                        cols.player.next();
                     }
                 }
             }
@@ -130,14 +130,14 @@ Scope {
                         z: 1
                         anchors.fill: parent
                         anchors.centerIn: parent
-                        playing: cols.mpris?.isPlaying || false
-                        player: cols.mpris
+                        playing: cols.player?.isPlaying || false
+                        player: cols.player
                     }
 
                     AudioSettingsTrackTitleText {
-                        z: 1
                         id: titleText
-                        text: cols.mpris?.trackTitle || ''
+                        z: 1
+                        text: cols.player?.trackTitle || ''
                         width: displayRect.width
                         horizontalAlignment: Text.AlignHCenter
                         anchors.top: parent.top
@@ -146,7 +146,7 @@ Scope {
 
                     AudioSettingsPositionDurationText {
                         z: 1
-                        player: cols.mpris
+                        player: cols.player
                         anchors.top: parent.top
                         anchors.topMargin: displayRect.height * 0.2
                         textWidth: displayRect.width
@@ -154,7 +154,7 @@ Scope {
 
                     AudioSettingsApplicationText {
                         z: 1
-                        text: cols.mpris?.identity || ''
+                        text: cols.player?.identity || ''
                         anchors.verticalCenter: parent.verticalCenter
                         anchors.verticalCenterOffset: -width / 2
                         anchors.left: parent.left
@@ -163,7 +163,7 @@ Scope {
 
                     AudioSettingsTrackArtistText {
                         z: 1
-                        text: cols.mpris?.trackArtist || ''
+                        text: cols.player?.trackArtist || ''
                         width: parent.width
                         horizontalAlignment: Text.AlignHCenter
                         anchors.bottom: parent.bottom
@@ -180,7 +180,7 @@ Scope {
                     }
                 }
             }
-            
+
             Loader {
                 id: audioControlsLoader
                 sourceComponent: panel.visible ? audioControls : null
@@ -190,11 +190,111 @@ Scope {
             Component {
                 id: audioControls
                 AudioSettingsTrackControl {
-                    player: cols.mpris
+                    player: cols.player
                     implicitHeight: cols.width * 0.1
                     implicitWidth: cols.width
                 }
             }
+
+            Rectangle {
+                Layout.topMargin: 2 * cols.itemsMargin
+                color: "transparent"
+                Layout.alignment: Qt.AlignLeft | Qt.AlignBottom
+            }
+
+            ColumnLayout {
+                Text {
+                    visible: Mpris.players.values.length !== 0
+                    text: "NOW PLAYING"
+                    color: Config.settings.menuTitleTextColor
+                    font.family: Config.fontBlocky.font.family
+                    font.italic: true
+                    font.pointSize: Config.settings.menuTitleTextSize * 0.6
+                }
+                spacing: cols.spacing * 0.3
+                Repeater {
+                    model: Mpris.players.values
+                    WrapperMouseArea {
+                        id: playerBase
+                        required property MprisPlayer modelData
+                        required property int index
+                        property MprisPlayer player: modelData
+                        property bool hovered: false
+                        cursorShape: Qt.PointingHandCursor
+                        hoverEnabled: true
+                        onClicked: {
+                            cols.player = player;
+                        }
+                        onEntered: {
+                            hovered = true;
+                        }
+                        onExited: {
+                            hovered = false;
+                        }
+                        preventStealing: true
+                        WrapperRectangle {
+                            color: Config.audioSettings.playerBackgroundColor
+                            Layout.alignment: Qt.AlignLeft | Qt.AlignVCenter
+                            implicitWidth: cols.width
+                            margin: implicitWidth * 0.01
+                            RowLayout {
+                                id: row
+                                spacing: 0
+                                ColumnLayout {
+                                    PlayerInfoText {
+                                        text: player?.identity || 'UNKNOWN APP'
+                                    }
+                                    PlayerInfoText {
+                                        text: player?.trackTitle || 'UNKNOWN TRACK'
+                                    }
+                                    PlayerInfoText {
+                                        text: player?.trackArtist || 'UNKNOWN ARTIST'
+                                    }
+                                }
+
+                                WrapperRectangle {
+                                    Item {
+                                        Image {
+                                            id: recordSVG
+                                            anchors.centerIn: parent
+                                            anchors.horizontalCenterOffset: -row.height * .6
+                                            fillMode: Image.PreserveAspectFit
+                                            visible: false
+                                            sourceSize.width: row.height
+                                            source: Qt.resolvedUrl("../assets/record.svg")
+                                        }
+
+                                        MultiEffect {
+                                            opacity: cols.player === playerBase.player ? 1.0 : 0.0
+                                            id: effect
+                                            colorization: 1.0
+                                            colorizationColor: Config.audioSettings.playerInfoActiveIconColor
+                                            source: recordSVG
+                                            anchors.fill: recordSVG
+                                            blurEnabled: true
+                                            blur: 1.0
+                                            blurMax: 0
+                                            Behavior on opacity {
+                                                NumberAnimation { duration: 75 }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
         }
+    }
+
+    component PlayerInfoText: Text {
+        color: Config.audioSettings.playerInfoTextColor
+        font.family: Config.fontTypewriter.font.family
+        font.pointSize: Config.audioSettings.playerInfoTextSize
+        // Need to set both this and width explicitly to make it work inside a Layout
+        Layout.preferredWidth: width
+        wrapMode: Text.WordWrap
+        width: cols.width  - row.height * 1.5
     }
 }

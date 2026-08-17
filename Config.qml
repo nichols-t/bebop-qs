@@ -301,7 +301,15 @@ Singleton {
         // Color of the rectangle that appears in an audio control button when it is hovered
         "trackControlHoverRectColor": "#5b2f7a",
         // Size of the indicator text that appears amongst the track controls
-        "trackControlIndicatorTextSize": 12
+        "trackControlIndicatorTextSize": 12,
+        // Color of the rectangles that hold info for each app currently playing media under the
+        // Now Playing header
+        "playerBackgroundColor": "#703798",
+        // Color of the text that shows each app currently playing audio
+        "playerInfoTextColor": "#e1e1e1",
+        // Size of the text that shows info about each app currently playing audio
+        "playerInfoTextSize": 12,
+        "playerInfoActiveIconColor": "#421a5e"
     }
 
     readonly property var bluetoothSettings: {

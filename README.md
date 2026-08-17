@@ -14,7 +14,8 @@ A Cowboy Bebop title sequence inspired Quickshell.
 ## Contributing
 If you'd like to contribute please note the following:
 1. I do not like LLMs and I would prefer not to accept contributions that used them in any capacity
-2. I started this project for my own learning and experience, but I also use it on my computers. So if there's a decision to be made I'm going to do what makes sense for my own personal usage.
+    1. (Yes, this means I hand-type the formatting below)
+2. I started this project for my own learning and experience, but I also use it on my computers. So if there's a decision to be made I'm going to prioritize what makes sense for my own personal usage.
     1. This being said I'm still open to ideas! Particularly in order to make this more compatible with different systems
 
 ## TODOs
@@ -35,12 +36,13 @@ If you'd like to contribute please note the following:
     - **[OPTIMIZATION] Loaders**: Use loaders to make sure ongoing resource usage is minimized
 - **[FEATURE] Audio Control**: Create menu for toggling of audio settings
     - **[BUG] Track text is cut off when it is too long - should animate scroll instead**
-    - **[FEATURE] Switch between players maybe with different colors for each**
+    - **[FEATURE] Position control (when available)**
 - **[FEATURE] Network Control**: Create a control screen for network status, Wi-Fi etc.
     - Started but only displays existing connections
 - **[FEATURE] Bluetooth Control**: Create a control screen for bluetooth pairing/dc/etc.
     - Started but only displays existing connections
 - **[ERGONOMICS] Theme Control**: A menu for editing theme colors, maybe
+    - The `Theme` singleton we used for audio settings is probably useful here?
 - **[BUG] Notifications get choppy when spammed**
 - **[BUG] Notifications are too small on laptop - need a different way of calculating the maximum width**
 - **[BUG] Notification text should wrap if it gets too wide, it's cut off right now**
@@ -53,7 +55,6 @@ If you'd like to contribute please note the following:
     - Could be a "bias" instead of uniform random
 - **[FEATURE] Lock Screen**: Add support for fingerprint login via PAM.
     - see https://github.com/end-4/dots-hyprland/pull/2308/changes, but this is slop so who knows
-- **[DESIGN] Put some audio info in settings as curved text on top of the record SVG**
 - **[FEATURE] Make workspaces work more dynamically with # of workspaces actually used**
 ## Random Notes
 - Must check "Flatten Clip" in Inkscape for holes to render properly when exported

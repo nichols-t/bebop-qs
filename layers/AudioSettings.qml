@@ -123,7 +123,7 @@ Scope {
                 Rectangle {
                     id: displayRect
                     implicitWidth: cols.width
-                    color: Config.audioSettings.recordBackgroundColor
+                    color: Theme.audioSettingsColorSet.recordBackgroundColor
                     clip: true
 
                     AudioSettingsRecordGraphic {
@@ -224,6 +224,8 @@ Scope {
                         hoverEnabled: true
                         onClicked: {
                             cols.player = player;
+                            const playerIndex = Mpris.players.values.findIndex((p) => p === player);
+                            Theme.audioSettingsColorSet = Config.audioSettings.colorSets[playerIndex % Config.audioSettings.colorSets.length]
                         }
                         onEntered: {
                             hovered = true;
@@ -234,7 +236,7 @@ Scope {
                         preventStealing: true
                         WrapperRectangle {
                             id: playerWrapper
-                            color: Config.audioSettings.playerBackgroundColor
+                            color: Theme.audioSettingsColorSet.playerBackgroundColor
                             Layout.alignment: Qt.AlignLeft | Qt.AlignVCenter
                             implicitWidth: cols.width
                             margin: implicitWidth * 0.01
@@ -264,7 +266,7 @@ Scope {
                                             anchors.right: parent.right
                                             anchors.rightMargin: -playerWrapper.margin
                                             anchors.verticalCenter: parent.verticalCenter
-                                            color: Config.audioSettings.playerInfoHoverColor
+                                            color: Theme.audioSettingsColorSet.playerInfoHoverColor
                                             //radius: 2
                                             //border.width: 2
                                             visible: hovered
@@ -289,7 +291,7 @@ Scope {
                                             id: effect
                                             opacity: cols.player === playerBase.player ? 1.0 : 0.0
                                             colorization: 1.0
-                                            colorizationColor: Config.audioSettings.playerInfoActiveIconColor
+                                            colorizationColor: Theme.audioSettingsColorSet.playerInfoActiveIconColor
                                             source: recordSVG
                                             anchors.fill: recordSVG
                                             blurEnabled: true
@@ -312,7 +314,7 @@ Scope {
     }
 
     component PlayerInfoText: Text {
-        color: Config.audioSettings.playerInfoTextColor
+        color: Theme.audioSettingsColorSet.playerInfoTextColor
         font.family: Config.fontTypewriter.font.family
         font.pointSize: Config.audioSettings.playerInfoTextSize
         // Need to set both this and width explicitly to make it work inside a Layout

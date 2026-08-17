@@ -238,11 +238,6 @@ Singleton {
     }
 
     readonly property var audioSettings: {
-        "recordBackgroundColor": "#8d41c5",
-        // The color of the background volume bars
-        "volumeBarColor": '#cf9cf4',
-        // The border color of the background volume bars
-        "volumeBarBorderColor": "#150c1b",
         // The maximum random height that can be added to the background volume bars
         "volumeBarMaxRandomHeight": 50,
         // The size of the text that shows the track's title above the rotating record graphic
@@ -259,8 +254,6 @@ Singleton {
         "trackArtistTextColor": "black",
         // The length of time that the rotating record graphic takes to spin a full rotation.
         "recordRotationDuration": 5000,
-        // The color used as the background color for the rotating record graphic.
-        "recordAccentColor": '#703798',
         // Range from 0-1 by which the record color is darkened to produce the record shadow
         "recordShadowFactor": 0.4,
         // Angle by which each character of the curved text that appears on the rotating record
@@ -278,41 +271,91 @@ Singleton {
         // Factor of the overall width that is used to determine the font size of the
         // font that appears as part of the rotating record graphic
         "recordTextFontSizeFactor": 0.02,
-        // Color used for the text that appears as part of the rotating record graphic
-        "recordTextColor": "#e1e1e1",
         // Size of the text that displays which application is playing audio
         "playerTextSize": 14,
         // Color used for the text that displays which application is playing audio
         "playerTextColor": "black",
-        // Color of the text used for the audio control buttons
-        "trackControlTextColor": "#e1e1e1",
-        // Color of the text used for the audio control buttons when they are disabled
-        "trackControlDisabledTextColor": '#421a5e',
         // Size of the text used for the audio control buttons
         "trackControlTextSize": 18,
-        // Background color of the audio control buttons
-        "trackControlBackgroundColor": "#8d41c5",
-        // Background color of the audio control buttons if they are disabled
-        "trackControlDisabledBackgroundColor": "#5b2f7a",
-        // Border color of the rectangle that appears in an audio control button when it is hovered
-        "trackControlHoverBorderColor": '#150c1b',
-        // Border color of the rectangle that appears in an audio control button when it is clicked
-        "trackControlClickedBorderColor": "#cf9cf4",
-        // Color of the rectangle that appears in an audio control button when it is hovered
-        "trackControlHoverRectColor": "#5b2f7a",
         // Size of the indicator text that appears amongst the track controls
         "trackControlIndicatorTextSize": 12,
-        // Color of the rectangles that hold info for each app currently playing media under the
-        // Now Playing header
-        "playerBackgroundColor": "#703798",
-        // Color of the text that shows each app currently playing audio
-        "playerInfoTextColor": "#e1e1e1",
+
         // Size of the text that shows info about each app currently playing audio
         "playerInfoTextSize": 12,
-        // Color of the record icon that appears for the active player entry
-        "playerInfoActiveIconColor": "#421a5e",
-        // Color of the rectangle that appears when a player info entry is hovered
-        "playerInfoHoverColor": "#421a5e",
+
+        // These properties are selected by index to allow us to switch colors when the player changes
+        "colorSets": [
+            {
+                // Color of the record icon that appears for the active player entry
+                "playerInfoActiveIconColor": "#421a5e",
+                // Color of the rectangle that appears when a player info entry is hovered
+                "playerInfoHoverColor": "#421a5e",
+                // Color of the text that shows each app currently playing audio
+                "playerInfoTextColor": "#e1e1e1",
+                // Color of the rectangles that hold info for each app currently playing media under the
+                // Now Playing header
+                "playerBackgroundColor": '#703798',
+                // Background color of the audio control buttons
+                "trackControlBackgroundColor": "#8d41c5",
+                // Background color of the audio control buttons if they are disabled
+                "trackControlDisabledBackgroundColor": "#5b2f7a",
+                // Border color of the rectangle that appears in an audio control button when it is hovered
+                "trackControlHoverBorderColor": '#150c1b',
+                // Border color of the rectangle that appears in an audio control button when it is clicked
+                "trackControlClickedBorderColor": "#cf9cf4",
+                // Color of the rectangle that appears in an audio control button when it is hovered
+                "trackControlHoverRectColor": "#5b2f7a",
+                // Color of the text used for the audio control buttons
+                "trackControlTextColor": "#e1e1e1",
+                // Color of the text used for the audio control buttons when they are disabled
+                "trackControlDisabledTextColor": '#421a5e',
+                // Color used for the text that appears as part of the rotating record graphic
+                "recordTextColor": "#e1e1e1",
+                // The color used as the background color for the rotating record graphic.
+                "recordAccentColor": '#703798',
+                "recordBackgroundColor": "#8d41c5",
+                // The color of the background volume bars
+                "volumeBarColor": '#cf9cf4',
+                // The border color of the background volume bars
+                "volumeBarBorderColor": "#150c1b",
+            },
+            {
+                "playerInfoActiveIconColor": '#a6221e',
+                "playerInfoHoverColor": "#a6221e",
+                "playerInfoTextColor": "#e1e1e1",
+                "playerBackgroundColor": '#db3e39',
+                "trackControlBackgroundColor": '#b7322e',
+                "trackControlDisabledBackgroundColor": '#8f231f',
+                "trackControlHoverBorderColor": '#150c1b',
+                "trackControlClickedBorderColor": '#6d0e0b',
+                "trackControlHoverRectColor": "#8f231f",
+                "trackControlTextColor": "#e1e1e1",
+                "trackControlDisabledTextColor": '#50110f',
+                "recordTextColor": "#e1e1e1",
+                "recordAccentColor": '#db3e39',
+                "recordBackgroundColor": "#b7322e",
+                "volumeBarColor": '#e06762',
+                "volumeBarBorderColor": "#150c1b",
+            },
+            {
+                "playerInfoActiveIconColor": "#421a5e",
+                "playerInfoHoverColor": "#421a5e",
+                "playerInfoTextColor": "#e1e1e1",
+                "playerBackgroundColor": "#703798",
+                "trackControlBackgroundColor": "#8d41c5",
+                "trackControlDisabledBackgroundColor": "#5b2f7a",
+                "trackControlHoverBorderColor": '#150c1b',
+                "trackControlClickedBorderColor": '#4a017f',
+                "trackControlHoverRectColor": "#5b2f7a",
+                "trackControlTextColor": "#e1e1e1",
+                "trackControlDisabledTextColor": '#421a5e',
+                "recordTextColor": "#e1e1e1",
+                "recordAccentColor": '#703798',
+                "recordBackgroundColor": "#8d41c5",
+                "volumeBarColor": '#cf9cf4',
+                "volumeBarBorderColor": "#150c1b",
+            }
+        ]
     }
 
     readonly property var bluetoothSettings: {

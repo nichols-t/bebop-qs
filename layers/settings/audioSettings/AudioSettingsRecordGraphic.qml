@@ -65,7 +65,7 @@ Rectangle {
         MultiEffect {
             id: effect
             colorization: 1.0
-            colorizationColor: Config.audioSettings.recordAccentColor
+            colorizationColor: Theme.audioSettingsColorSet.recordAccentColor
             source: recordSVG
             anchors.fill: recordSVG
             blurEnabled: true
@@ -181,7 +181,7 @@ Rectangle {
         Rectangle {
             id: highlightCircle
             z: -1
-            color: Config.audioSettings.recordAccentColor
+            color: Theme.audioSettingsColorSet.recordAccentColor
             anchors.centerIn: parent
             anchors.verticalCenterOffset: -0.65 * record.height * Math.cos(xAngle)
             width: root.width * 0.82

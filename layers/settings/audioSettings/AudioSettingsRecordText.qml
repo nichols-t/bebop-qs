@@ -29,7 +29,7 @@ Canvas {
         const fontSize = root.fontSize;
         ctx.font = `${fontSize}px '${Config.fontTypewriter.font.family}'`;
         ctx.textAlign = "center";
-        ctx.fillStyle = Config.audioSettings.recordTextColor;
+        ctx.fillStyle = Theme.audioSettingsColorSet.recordTextColor;
 
         var centerX = width / 2;
         var centerY = height / 2;

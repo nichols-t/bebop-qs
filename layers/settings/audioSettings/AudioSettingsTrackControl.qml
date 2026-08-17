@@ -110,14 +110,14 @@ Rectangle {
                     }
                     font.family: Config.fontTypewriter.font.family
                     font.pointSize: Config.audioSettings.trackControlIndicatorTextSize
-                    color: Config.audioSettings.trackControlTextColor
+                    color: Theme.audioSettingsColorSet.trackControlTextColor
                 }
                 Text {
                     Layout.alignment: Qt.AlignCenter
                     font.family: Config.fontTypewriter.font.family
                     font.pointSize: Config.audioSettings.trackControlIndicatorTextSize
                     text: root.player?.shuffle ? "SHUFFLING" : ""
-                    color: Config.audioSettings.trackControlTextColor
+                    color: Theme.audioSettingsColorSet.trackControlTextColor
                 }
             }
 
@@ -166,14 +166,26 @@ Rectangle {
         Rectangle {
             id: btnRect
             Layout.alignment: layoutAlignment
-            color: self.enabled ? Config.audioSettings.trackControlBackgroundColor : Config.audioSettings.trackControlDisabledBackgroundColor
+            color: {
+                if (self.enabled) { 
+                    return Theme.audioSettingsColorSet.trackControlBackgroundColor
+                } else {
+                    return Theme.audioSettingsColorSet.trackControlDisabledBackgroundColor
+                }
+            }
             Rectangle {
                 anchors.centerIn: parent
                 width: isHovered ? parent.width : 0
                 height: btnText.height * 1.1
-                color: Config.audioSettings.trackControlHoverRectColor
+                color: Theme.audioSettingsColorSet.trackControlHoverRectColor
                 border.width: 2
-                border.color: pressed ? Config.audioSettings.trackControlClickedBorderColor : Config.audioSettings.trackControlHoverBorderColor
+                border.color: {
+                    if (pressed) {
+                        return Theme.audioSettingsColorSet.trackControlClickedBorderColor
+                    } else {
+                        return Theme.audioSettingsColorSet.trackControlHoverBorderColor
+                    }
+                }
 
                 Behavior on width {
                     NumberAnimation {
@@ -191,7 +203,13 @@ Rectangle {
                 z: 1
                 font.underline: self.isHovered
                 anchors.centerIn: parent
-                color: self.enabled ? Config.audioSettings.trackControlTextColor : Config.audioSettings.trackControlDisabledTextColor
+                color: {
+                    if (self.enabled) {
+                        return Theme.audioSettingsColorSet.trackControlTextColor;
+                    } else {
+                        return Theme.audioSettingsColorSet.trackControlDisabledTextColor;
+                    }
+                }
                 font.family: Config.fontBlocky.font.family
                 font.pointSize: Config.audioSettings.trackControlTextSize
             }

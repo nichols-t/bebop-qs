@@ -33,9 +33,9 @@ Rectangle {
             anchors.bottom: root.bottom
             width: repeater.itemWidth
             height: root.sink?.audio.muted ? 0 : root.volHeight + Config.audioSettings.volumeBarMaxRandomHeight* Math.random()
-            color: Config.audioSettings.volumeBarColor
+            color: Theme.audioSettingsColorSet.volumeBarColor
             border.width: 2
-            border.color: Config.audioSettings.volumeBarBorderColor
+            border.color: Theme.audioSettingsColorSet.volumeBarBorderColor
             radius: 2
 
             Behavior on height {

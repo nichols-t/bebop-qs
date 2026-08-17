@@ -13,6 +13,8 @@ PanelWindow {
     property Calendar calendar
     property Settings settings
     property AudioSettings audioSettings
+    property BluetoothSettings bluetoothSettings
+    property NetworkSettings networkSettings
     property ShutdownMenu shutdownMenu
 
     color: Config.taskbar.backgroundColor
@@ -47,11 +49,11 @@ PanelWindow {
     Component {
         id: rows
         RowLayout {
-            spacing: 0
+            spacing: 10
             User { shutdownMenu: root.shutdownMenu }
             Item { Layout.fillWidth: true }
-            // Debug app menu launcher
-            Network {}
+            BluetoothButton { bluetoothSettings: root.bluetoothSettings }
+            NetworkButton { networkSettings: root.networkSettings }
             Battery {}
             AudioButton { audioSettings: root.audioSettings }
             Clock { calendar: root.calendar }

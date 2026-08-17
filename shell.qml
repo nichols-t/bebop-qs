@@ -68,6 +68,8 @@ Scope {
                 settings: settings
                 calendar: calendar
                 audioSettings: audioSettings
+                bluetoothSettings: bluetoothSettings
+                networkSettings: networkSettings
                 shutdownMenu: shutdownMenu
             }
             Layers.Calendar {

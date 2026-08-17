@@ -186,6 +186,10 @@ Singleton {
             // Background color for the battery widget
             "backgroundColor": "transparent"
         },
+        "bluetooth": {
+            "bluetoothActiveColor": "#e1e1e1",
+            "bluetoothDisabledColor": '#841515'
+        },
         // Some other palettes from cowboy bebop:
         // (dark mid light border)
         // 641c1a a21e1d cf2d1d 250000 reds

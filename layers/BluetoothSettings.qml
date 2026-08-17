@@ -80,6 +80,17 @@ Scope {
                 font.pointSize: Config.networkSettings.menuTitleTextSize
             }
 
+            Text {
+                visible: Bluetooth.defaultAdapter == null
+                text: "No Bluetooth Adapter"
+                color: "white"
+                font.italic: true
+                Layout.fillWidth: true
+                horizontalAlignment: Text.AlignHCenter
+                font.family: Config.fontTypewriter.font.family
+                font.pointSize: 18
+            }
+
             Repeater {
                 model: Bluetooth.devices
 

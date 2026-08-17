@@ -309,7 +309,10 @@ Singleton {
         "playerInfoTextColor": "#e1e1e1",
         // Size of the text that shows info about each app currently playing audio
         "playerInfoTextSize": 12,
-        "playerInfoActiveIconColor": "#421a5e"
+        // Color of the record icon that appears for the active player entry
+        "playerInfoActiveIconColor": "#421a5e",
+        // Color of the rectangle that appears when a player info entry is hovered
+        "playerInfoHoverColor": "#421a5e",
     }
 
     readonly property var bluetoothSettings: {

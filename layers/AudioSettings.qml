@@ -233,6 +233,7 @@ Scope {
                         }
                         preventStealing: true
                         WrapperRectangle {
+                            id: playerWrapper
                             color: Config.audioSettings.playerBackgroundColor
                             Layout.alignment: Qt.AlignLeft | Qt.AlignVCenter
                             implicitWidth: cols.width
@@ -241,6 +242,7 @@ Scope {
                                 id: row
                                 spacing: 0
                                 ColumnLayout {
+                                    z: 1
                                     PlayerInfoText {
                                         text: player?.identity || 'UNKNOWN APP'
                                     }
@@ -253,7 +255,26 @@ Scope {
                                 }
 
                                 WrapperRectangle {
+                                    id: iconWrapper
+                                    color: "white"
                                     Item {
+                                        Rectangle {
+                                            width: visible ? playerWrapper.width : 0
+                                            height: visible ? playerWrapper.height : 0
+                                            anchors.right: parent.right
+                                            anchors.rightMargin: -playerWrapper.margin
+                                            anchors.verticalCenter: parent.verticalCenter
+                                            color: Config.audioSettings.playerInfoHoverColor
+                                            //radius: 2
+                                            //border.width: 2
+                                            visible: hovered
+                                            Behavior on width {
+                                                NumberAnimation { duration: 100 }
+                                            }
+                                            Behavior on height {
+                                                NumberAnimation { duration: 100 }
+                                            }
+                                        }
                                         Image {
                                             id: recordSVG
                                             anchors.centerIn: parent
@@ -265,8 +286,8 @@ Scope {
                                         }
 
                                         MultiEffect {
-                                            opacity: cols.player === playerBase.player ? 1.0 : 0.0
                                             id: effect
+                                            opacity: cols.player === playerBase.player ? 1.0 : 0.0
                                             colorization: 1.0
                                             colorizationColor: Config.audioSettings.playerInfoActiveIconColor
                                             source: recordSVG
@@ -275,7 +296,9 @@ Scope {
                                             blur: 1.0
                                             blurMax: 0
                                             Behavior on opacity {
-                                                NumberAnimation { duration: 75 }
+                                                NumberAnimation {
+                                                    duration: 75
+                                                }
                                             }
                                         }
                                     }
@@ -295,6 +318,6 @@ Scope {
         // Need to set both this and width explicitly to make it work inside a Layout
         Layout.preferredWidth: width
         wrapMode: Text.WordWrap
-        width: cols.width  - row.height * 1.5
+        width: cols.width - row.height * 1.5
     }
 }

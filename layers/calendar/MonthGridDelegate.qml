@@ -17,6 +17,7 @@ Rectangle {
     required property bool dayViewOpen
     width: screen.width / 12
     height: screen.width / 12
+    radius: 2
     // Don't remember why I needed these, probably reactivity something or other
     property date theDate: date
     property int theIndex: index
@@ -34,12 +35,21 @@ Rectangle {
 
     required property var onClicked
 
+    Rectangle {
+        width: dayMouseArea.containsMouse ? root.width : 0
+        height: dayMouseArea.containsMouse ? root.height : 0
+        anchors.centerIn: parent
+        color: Config.calendar.backgroundColorHovered
+        radius: parent.radius
+    }
+
     MouseArea {
         id: dayMouseArea
         enabled: !dayViewOpen
         anchors.fill: parent
         hoverEnabled: true
         cursorShape: Qt.PointingHandCursor
+        preventStealing: false
         onClicked: {
             // Got a binding loop so had to do this. Didn't bother to track it down
             root.onClicked(dateLookupText, root.theIndex, root.color)

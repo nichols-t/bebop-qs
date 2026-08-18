@@ -7,6 +7,7 @@ import QtQuick
 import QtQuick.Layouts
 import QtQuick.Controls
 import "../"
+import "./settings/networkSettings"
 
 Scope {
     id: root
@@ -80,30 +81,24 @@ Scope {
                 horizontalAlignment: Text.AlignHCenter
                 font.pointSize: Config.networkSettings.menuTitleTextSize
             }
+
+            Text {
+                visible: Networking.devices.values.length === 0
+                text: "No Network Devices"
+                color: "white"
+                font.italic: true
+                Layout.fillWidth: true
+                horizontalAlignment: Text.AlignHCenter
+                font.family: Config.fontTypewriter.font.family
+                font.pointSize: 18
+            }
+
             Repeater {
                 model: Networking.devices
 
-                Rectangle {
+                NetworkDeviceEntry {
                     required property var modelData
-                    Layout.leftMargin: text.font.pointSize
-                    color: Config.networkSettings.accentColor
-                    height: text.height + 2 * text.font.pointSize
-                    width: panel.width - 2 * text.font.pointSize
-                    Text {
-                        anchors.centerIn:parent
-                        id: text
-                        text: {
-                            const netType = modelData.type === DeviceType.Wifi ? 'WiFi' : 'Ethernet';
-                            let state = modelData.connected ? 'Connected' : 'Disconnected';
-                            if (modelData.connected && modelData.networks.values.length > 0) {
-                                state = modelData.networks.values[0].name;
-                            }
-                            return `${netType}: ${state}`;
-                        }
-                        color: Config.networkSettings.deviceTextColor
-                        font.pointSize: Config.networkSettings.deviceTextSize
-                        font.family: Config.fontTypewriter.font.family
-                    }
+                    networkDevice: modelData
                 }
             }
 

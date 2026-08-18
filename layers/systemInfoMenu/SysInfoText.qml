@@ -1,5 +1,6 @@
 import Quickshell
 import QtQuick
+import QtQuick.Effects
 import "../.."
 
 // Displays text for the system info menu

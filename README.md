@@ -20,7 +20,6 @@ If you'd like to contribute please note the following:
 
 ## TODOs
 - **Taskbar**:
-    - **[FEATURE] Bluetooth indicator**
     - **[FEATURE] Network icons for captive/limited connection**
 - **[ERGONOMICS] SysInfo**: Make "fallback" system for modules that allows `Config` to specify a list of how things should be read
 - **SystemInfo Screen**: 

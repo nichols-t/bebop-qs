@@ -49,7 +49,7 @@ PanelWindow {
     Component {
         id: rows
         RowLayout {
-            spacing: 10
+            spacing: 4
             User { shutdownMenu: root.shutdownMenu }
             Item { Layout.fillWidth: true }
             BluetoothButton { bluetoothSettings: root.bluetoothSettings }

@@ -98,6 +98,7 @@ Singleton {
         // Background color for a day that is part of the current month,
         // selected at random from this list
         "backgroundColorsDays": ["#3954f0", "#d7dbf8", "#fefefe", "#b1bdf8", "#a4aef8"],
+        "backgroundColorHovered": '#6d82f5',
         // Size of the text that shows each day
         "daysTextSize": 16,
         // Color of the text that shows each day
@@ -238,7 +239,11 @@ Singleton {
         // Size of the text that shows each connection details
         "deviceTextSize": 18,
         // Size of the menu title text
-        "menuTitleTextSize": 45
+        "menuTitleTextSize": 45,
+        // Color of the button that allows for connection or disconnection
+        "connectionButtonBackgroundColor": '#7c8efe',
+        // Color of the border of the button that allows for connection or disconnection
+        "connectionButtonBorderColor": '#111428'
     }
 
     readonly property var audioSettings: {

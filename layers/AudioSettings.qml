@@ -112,7 +112,7 @@ Scope {
             Loader {
                 id: audioInfoLoader
                 sourceComponent: panel.visible ? audioInfo : null
-                asynchronous: true
+                asynchronous: false
                 height: cols.width * 0.6
                 // This can be used if partial loading needs to be avoided
                 //visible: status == Loader.Ready
@@ -138,10 +138,9 @@ Scope {
                         id: titleText
                         z: 1
                         text: cols.player?.trackTitle || ''
-                        width: displayRect.width
-                        horizontalAlignment: Text.AlignHCenter
                         anchors.top: parent.top
                         anchors.topMargin: displayRect.height * 0.1
+                        isTooWide: width > displayRect.width
                     }
 
                     AudioSettingsPositionDurationText {

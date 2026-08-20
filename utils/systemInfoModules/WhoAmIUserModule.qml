@@ -10,12 +10,14 @@ UserModule {
     id: root
     
     property var read: () => {
-        batteryProc.running = true
-        acPowerProc.running = true
+        if (isSupported) {
+            proc.running = true
+        }
     }
+    isSupported: proc.success
 
     Process {
-        id: batteryProc
+        id: proc
         running: true
         command: ["sh", "-c", "whoami"]
         stdout: SplitParser {

@@ -85,7 +85,6 @@ Scope {
                 // Layout.row and Layout.column for where an element goes
                 SectionHeader { text: "SYSTEM STATISTICS" }
                 SectionStat { label: "OS"; value: SysInfo.os.osName; }
-                SectionStat { label: "POWER"; value: SysInfo.power.pluggedIn ? 'AC POWER' : `${SysInfo.power.batteryPercent}%`}
 
                 SectionSpacer {}
                 SectionHeaderMouseArea {

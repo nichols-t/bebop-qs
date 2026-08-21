@@ -154,11 +154,12 @@ Rectangle {
 
     ColumnLayout {
         anchors.centerIn: parent
-        DetailsInfoText {
-            text: `Memory Usage: ${SysInfo.ramUsage.memText}`
-        }
-        DetailsInfoText {
-            text: `Swap Usage: ${SysInfo.ramUsage.swapText}`
+        Repeater {
+            model: SysInfo.ramUsage.systemInfoDetails
+            DetailsInfoText {
+                required property var modelData
+                text: modelData
+            }
         }
     }
 }

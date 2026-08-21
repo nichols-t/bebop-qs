@@ -16,6 +16,13 @@ DiskUsageModule {
             dfShell.write("df -B1 / | awk 'NR==2{print $1\" \"$2\" \"$3}'; echo '@@END@@'\n");
     }
 
+    systemInfoDetails: {
+        const lines = [];
+        lines.push(`Used: ${diskText}`)
+
+        return lines;
+    }
+
     Process {
         id: dfShell
         command: ["sh"]

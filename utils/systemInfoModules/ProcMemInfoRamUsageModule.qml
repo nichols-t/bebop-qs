@@ -20,6 +20,15 @@ RamUsageModule {
         memFile.reload();
     }
 
+    systemInfoDetails: {
+        const lines = [];
+
+        lines.push(`Memory Usage: ${memText}`);
+        lines.push(`Swap Usage: ${swapText}`)
+        
+        return lines;
+    }
+
     FileView {
         id: memFile
         path: "/proc/meminfo"

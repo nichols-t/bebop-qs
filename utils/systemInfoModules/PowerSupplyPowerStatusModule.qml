@@ -23,6 +23,19 @@ PowerStatusModule {
         acPowerProc.running = true
     }
 
+    systemInfoDetails: {
+        const lines = [];
+        if (hasBattery) {
+            lines.push(`Battery: ${batteryPercent}%`);
+        }
+
+        if (pluggedIn) {
+            lines.push("On AC Power")
+        }
+l
+        return lines;
+    }
+
     Process {
         id: batteryProc
         running: true

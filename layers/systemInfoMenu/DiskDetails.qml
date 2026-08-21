@@ -71,8 +71,12 @@ Rectangle {
     ColumnLayout {
         anchors.centerIn: parent
         anchors.verticalCenterOffset: parent.height * 0.1
-        DetailsInfoText {
-            text: `Used: ${SysInfo.diskUsage.diskText}`
+        Repeater {
+            model: SysInfo.diskUsage.systemInfoDetails
+            DetailsInfoText {
+                required property var modelData
+                text: modelData
+            }
         }
     }
 

@@ -7,4 +7,6 @@ SystemInfoModule {
     property real cpuMhz
     // Architecture of the CPU
     property string cpuArch
+    // Lines for the system info details display
+    property list<string> systemInfoDetails
 }

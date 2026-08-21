@@ -8,6 +8,15 @@ CpuModelModule {
     id: root
     property bool isSupported: cpuNameProc.success && cpuMhzProc.success && cpuArchProc.success
 
+    systemInfoDetails: {
+        const lines = [];
+        lines.push(cpuName);
+        lines.push(`Arch: ${cpuArch}`);
+        lines.push(`Max Speed: ${cpuMhz.toFixed(0)} Mhz`);
+
+        return lines;
+    }
+
     Process {
         id: cpuNameProc
         command: ["sh", "-c", "lscpu | grep 'Model name:' | xargs | cut -d ' ' -f3-"]

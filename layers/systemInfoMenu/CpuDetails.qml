@@ -58,14 +58,12 @@ Rectangle {
 
     ColumnLayout {
         anchors.centerIn: parent
-        DetailsInfoText {
-            text: SysInfo.cpuModel.cpuName
-        }
-        DetailsInfoText {
-            text: `Arch: ${SysInfo.cpuModel.cpuArch}`
-        }
-        DetailsInfoText {
-            text: `Max Speed: ${SysInfo.cpuModel.cpuMhz.toFixed(0)} Mhz`
+        Repeater {
+            model: SysInfo.cpuModel.systemInfoDetails
+            DetailsInfoText {
+                required property var modelData
+                text: modelData
+            }
         }
     }
 

@@ -155,7 +155,7 @@ Singleton {
         },
         // Settings for the power details info display
         "power": {
-            "sparkColor": "#fabb3f"
+            "sparkColor": '#cfc05f'
         }
     }
 

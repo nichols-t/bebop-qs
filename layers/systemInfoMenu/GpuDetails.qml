@@ -28,11 +28,20 @@ Rectangle {
 
     ColumnLayout {
         anchors.centerIn: parent
-        DetailsInfoText { text: SysInfo.gpuModel.gpuName }
-        DetailsInfoText { text: `Driver: ${SysInfo.gpuModel.gpuDriver}` }
-        DetailsInfoText { text: `Temperature: ${SysInfo.gpuUsage.gpuTempText}` }
-        DetailsInfoText { text: `Power Usage: ${SysInfo.gpuUsage.gpuPower}` }
-        DetailsInfoText { text: `VRAM Usage: ${SysInfo.gpuUsage.gpuMemText} (${(SysInfo.gpuUsage.gpuMemUsage * 100).toFixed(2)}%)`}
+        Repeater {
+            model: SysInfo.gpuModel.systemInfoDetails
+            DetailsInfoText {
+                required property var modelData
+                text: modelData
+            }
+        }
+        Repeater {
+            model: SysInfo.gpuUsage.systemInfoDetails
+            DetailsInfoText {
+                required property var modelData
+                text: modelData
+            }
+        }
     }
 
     component FanBodySVG: Image {

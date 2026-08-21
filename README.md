@@ -23,7 +23,7 @@ If you'd like to contribute please note the following:
     - **[FEATURE] Network icons for captive/limited connection**
 - **[ERGONOMICS] SysInfo**: Make "fallback" system for modules that allows `Config` to specify a list of how things should be read
 - **SystemInfo Screen**: 
-    - **[FEATURE] Add details section for power and network**
+    - **[FEATURE] Add details section for network**
     - **[FEATURE] Make disk details work better for multiple drives and have more data**
 - **[ERGONOMICS] Shutdown Menu**:
     - Consider how clickable space is laid out for each item and possibly adjust it

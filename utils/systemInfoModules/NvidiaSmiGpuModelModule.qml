@@ -7,6 +7,14 @@ import "./base"
 GpuModelModule {
     id: root
     property bool isSupported: gpuNameProc.success && gpuDriverProc.success
+    
+    systemInfoDetails: {
+        const lines = [];
+        lines.push(gpuName);
+        lines.push(`Driver: ${gpuDriver}`);
+
+        return lines;
+    }
 
     Process {
         id: gpuNameProc

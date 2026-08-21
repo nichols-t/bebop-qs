@@ -22,7 +22,15 @@ GpuUsageModule {
         gpuTempProc.running = true
         gpuPowerProc.running = true
         gpuMemFreeProc.running = true
+    }
 
+    systemInfoDetails: {
+        const lines = [];
+        lines.push(`Temperature: ${gpuTempText}`);
+        lines.push(`Power Usage: ${gpuPower}`);
+        lines.push(`VRAM Usage: ${gpuMemText} (${(gpuMemUsage * 100).toFixed(2)}%)`);
+
+        return lines;
     }
 
     Process {

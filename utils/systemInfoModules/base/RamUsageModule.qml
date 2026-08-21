@@ -9,4 +9,6 @@ SystemInfoModule {
     property real memUsage
     // Memory usage as a human-readable fraction with unit
     property string memText
+    // Lines for the system info details display
+    property list<string> systemInfoDetails
 }

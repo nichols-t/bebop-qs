@@ -28,7 +28,7 @@ Scope {
         }
         // Center offset for "row headings" of this page
         property var rowHeadingHorizontalOffset: -modelData.width * 0.1
-        property var sectionVerticalSpaceHeight: modelData.height * 0.03
+        property var sectionVerticalSpaceHeight: modelData.height * 0.01
         WlrLayershell.exclusionMode: ExclusionMode.Ignore
         WlrLayershell.keyboardFocus: WlrKeyboardFocus.Exclusive
         
@@ -39,6 +39,9 @@ Scope {
             target: root
             function onShouldShowChanged() {
                 SysInfo.active = root.shouldShow;
+                if (!root.shouldShow) {
+                    detailsLoader.sourceComponent = null;
+                }
             }
         }
 
@@ -113,6 +116,12 @@ Scope {
                 }
                 SectionStat { label: "USAGE"; value: SysInfo.diskUsage.diskText; }
      
+                SectionSpacer {}
+                SectionHeaderMouseArea {
+                    SectionHeader { text: "POWER" }
+                    onClicked: { detailsLoader.sourceComponent = powerDetails; }
+                }
+                SectionStat{ label: "POWER STATE"; value: SysInfo.power.powerText }
                 MultiEffect {
                     id: hoverBlur
                     // This logs a warning but I think it is actually correct for MultiEffect?
@@ -154,6 +163,11 @@ Scope {
             Component {
                 id: diskDetails
                 DiskDetails { }
+            }
+
+            Component {
+                id: powerDetails
+                PowerDetails { }
             }
         }
     }

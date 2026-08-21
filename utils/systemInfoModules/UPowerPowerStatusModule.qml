@@ -8,29 +8,50 @@ import "./base"
 // without needing to spawn processes
 PowerStatusModule {
     id: root
-    property real batteryPercent: {
+    batteryPercent: {
         const battery = _getBattery();
 
         if (battery) {
-            return Math.floor(battery.percentage * 100)
+            return Math.floor(battery.percentage * 100);
         }
 
         // Assume no battery
-        return 0
+        return 0;
     }
 
-    property bool isSupported: true
+    isSupported: true
 
-    property bool hasBattery: !!_getBattery()
+    hasBattery: !!_getBattery()
 
-    property bool pluggedIn: !UPower.onBattery
+    pluggedIn: !UPower.onBattery
 
-    property var read: () => {}
+    // TODO add to the type
+    powerText: {
+        if (hasBattery) {
+            const str = pluggedIn ? 'CHARGE ' : '';
+            return `${str}${batteryPercent}%`;
+        } else {
+            return 'AC';
+        }
+    }
+
+    systemInfoDetails: {
+        const lines = [];
+        for (const device in UPower.devices.values) {
+            lines.push('me when device');
+        }
+
+        if (lines.length === 0) {
+            lines.push(`No UPower information available`);
+        }
+
+        return lines;
+    }
 
     function _getBattery() {
         // Note that we are assuming this is a laptop battery, but that feels
         // generally safe to do.
-        return UPower.devices.values.find((device) => {
+        return UPower.devices.values.find(device => {
             return device.powerSupply && device.isPresent && device.isLaptopBattery;
         });
     }

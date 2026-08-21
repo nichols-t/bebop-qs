@@ -144,6 +144,8 @@ Singleton {
         "accentColor": "#226499",
         // Color of the text on the left side that shows basic info and sections
         "textColor": "#fabb3f",
+        // Size of the text on the right side menu
+        "textSize": 24,
         // Size of the text that shows the details on the right side screen
         "detailsTextSize": 18,
         // Settings for the disk details info display

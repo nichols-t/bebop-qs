@@ -58,14 +58,7 @@ WrapperRectangle {
             }
             Text {
                 id: battText
-                text: {
-                    if (SysInfo.power.hasBattery) {
-                        const str = SysInfo.power.pluggedIn ? 'CHARGE ' : ''
-                        return `${str}${SysInfo.power.batteryPercent}%`
-                    } else {
-                        return 'AC'
-                    }
-                }
+                text: SysInfo.power.powerText
                 font.family: Config.fontBlocky.font.family
                 font.pointSize: Config.taskbar.fontSize
                 verticalAlignment: Qt.AlignVCenter

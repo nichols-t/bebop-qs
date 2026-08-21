@@ -152,6 +152,10 @@ Singleton {
         "disk": {
             // Color of the binary text that appears streaming to/fro the graphic
             "movingTextColor": "black"
+        },
+        // Settings for the power details info display
+        "power": {
+            "sparkColor": "#fabb3f"
         }
     }
 

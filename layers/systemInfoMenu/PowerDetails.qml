@@ -44,6 +44,8 @@ Rectangle {
                 blurEnabled: true
                 blur: 1.0
                 blurMax: 2
+                colorization: 1.0
+                colorizationColor: Config.systemInfo.power.sparkColor
                 SequentialAnimation on visible {
                     loops: Animation.Infinite
                     PropertyAnimation {

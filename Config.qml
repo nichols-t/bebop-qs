@@ -351,6 +351,24 @@ Singleton {
                 "recordBackgroundColor": "#b7322e",
                 "volumeBarColor": '#e06762',
                 "volumeBarBorderColor": "#150c1b",
+            },
+            {
+                "playerInfoActiveIconColor": '#c2bd2c',
+                "playerInfoHoverColor": "#7b7823",
+                "playerInfoTextColor": "#e1e1e1",
+                "playerBackgroundColor": '#c2bd2c',
+                "trackControlBackgroundColor": '#c2bd2c',
+                "trackControlDisabledBackgroundColor": '#4b4c1a',
+                "trackControlHoverBorderColor": '#150c1b',
+                "trackControlClickedBorderColor": '#4b4c1a',
+                "trackControlHoverRectColor": "#7b7823",
+                "trackControlTextColor": "#e1e1e1",
+                "trackControlDisabledTextColor": '#c2bd2c',
+                "recordTextColor": "#e1e1e1",
+                "recordAccentColor": '#d7d24e',
+                "recordBackgroundColor": "#c2bd2c",
+                "volumeBarColor": '#e9e56d',
+                "volumeBarBorderColor": "#150c1b",
             }
         ]
     }

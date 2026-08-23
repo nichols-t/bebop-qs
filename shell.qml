@@ -80,22 +80,22 @@ Scope {
             Layers.AudioSettings {
                 id: audioSettings
                 shouldShow: false
-                modelData: perMonitor.modelData
+                screen: perMonitor.modelData
             }
             Layers.BluetoothSettings {
                 id: bluetoothSettings
                 shouldShow: false
-                modelData: perMonitor.modelData
+                screen: perMonitor.modelData
             }
             Layers.NetworkSettings {
                 id: networkSettings
                 shouldShow: false
-                modelData: perMonitor.modelData
+                screen: perMonitor.modelData
             }
             Layers.ThemeSettings {
                 id: themeSettings
                 shouldShow: false
-                modelData: perMonitor.modelData
+                screen: perMonitor.modelData
             }
             Layers.Settings {
                 id: settings

@@ -2,83 +2,28 @@ import Quickshell
 import Quickshell.Io
 import Quickshell.Services.Pipewire
 import Quickshell.Services.Mpris
-import Quickshell.Wayland
 import Quickshell.Widgets
 import QtQuick
 import QtQuick.Layouts
 import QtQuick.Effects
 import QtQuick.Controls
-import "../"
 import "../utils"
 import "./settings"
 import "./settings/audioSettings"
+import "./settings"
+import ".."
 
-Scope {
-    id: root
-    required property var modelData
-    property bool shouldShow: false
+SettingsSubMenu {
+    title: 'AUDIO'
 
-    function show() {
-        shouldShow = true;
-        panel.show();
-    }
-
-    function close() {
-        shouldShow = false;
-    }
-
-    property SystemInfo systemInfo
-    property ShutdownMenu shutdownMenu
-
-    PanelWindow {
-        id: panel
-        visible: shouldShow
-        screen: modelData
-
-        color: Config.settings.backgroundColor
-        anchors {
-            top: true
-            bottom: true
-            right: true
-        }
-
-        margins.right: root.shouldShow ? 0 : -width
-
-        WlrLayershell.exclusionMode: ExclusionMode.Ignore
-        WlrLayershell.keyboardFocus: WlrKeyboardFocus.Exclusive
-
-        implicitWidth: screen.width * 0.3
-        Behavior on margins.right {
-            SequentialAnimation {
-                NumberAnimation {
-                    duration: 100
-                }
-                ScriptAction {
-                    script: {
-                        if (panel.margins.right < 0) {
-                            root.close();
-                        }
-                    }
-                }
-            }
-        }
-
-        function show() {
-            margins.right = 0;
-        }
-
-        function close() {
-            // This should trigger an animation that reset root.onClose when it is done
-            panel.margins.right = -panel.width;
-        }
-
+    content: Component {
         ColumnLayout {
             id: cols
             anchors.top: parent.top
             anchors.horizontalCenter: parent.horizontalCenter
-            property real itemsMargin: panel.width * 0.1 / 2
+            property real itemsMargin: cols.width * 0.1 / 2
             anchors.topMargin: itemsMargin
-            width: panel.width * 0.9
+            width: cols.width * 0.9
             spacing: itemsMargin
 
             // Must retain focus to close on Esc
@@ -90,10 +35,7 @@ Scope {
             property var player: Mpris.players.values[0] || null
 
             Keys.onPressed: event => {
-                if (event.key === Qt.Key_Escape) {
-                    event.accepted = true;
-                    panel.close();
-                } else if (!!cols.player) {
+                if (!!cols.player) {
                     if (event.key === Qt.Key_Space) {
                         cols.player.isPlaying = !cols.player.isPlaying;
                     } else if (event.key === Qt.Key_Left) {
@@ -104,16 +46,12 @@ Scope {
                 }
             }
 
-            SettingsMenuTitleText {
-                id: titleText
-                text: "AUDIO"
-            }
-
             Loader {
                 id: audioInfoLoader
-                sourceComponent: panel.visible ? audioInfo : null
+                sourceComponent: cols.visible ? audioInfo : null
                 asynchronous: false
                 height: cols.width * 0.6
+                Layout.alignment: Qt.AlignHCenter
                 // This can be used if partial loading needs to be avoided
                 //visible: status == Loader.Ready
             }
@@ -122,7 +60,8 @@ Scope {
                 id: audioInfo
                 Rectangle {
                     id: displayRect
-                    implicitWidth: cols.width
+                    implicitWidth: cols.width * 0.9
+                    implicitHeight: audioInfoLoader.height
                     color: Theme.audioSettingsColorSet.recordBackgroundColor
                     clip: true
 
@@ -182,7 +121,8 @@ Scope {
 
             Loader {
                 id: audioControlsLoader
-                sourceComponent: panel.visible ? audioControls : null
+                sourceComponent: cols.visible ? audioControls : null
+                Layout.alignment: Qt.AlignHCenter
                 asynchronous: true
             }
 
@@ -191,138 +131,22 @@ Scope {
                 AudioSettingsTrackControl {
                     player: cols.player
                     implicitHeight: cols.width * 0.1
-                    implicitWidth: cols.width
+                    implicitWidth: cols.width * 0.9
                 }
             }
 
+            // TODO not 100% sure why I need this in here to make the below stuff
+            // show up appropriately far down
             Rectangle {
-                Layout.topMargin: 2 * cols.itemsMargin
+                id: spacerRectangle
+                Layout.topMargin: 3 * cols.itemsMargin
                 color: "transparent"
                 Layout.alignment: Qt.AlignLeft | Qt.AlignBottom
             }
 
-            ColumnLayout {
-                Text {
-                    visible: Mpris.players.values.length !== 0
-                    text: "NOW PLAYING"
-                    color: Config.settings.menuTitleTextColor
-                    font.family: Config.fontBlocky.font.family
-                    font.italic: true
-                    font.pointSize: Config.settings.menuTitleTextSize * 0.6
-                }
-                spacing: cols.spacing * 0.3
-                Repeater {
-                    model: Mpris.players.values
-                    WrapperMouseArea {
-                        id: playerBase
-                        required property MprisPlayer modelData
-                        required property int index
-                        property MprisPlayer player: modelData
-                        property bool hovered: false
-                        cursorShape: Qt.PointingHandCursor
-                        hoverEnabled: true
-                        onClicked: {
-                            cols.player = player;
-                            const playerIndex = Mpris.players.values.findIndex(p => p === player);
-                            Theme.audioSettingsColorSet = Config.audioSettings.colorSets[playerIndex % Config.audioSettings.colorSets.length];
-                        }
-                        onEntered: {
-                            hovered = true;
-                        }
-                        onExited: {
-                            hovered = false;
-                        }
-                        preventStealing: true
-                        WrapperRectangle {
-                            id: playerWrapper
-                            color: Theme.audioSettingsColorSet.playerBackgroundColor
-                            Layout.alignment: Qt.AlignLeft | Qt.AlignVCenter
-                            implicitWidth: cols.width
-                            margin: implicitWidth * 0.01
-                            RowLayout {
-                                id: row
-                                spacing: 0
-                                ColumnLayout {
-                                    z: 1
-                                    PlayerInfoText {
-                                        text: player?.identity || 'UNKNOWN APP'
-                                    }
-                                    PlayerInfoText {
-                                        text: player?.trackTitle || 'UNKNOWN TRACK'
-                                    }
-                                    PlayerInfoText {
-                                        text: player?.trackArtist || 'UNKNOWN ARTIST'
-                                    }
-                                }
+            AudioSettingsPlayerSelect {
 
-                                WrapperRectangle {
-                                    id: iconWrapper
-                                    color: "white"
-                                    Item {
-                                        Rectangle {
-                                            width: visible ? playerWrapper.width : 0
-                                            height: visible ? playerWrapper.height : 0
-                                            anchors.right: parent.right
-                                            anchors.rightMargin: -playerWrapper.margin
-                                            anchors.verticalCenter: parent.verticalCenter
-                                            color: Theme.audioSettingsColorSet.playerInfoHoverColor
-                                            //radius: 2
-                                            //border.width: 2
-                                            visible: hovered
-                                            Behavior on width {
-                                                NumberAnimation {
-                                                    duration: 100
-                                                }
-                                            }
-                                            Behavior on height {
-                                                NumberAnimation {
-                                                    duration: 100
-                                                }
-                                            }
-                                        }
-                                        Image {
-                                            id: recordSVG
-                                            anchors.centerIn: parent
-                                            anchors.horizontalCenterOffset: -row.height * .6
-                                            fillMode: Image.PreserveAspectFit
-                                            visible: false
-                                            sourceSize.width: row.height
-                                            source: Qt.resolvedUrl("../assets/record.svg")
-                                        }
-
-                                        MultiEffect {
-                                            id: effect
-                                            opacity: cols.player === playerBase.player ? 1.0 : 0.0
-                                            colorization: 1.0
-                                            colorizationColor: Theme.audioSettingsColorSet.playerInfoActiveIconColor
-                                            source: recordSVG
-                                            anchors.fill: recordSVG
-                                            blurEnabled: true
-                                            blur: 1.0
-                                            blurMax: 0
-                                            Behavior on opacity {
-                                                NumberAnimation {
-                                                    duration: 75
-                                                }
-                                            }
-                                        }
-                                    }
-                                }
-                            }
-                        }
-                    }
-                }
             }
         }
-    }
-
-    component PlayerInfoText: Text {
-        color: Theme.audioSettingsColorSet.playerInfoTextColor
-        font.family: Config.fontTypewriter.font.family
-        font.pointSize: Config.audioSettings.playerInfoTextSize
-        // Need to set both this and width explicitly to make it work inside a Layout
-        Layout.preferredWidth: width
-        wrapMode: Text.WordWrap
-        width: cols.width - row.height * 1.5
     }
 }

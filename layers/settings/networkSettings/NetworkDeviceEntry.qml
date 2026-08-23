@@ -1,19 +1,19 @@
 import Quickshell.Networking
 import QtQuick
+import Quickshell.Widgets
 import QtQuick.Layouts
 import "../../.."
 
-Rectangle {
+WrapperRectangle {
     required property NetworkDevice networkDevice
-    property real margin: 0.05 * panel.width
-    Layout.leftMargin: margin
     color: Config.networkSettings.accentColor
-    width: panel.width - 2 * margin
-    height: panel.height
+    margin: text.font.pixelSize
+
     RowLayout {
         anchors.fill: parent
         anchors.centerIn: parent
         NetworkDetailsText {
+            id: text
             networkDevice: modelData
             Layout.alignment: Qt.AlignLeft | Qt.AlignVCenter
             Layout.leftMargin: font.pixelSize
@@ -23,7 +23,9 @@ Rectangle {
             Layout.fillWidth: true
         }
 
+        // TODO: This isn't implemented yet and I'm debating if that's a good idea or not
         ConnectToggleButton {
+            visible: false
             Layout.fillHeight: true
             Layout.alignment: Qt.AlignRight
             networkDevice: modelData

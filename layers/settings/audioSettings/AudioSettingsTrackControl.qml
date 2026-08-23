@@ -122,6 +122,8 @@ Rectangle {
                             return "LOOPING TRACK";
                         case MprisLoopState.Playlist:
                             return "LOOPING ALL";
+                        default:
+                            return "";
                         }
                     }
                     font.family: Config.fontTypewriter.font.family

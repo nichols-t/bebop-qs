@@ -1,85 +1,23 @@
-import Quickshell
-import Quickshell.Io
-import Quickshell.Wayland
 import Quickshell.Widgets
 import QtQuick
 import QtQuick.Layouts
-import QtQuick.Controls
-import "../"
+import "./settings"
 
-Scope {
-    id: root
-    required property var modelData
-    property bool shouldShow: false
+import ".."
 
-    function show() {
-        shouldShow = true;
-        panel.show();
-    }
+SettingsSubMenu {
+    title: 'THEME'
 
-    function close() {
-        shouldShow = false;
-    }
-
-    property SystemInfo systemInfo
-    property ShutdownMenu shutdownMenu
-
-    PanelWindow {
-        id: panel
-        visible: shouldShow
-        screen: modelData
-
-        color: Config.settings.backgroundColor
-        anchors {
-            top: true
-            bottom: true
-            right: true
-        }
-
-        margins.right: root.shouldShow ? 0 : -width;
-
-        WlrLayershell.exclusionMode: ExclusionMode.Ignore
-        WlrLayershell.keyboardFocus: WlrKeyboardFocus.Exclusive
-
-        implicitWidth: screen.width * 0.3
-        Behavior on margins.right {
-            SequentialAnimation {
-                NumberAnimation {
-                    duration: 100
-                }
-                ScriptAction {
-                    script: {
-                        if (panel.margins.right < 0) {
-                            root.close()
-                        }
-                    }
-                }
-            }
-        }
-
-        function show() {
-            margins.right = 0;
-        }
-
-        function close() {
-            // This should trigger an animation that reset root.onClose when it is done
-            panel.margins.right = -panel.width;
-        }
-
+    content: Component {
         ColumnLayout {
-
+            anchors.centerIn: parent
             Text {
-                text: "THEME SETTINGS"
+                horizontalAlignment: Text.AlignHCenter
+                Layout.fillWidth: true
+                text: "Coming Soon!"
                 color: "white"
-            }
-
-            focus: true
-
-            Keys.onPressed: event => {
-                if (event.key === Qt.Key_Escape) {
-                    event.accepted = true;
-                    panel.close();
-                }
+                font.family: Config.fontTypewriter.font.family
+                font.pointSize: 18
             }
         }
     }

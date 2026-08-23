@@ -26,8 +26,10 @@ WrapperMouseArea {
                 anchors.centerIn: parent
                 fillMode: Image.PreserveAspectFit
                 source: {
-                    if (Networking.connectivity !== NetworkConnectivity.Full) {
+                    if ([NetworkConnectivity.None, NetworkConnectivity.Limited].includes(Networking.connectivity)) {
                         return Qt.resolvedUrl("../../assets/network-none-icon.svg");
+                    } else if (Networking.connectivity === NetworkConnectivity.Portal) {
+                        return Qt.resolvedUrl("../../assets/network-captive-icon.svg");
                     }
 
                     const connectedDevices = Networking.devices.values.filter(dev => dev.connected);

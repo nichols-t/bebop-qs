@@ -19,41 +19,36 @@ If you'd like to contribute please note the following:
     1. This being said I'm still open to ideas! Particularly in order to make this more compatible with different systems
 
 ## TODOs
-- **Taskbar**:
-    - **[FEATURE] Network icons for captive/limited connection**
 - **[ERGONOMICS] SysInfo**: Make "fallback" system for modules that allows `Config` to specify a list of how things should be read
 - **SystemInfo Screen**: 
     - **[FEATURE] Add details section for network**
-- **[ERGONOMICS] Shutdown Menu**:
-    - Consider how clickable space is laid out for each item and possibly adjust it
-        - Delaunay Triangulation (Voronoi) (see [this implementation](https://github.com/mapbox/delaunator)) would be an interesting thing for this
 - **All Screens**:
     - **[DESIGN] Shaders** to modify certain elements' appearance
     - **[DESIGN] Additional elements** to fill empty space
     - **[ERGONOMICS] Config blur layers** so things are less magic-numbery
     - **[OPTIMIZATION] Loaders**: Use loaders to make sure ongoing resource usage is minimized
-- **[FEATURE] Audio Control**: Create menu for toggling of audio settings
-    - **[FEATURE] Position control (when available)**
-    - **[FEATURE] Rate control (when Quickshell 0.31 is available)**
-- **[FEATURE] Network Control**: Create a control screen for network status, Wi-Fi etc.
-    - Started but only displays existing connections
-- **[FEATURE] Bluetooth Control**: Create a control screen for bluetooth pairing/dc/etc.
-    - Started but only displays existing connections
 - **[ERGONOMICS] Theme Control**: A menu for editing theme colors, maybe
-    - The `Theme` singleton we used for audio settings is probably useful here?
+    - The `Theme` singleton I used for audio settings is probably useful here?
 - **[BUG] Notifications get choppy when spammed**
 - **[BUG] Notifications are too small on laptop - need a different way of calculating the maximum width**
 - **[BUG] Notification text should wrap if it gets too wide, it's cut off right now**
 - **[BUG] On first app launch, it opens on workspace 6 instead of 1**
 - **[BUG] Workspace 6 on TV always showing as having windows**
+- **[FEATURE] Make workspaces work more dynamically with # of workspaces actually used**
 
 ## Improvement Ideas
+- **[FEATURE] Audio Settings Rate control (when Quickshell 0.31 is available)**
+- **[FEATURE] Network Settings Control**: Add controls for connect/disconnect/etc. to network settings
+- **[FEATURE] Bluetooth Settings Control**: Adds controls for bluetooth pairing/dc/etc. to bluetooth settings
 - **[DESIGN] Tweak shutdown menu `textErosionNoise` shader**
 - **[DESIGN] Improve randomness in app launcher font size**
     - Could be a "bias" instead of uniform random
 - **[FEATURE] Lock Screen**: Add support for fingerprint login via PAM.
     - see https://github.com/end-4/dots-hyprland/pull/2308/changes, but this is slop so who knows
-- **[FEATURE] Make workspaces work more dynamically with # of workspaces actually used**
+- **[ERGONOMICS] Shutdown Menu**:
+    - Consider how clickable space is laid out for each item and possibly adjust it
+        - Delaunay Triangulation (Voronoi) (see [this implementation](https://github.com/mapbox/delaunator)) would be an interesting thing for this
+
 ## Random Notes
 - Must check "Flatten Clip" in Inkscape for holes to render properly when exported
 

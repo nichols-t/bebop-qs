@@ -24,7 +24,6 @@ If you'd like to contribute please note the following:
 - **[ERGONOMICS] SysInfo**: Make "fallback" system for modules that allows `Config` to specify a list of how things should be read
 - **SystemInfo Screen**: 
     - **[FEATURE] Add details section for network**
-    - **[FEATURE] Make disk details work better for multiple drives and have more data**
 - **[ERGONOMICS] Shutdown Menu**:
     - Consider how clickable space is laid out for each item and possibly adjust it
         - Delaunay Triangulation (Voronoi) (see [this implementation](https://github.com/mapbox/delaunator)) would be an interesting thing for this
@@ -35,6 +34,7 @@ If you'd like to contribute please note the following:
     - **[OPTIMIZATION] Loaders**: Use loaders to make sure ongoing resource usage is minimized
 - **[FEATURE] Audio Control**: Create menu for toggling of audio settings
     - **[FEATURE] Position control (when available)**
+    - **[FEATURE] Rate control (when Quickshell 0.31 is available)**
 - **[FEATURE] Network Control**: Create a control screen for network status, Wi-Fi etc.
     - Started but only displays existing connections
 - **[FEATURE] Bluetooth Control**: Create a control screen for bluetooth pairing/dc/etc.

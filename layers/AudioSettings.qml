@@ -223,8 +223,8 @@ Scope {
                         hoverEnabled: true
                         onClicked: {
                             cols.player = player;
-                            const playerIndex = Mpris.players.values.findIndex((p) => p === player);
-                            Theme.audioSettingsColorSet = Config.audioSettings.colorSets[playerIndex % Config.audioSettings.colorSets.length]
+                            const playerIndex = Mpris.players.values.findIndex(p => p === player);
+                            Theme.audioSettingsColorSet = Config.audioSettings.colorSets[playerIndex % Config.audioSettings.colorSets.length];
                         }
                         onEntered: {
                             hovered = true;
@@ -270,10 +270,14 @@ Scope {
                                             //border.width: 2
                                             visible: hovered
                                             Behavior on width {
-                                                NumberAnimation { duration: 100 }
+                                                NumberAnimation {
+                                                    duration: 100
+                                                }
                                             }
                                             Behavior on height {
-                                                NumberAnimation { duration: 100 }
+                                                NumberAnimation {
+                                                    duration: 100
+                                                }
                                             }
                                         }
                                         Image {

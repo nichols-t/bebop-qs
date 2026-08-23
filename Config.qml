@@ -234,7 +234,7 @@ Singleton {
         // The size of the text for the menu title
         "menuTitleTextSize": 60,
         // The command used to open the NixOS config folder for editing
-        "nixConfigCmd": ["code", "/etc/nixos"]
+        "nixConfigCmd": ["codium", "/etc/nixos"]
     }
 
     readonly property var networkSettings: {
@@ -333,6 +333,16 @@ Singleton {
                 "volumeBarColor": '#cf9cf4',
                 // The border color of the background volume bars
                 "volumeBarBorderColor": "#150c1b",
+                // The color of the seek bar to the right of the current position
+                "seekBarColor": "#8d41c5",
+                // The color of the seek bar control rectangle
+                "seekBarControlColor": "#cf9cf4",
+                // The color of the seek bar control rectangle's border
+                "seekBarControlBorderColor": "#150c1b",
+                // The color of the seek bar control rectangle's border when the seek bar is pressed
+                "seekBarControlActiveBorderColor": '#cf9cf4',
+                // The color of the seek bar to the left of the current position
+                "seekBarPastPositionColor": "#5b2f7a",
             },
             {
                 "playerInfoActiveIconColor": '#a6221e',
@@ -351,6 +361,11 @@ Singleton {
                 "recordBackgroundColor": "#b7322e",
                 "volumeBarColor": '#e06762',
                 "volumeBarBorderColor": "#150c1b",
+                "seekBarColor": "#b7322e",
+                "seekBarControlColor": "#e06762",
+                "seekBarControlBorderColor": "#150c1b",
+                "seekBarControlActiveBorderColor": '#e06762',
+                "seekBarPastPositionColor": "#8f231f",
             },
             {
                 "playerInfoActiveIconColor": '#c2bd2c',
@@ -369,6 +384,11 @@ Singleton {
                 "recordBackgroundColor": "#c2bd2c",
                 "volumeBarColor": '#e9e56d',
                 "volumeBarBorderColor": "#150c1b",
+                "seekBarColor": "#c2bd2c",
+                "seekBarControlColor": "#e9e56d",
+                "seekBarControlBorderColor": "#150c1b",
+                "seekBarControlActiveBorderColor": '#e9e56d',
+                "seekBarPastPositionColor": "#7b7823",
             }
         ]
     }

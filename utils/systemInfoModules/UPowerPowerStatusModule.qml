@@ -25,6 +25,8 @@ PowerStatusModule {
 
     pluggedIn: !UPower.onBattery
 
+    function read() {}
+
     // TODO add to the type
     powerText: {
         if (hasBattery) {
@@ -38,11 +40,11 @@ PowerStatusModule {
     systemInfoDetails: {
         const lines = [];
         for (const device in UPower.devices.values) {
-            lines.push('me when device');
+            lines.push('TODO me when device');
         }
 
         if (lines.length === 0) {
-            lines.push(`No UPower information available`);
+            lines.push(`No UPower information available (probably on AC!)`);
         }
 
         return lines;

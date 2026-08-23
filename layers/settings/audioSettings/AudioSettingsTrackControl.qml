@@ -1,4 +1,5 @@
 import QtQuick
+import QtQuick.Controls
 import QtQuick.Layouts
 import Quickshell.Widgets
 import Quickshell.Services.Mpris
@@ -11,10 +12,25 @@ Rectangle {
 
     required property MprisPlayer player
 
+    Timer {
+        // only emit the signal when the position is actually changing.
+        running: player?.playbackState == MprisPlaybackState.Playing
+        // Make sure the position updates at least once per second.
+        interval: 1000
+        repeat: true
+        // emit the positionChanged signal every second.
+        onTriggered: player.positionChanged()
+    }
+
     ColumnLayout {
         width: root.width
         // TODO copied this from base audio settings maybe I need to pass it down?
         spacing: root.width * 0.1 / 2
+
+        AudioSettingsSeekSlider {
+            player: root.player
+        }
+
         RowLayout {
             width: root.width
             spacing: 0
@@ -84,7 +100,7 @@ Rectangle {
                 enabled: root.player?.loopSupported || false
                 onClicked: {
                     if (root.player) {
-                        root.player.shuffle = !root.player.shuffle
+                        root.player.shuffle = !root.player.shuffle;
                     }
                 }
             }
@@ -100,12 +116,12 @@ Rectangle {
                     Layout.alignment: Qt.AlignCenter
                     text: {
                         switch (root.player?.loopState) {
-                            case MprisLoopState.None:
-                                return "";
-                            case MprisLoopState.Track:
-                                return "LOOPING TRACK";
-                            case MprisLoopState.Playlist:
-                                return "LOOPING ALL";
+                        case MprisLoopState.None:
+                            return "";
+                        case MprisLoopState.Track:
+                            return "LOOPING TRACK";
+                        case MprisLoopState.Playlist:
+                            return "LOOPING ALL";
                         }
                     }
                     font.family: Config.fontTypewriter.font.family
@@ -167,10 +183,10 @@ Rectangle {
             id: btnRect
             Layout.alignment: layoutAlignment
             color: {
-                if (self.enabled) { 
-                    return Theme.audioSettingsColorSet.trackControlBackgroundColor
+                if (self.enabled) {
+                    return Theme.audioSettingsColorSet.trackControlBackgroundColor;
                 } else {
-                    return Theme.audioSettingsColorSet.trackControlDisabledBackgroundColor
+                    return Theme.audioSettingsColorSet.trackControlDisabledBackgroundColor;
                 }
             }
             Rectangle {
@@ -181,9 +197,9 @@ Rectangle {
                 border.width: 2
                 border.color: {
                     if (pressed) {
-                        return Theme.audioSettingsColorSet.trackControlClickedBorderColor
+                        return Theme.audioSettingsColorSet.trackControlClickedBorderColor;
                     } else {
-                        return Theme.audioSettingsColorSet.trackControlHoverBorderColor
+                        return Theme.audioSettingsColorSet.trackControlHoverBorderColor;
                     }
                 }
 

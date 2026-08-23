@@ -68,14 +68,18 @@ Rectangle {
         }
     }
 
-    ColumnLayout {
+    ListView {
         anchors.centerIn: parent
-        anchors.verticalCenterOffset: parent.height * 0.1
-        Repeater {
-            model: SysInfo.diskUsage.systemInfoDetails
-            DetailsInfoText {
-                required property var modelData
-                text: modelData
+        anchors.verticalCenterOffset: detailsCol.height * 0.5
+        ColumnLayout{
+            id: detailsCol
+            anchors.centerIn: parent
+            Repeater {
+                model: SysInfo.diskUsage.systemInfoDetails
+                DetailsInfoText {
+                    required property var modelData
+                    text: modelData
+                }
             }
         }
     }

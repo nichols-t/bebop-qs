@@ -47,6 +47,7 @@ Singleton {
         interval: 30000
         repeat: true
         running: root.active
+        triggeredOnStart: true
         onTriggered: {
             diskUsage.read()
             gpuUsage.read()

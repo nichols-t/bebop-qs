@@ -362,7 +362,7 @@ Singleton {
                 "trackControlHoverBorderColor": '#150c1b',
                 "trackControlClickedBorderColor": '#4b4c1a',
                 "trackControlHoverRectColor": "#7b7823",
-                "trackControlTextColor": "#e1e1e1",
+                "trackControlTextColor": "#150c1b",
                 "trackControlDisabledTextColor": '#c2bd2c',
                 "recordTextColor": "#e1e1e1",
                 "recordAccentColor": '#d7d24e',

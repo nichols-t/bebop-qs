@@ -1,7 +1,7 @@
 import Quickshell
 import Quickshell.Io
 import Quickshell.Hyprland
-import "./layers" as Layers
+import "./layers"
 
 Scope {
     // IpcHandlers are defined in the root scope, before we send to variants, because
@@ -52,18 +52,18 @@ Scope {
             // I think maybe this technically doesn't need to be in Variant
             // (pretty sure Lock automatically goes to true) but I think it
             // is easier to pass screen data in.
-            Layers.LockScreen {
+            LockScreen {
                 id: lockRoot
-                modelData: perMonitor.modelData
+                screen: perMonitor.modelData
             }
-            Layers.ShutdownMenu {
+            ShutdownMenu {
                 id: shutdownMenu
                 lockRoot: lockRoot
                 shouldShow: false
-                modelData: perMonitor.modelData
+                screen: perMonitor.modelData
             }
-            Layers.Taskbar {
-                modelData: perMonitor.modelData
+            Taskbar {
+                screen: perMonitor.modelData
                 systemInfo: systemInfo
                 settings: settings
                 calendar: calendar
@@ -72,35 +72,35 @@ Scope {
                 networkSettings: networkSettings
                 shutdownMenu: shutdownMenu
             }
-            Layers.Calendar {
+            Calendar {
                 id: calendar
                 shouldShow: false
-                modelData: perMonitor.modelData
+                screen: perMonitor.modelData
             }
-            Layers.AudioSettings {
+            AudioSettings {
                 id: audioSettings
                 shouldShow: false
                 screen: perMonitor.modelData
             }
-            Layers.BluetoothSettings {
+            BluetoothSettings {
                 id: bluetoothSettings
                 shouldShow: false
                 screen: perMonitor.modelData
             }
-            Layers.NetworkSettings {
+            NetworkSettings {
                 id: networkSettings
                 shouldShow: false
                 screen: perMonitor.modelData
             }
-            Layers.ThemeSettings {
+            ThemeSettings {
                 id: themeSettings
                 shouldShow: false
                 screen: perMonitor.modelData
             }
-            Layers.Settings {
+            Settings {
                 id: settings
                 shouldShow: false
-                modelData: perMonitor.modelData
+                screen: perMonitor.modelData
                 systemInfo: systemInfo
                 shutdownMenu: shutdownMenu
                 audioSettings: audioSettings
@@ -108,19 +108,19 @@ Scope {
                 networkSettings: networkSettings
                 themeSettings: themeSettings
             }
-            Layers.SystemInfo {
+            SystemInfo {
                 id: systemInfo
                 shouldShow: false
-                modelData: perMonitor.modelData
+                screen: perMonitor.modelData
             }
-            Layers.AppLauncher {
+            AppLauncher {
                 id: appLauncher
                 shouldShow: false
-                modelData: perMonitor.modelData
+                screen: perMonitor.modelData
             }
 
-            Layers.Notifications {
-                modelData: perMonitor.modelData
+            Notifications {
+                screen: perMonitor.modelData
             }
         }
     }

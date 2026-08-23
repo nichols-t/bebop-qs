@@ -13,7 +13,7 @@ import "./calendar"
 Scope {
     id: root
     // This is the screen from Quickshell.screens
-    required property var modelData
+    required property var screen
 
     property int year: Qt.formatDateTime(Time.clock.date, 'yyyy')
     property int month: Qt.formatDateTime(Time.clock.date, 'MM') - 1
@@ -32,7 +32,7 @@ Scope {
 
     PanelWindow {
         id: panel
-        screen: root.modelData
+        screen: root.screen
         visible: root.shouldShow
         color: "transparent"
         Component.onCompleted: {
@@ -58,8 +58,8 @@ Scope {
         Rectangle {
             id: rectangle
             //  anchors.fill: parent
-            width: modelData.width
-            height: modelData.height
+            width: screen.width
+            height: screen.height
             color: Config.calendar.backgroundColor
             visible: true
 
@@ -76,7 +76,7 @@ Scope {
             DayView {
                 id: dayView
                 shouldShow: !!dayInfo && !!date
-                screen: root.modelData
+                screen: root.screen
                 onDayInfoChanged: {
                     shouldShow = !!dayInfo && !!date;
                 }
@@ -107,7 +107,7 @@ Scope {
                 }
 
                 delegate: MonthGridDelegate {
-                    screen: root.modelData
+                    screen: root.screen
                     targetMonth: root.month
                     calendarOpen: root.shouldShow
                     Component.onCompleted: {
@@ -127,7 +127,7 @@ Scope {
             MonthText {
                 date: Time.clock.date
                 anchors.right: parent.right
-                font.pixelSize: modelData.width / 24
+                font.pixelSize: screen.width / 24
             }
 
             // Additional failsafe to let you close menu via mouse

@@ -12,7 +12,7 @@ import "./shutdownMenu"
 Scope {
     id: root
     // This is the screen from Quickshell.screens
-    required property var modelData
+    required property var screen
     required property var lockRoot
     required property bool shouldShow
 
@@ -36,7 +36,7 @@ Scope {
 
     PanelWindow {
         id: shutdownMenuWindow
-        screen: root.modelData
+        screen: root.screen
         visible: root.shouldShow
         color: "transparent"
         Component.onCompleted: {
@@ -209,7 +209,7 @@ Scope {
                 ShutdownMenuBackgroundLock {
                     //id: lockButton
                     text: itemsContainer.selectedBtnItem.text
-                    screen: root.modelData
+                    screen: root.screen
                     textColor: Config.powerMenu.lockColor
                 }
             }
@@ -217,7 +217,7 @@ Scope {
                 id: backgroundReboot
                 ShutdownMenuBackgroundReboot {
                     text: itemsContainer.selectedBtnItem.text
-                    screen: root.modelData
+                    screen: root.screen
                     textColor: Config.powerMenu.rebootColor
                 }
             }
@@ -225,7 +225,7 @@ Scope {
                 id: backgroundShutdown
                 ShutdownMenuBackgroundShutdown {
                     text: itemsContainer.selectedBtnItem.text
-                    screen: root.modelData
+                    screen: root.screen
                     textColor: Config.powerMenu.shutdownColor
                 }
             }
@@ -304,7 +304,7 @@ Scope {
                 layer.effect: ShaderEffect {
                     fragmentShader: Qt.resolvedUrl("../shaders/textErosionNoise.frag.qsb")
                     property real noiseSize: 64
-                    property var resolution: [modelData.width, modelData.height]
+                    property var resolution: [screen.width, screen.height]
                 }
             }
 

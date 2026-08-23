@@ -4,11 +4,9 @@ import QtQuick.Layouts
 import ".."
 import "./taskbar"
 
-PanelWindow {
+Scope {
     id: root
-    required property var modelData
-    screen: modelData
-
+    required property var screen
     property SystemInfo systemInfo
     property Calendar calendar
     property Settings settings
@@ -17,47 +15,51 @@ PanelWindow {
     property NetworkSettings networkSettings
     property ShutdownMenu shutdownMenu
 
-    color: Config.taskbar.backgroundColor
-    anchors {
-        top: true
-        left: true
-        right: true
-    }
+    PanelWindow {
+        id: panel
+        screen: root.screen
+        color: Config.taskbar.backgroundColor
+        anchors {
+            top: true
+            left: true
+            right: true
+        }
 
-    implicitHeight: Config.taskbar.taskbarHeight
+        implicitHeight: Config.taskbar.taskbarHeight
 
-    Loader {
-        id: workspacesLoader
-        asynchronous: true
-        sourceComponent: workspaces
-        anchors.horizontalCenter: parent.horizontalCenter
-    }
-    Component {
-        id: workspaces
-        // Not inside the RowLayout so that we can center them exactly without doing a bunch
-        // of nonsense
-        Workspaces {
+        Loader {
+            id: workspacesLoader
+            asynchronous: true
+            sourceComponent: workspaces
             anchors.horizontalCenter: parent.horizontalCenter
         }
-    }
-    Loader {
-        id: taskbarLoader
-        asynchronous: true
-        sourceComponent: rows
-        anchors.fill: parent
-    }
-    Component {
-        id: rows
-        RowLayout {
-            spacing: 4
-            User { shutdownMenu: root.shutdownMenu }
-            Item { Layout.fillWidth: true }
-            BluetoothButton { bluetoothSettings: root.bluetoothSettings }
-            NetworkButton { networkSettings: root.networkSettings }
-            Battery {}
-            AudioButton { audioSettings: root.audioSettings }
-            Clock { calendar: root.calendar }
-            SettingsButton { settings: root.settings }
+        Component {
+            id: workspaces
+            // Not inside the RowLayout so that we can center them exactly without doing a bunch
+            // of nonsense
+            Workspaces {
+                anchors.horizontalCenter: parent.horizontalCenter
+            }
+        }
+        Loader {
+            id: taskbarLoader
+            asynchronous: true
+            sourceComponent: rows
+            anchors.fill: parent
+        }
+        Component {
+            id: rows
+            RowLayout {
+                spacing: 4
+                User { shutdownMenu: root.shutdownMenu }
+                Item { Layout.fillWidth: true }
+                BluetoothButton { bluetoothSettings: root.bluetoothSettings }
+                NetworkButton { networkSettings: root.networkSettings }
+                Battery {}
+                AudioButton { audioSettings: root.audioSettings }
+                Clock { calendar: root.calendar }
+                SettingsButton { settings: root.settings }
+            }
         }
     }
 }

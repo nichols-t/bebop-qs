@@ -13,7 +13,7 @@ import "./appLauncher"
 
 Scope {
     id: root
-    required property var modelData
+    required property var screen
     required property var shouldShow
 
     function _reset() {
@@ -25,7 +25,7 @@ Scope {
 
     PanelWindow {
         id: panel
-        screen: root.modelData
+        screen: root.screen
         visible: root.shouldShow
         color: "transparent"
         anchors {

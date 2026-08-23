@@ -11,7 +11,7 @@ import "./settings"
 
 Scope {
     id: root
-    required property var modelData
+    required property var screen
     property bool shouldShow: false
 
     function show() {
@@ -37,7 +37,7 @@ Scope {
     PanelWindow {
         id: panel
         visible: shouldShow
-        screen: modelData
+        screen: root.screen
 
         color: Config.settings.backgroundColor
         anchors {
@@ -83,7 +83,6 @@ Scope {
         ColumnLayout {
             id: cols
             anchors.top: parent.top
-            anchors.topMargin: panel.height * 0.05
 
             SettingsMenuTitleText {
                 text: "SETTINGS"

@@ -12,7 +12,7 @@ import ".."
 
 Scope {
     id: root
-    required property var modelData
+    required property var screen
     property var shouldShow: false
 
     function lock() {

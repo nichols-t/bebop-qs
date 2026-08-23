@@ -14,10 +14,6 @@ GpuUsageModule {
     property real _gpuMemFree: 0
     property real _gpuTemp: 0
 
-    property bool isSupported: {
-        return gpuTempProc.success && gpuMemFreeProc && gpuMemTotalProc && gpuPowerProc
-    }
-
     property var read: () => {
         gpuTempProc.running = true
         gpuPowerProc.running = true

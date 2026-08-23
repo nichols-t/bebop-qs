@@ -6,7 +6,6 @@ import "./base"
 // Reads GPU data use the nvidia-smi command
 GpuModelModule {
     id: root
-    property bool isSupported: gpuNameProc.success && gpuDriverProc.success
     
     systemInfoDetails: {
         const lines = [];

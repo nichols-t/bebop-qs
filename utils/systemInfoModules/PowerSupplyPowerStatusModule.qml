@@ -10,8 +10,6 @@ PowerStatusModule {
     // (i.e. on AC) it shows as full.
     property real batteryPercent: 100
 
-    property bool isSupported: true
-
     property bool hasBattery: batteryProc.success
 
     property bool pluggedIn: !hasBattery || _acOnline

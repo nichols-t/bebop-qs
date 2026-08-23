@@ -56,13 +56,18 @@ Rectangle {
         }
     }
 
-    ColumnLayout {
+    ListView {
         anchors.centerIn: parent
-        Repeater {
-            model: SysInfo.cpuModel.systemInfoDetails
-            DetailsInfoText {
-                required property var modelData
-                text: modelData
+        anchors.verticalCenterOffset: detailsCol.height * 0.5
+        ColumnLayout {
+            id: detailsCol
+            anchors.centerIn: parent
+            Repeater {
+                model: SysInfo.cpuModel.systemInfoDetails
+                DetailsInfoText {
+                    required property var modelData
+                    text: modelData
+                }
             }
         }
     }

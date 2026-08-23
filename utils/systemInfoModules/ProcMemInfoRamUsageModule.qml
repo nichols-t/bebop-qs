@@ -14,8 +14,6 @@ RamUsageModule {
     property real _swapTotal: 0
     property real _swapFree: 0
 
-    property bool isSupported: false
-
     property var read: () => {
         memFile.reload();
     }

@@ -10,7 +10,6 @@ DiskUsageModule {
     property real _diskTotal: 1
     property var blockDevices: []
 
-    property bool isSupported: dfShell.success
     property var read: () => {
         dfShell.running = true;
         if (dfShell.running)

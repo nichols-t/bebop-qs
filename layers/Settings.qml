@@ -24,7 +24,7 @@ Scope {
     }
 
     function beginClose() {
-        panel.close()
+        panel.close();
     }
 
     property SystemInfo systemInfo
@@ -46,7 +46,7 @@ Scope {
             right: true
         }
 
-        margins.right: root.shouldShow ? 0 : -width;
+        margins.right: root.shouldShow ? 0 : -width
 
         WlrLayershell.exclusionMode: ExclusionMode.Ignore
         WlrLayershell.keyboardFocus: WlrKeyboardFocus.Exclusive
@@ -60,7 +60,7 @@ Scope {
                 ScriptAction {
                     script: {
                         if (panel.margins.right < 0) {
-                            root.close()
+                            root.close();
                         }
                     }
                 }
@@ -134,8 +134,8 @@ Scope {
                 text: "NIXOS CONFIGS"
 
                 onClicked: () => {
-                    nixCfgsProcess.startDetached()
-                    root.beginClose()
+                    nixCfgsProcess.startDetached();
+                    root.beginClose();
                 }
             }
 

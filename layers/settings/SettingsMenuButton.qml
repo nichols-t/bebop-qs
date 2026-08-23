@@ -1,5 +1,6 @@
 import Quickshell.Widgets
 import QtQuick.Layouts
+import QtQuick
 
 WrapperMouseArea {
     id: root
@@ -13,6 +14,7 @@ WrapperMouseArea {
     SettingsMenuText {
         id: text
         text: root.text
+        implicitWidth: panel.implicitWidth
     }
 
     hoverEnabled: true

@@ -31,7 +31,6 @@ If you'd like to contribute please note the following:
     - The `Theme` singleton I used for audio settings is probably useful here?
 - **[BUG] Notifications get choppy when spammed**
 - **[BUG] Notifications are too small on laptop - need a different way of calculating the maximum width**
-- **[BUG] Notification text should wrap if it gets too wide, it's cut off right now**
 - **[BUG] On first app launch, it opens on workspace 6 instead of 1**
 - **[BUG] Workspace 6 on TV always showing as having windows**
 - **[FEATURE] Make workspaces work more dynamically with # of workspaces actually used**

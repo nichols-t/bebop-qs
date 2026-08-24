@@ -1,4 +1,5 @@
 import QtQuick
+import QtQuick.Effects
 import QtQuick.Layouts
 
 import "../.."
@@ -52,7 +53,7 @@ Rectangle {
         preventStealing: false
         onClicked: {
             // Got a binding loop so had to do this. Didn't bother to track it down
-            root.onClicked(dateLookupText, root.theIndex, root.color)
+            root.onClicked(dateLookupText, root.theIndex, root.color);
         }
         onEntered: {
             backgroundMouseArea.enabled = false;
@@ -121,11 +122,13 @@ Rectangle {
     }
 
     ColumnLayout {
+        id: cols
         anchors.verticalCenter: root.verticalCenter
         Repeater {
             model: CalendarData.dayInfo[index]
 
             Text {
+                id: text
                 required property var modelData
                 text: modelData.title
 

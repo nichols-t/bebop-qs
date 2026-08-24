@@ -125,9 +125,21 @@ Scope {
             }
 
             MonthText {
+                id: monthText
                 date: Time.clock.date
                 anchors.right: parent.right
                 font.pixelSize: screen.width / 24
+                rotation: 90
+                visible: false
+            }
+
+            MultiEffect {
+                source: monthText
+                anchors.fill: monthText
+                rotation: monthText.rotation
+                blurEnabled: true
+                blur: 1
+                blurMax: 2
             }
 
             // Additional failsafe to let you close menu via mouse

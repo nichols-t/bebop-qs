@@ -10,4 +10,7 @@ Scope {
     * Run processes that this module needs to refresh its information
     */
     property var run: () => {}
+
+    // Lines for the system info details display
+    property list<string> systemInfoDetails
 }

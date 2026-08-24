@@ -9,6 +9,4 @@ SystemInfoModule {
     property string gpuTempText
     // GPU human-readable power consumption with unit
     property string gpuPower
-    // Lines for the system info details display
-    property list<string> systemInfoDetails
 }

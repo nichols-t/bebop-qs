@@ -30,6 +30,8 @@ Singleton {
     property PowerStatusModule power: UPowerPowerStatusModule {}
     // Provides user information
     property UserModule user: WhoAmIUserModule {}
+    // Provides network information
+    property NetworkInfoModule network: NmCliNetworkInfoModule {}
 
     Timer {
         interval: 2000

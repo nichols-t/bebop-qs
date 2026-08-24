@@ -156,6 +156,10 @@ Singleton {
         // Settings for the power details info display
         "power": {
             "sparkColor": '#cfc05f'
+        },
+        // Settings for the network details info display
+        "network": {
+            "graphicAccentColor": '#4f97d1'
         }
     }
 

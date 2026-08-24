@@ -29,7 +29,6 @@ If you'd like to contribute please note the following:
     - **[OPTIMIZATION] Loaders**: Use loaders to make sure ongoing resource usage is minimized
 - **[ERGONOMICS] Theme Control**: A menu for editing theme colors, maybe
     - The `Theme` singleton I used for audio settings is probably useful here?
-- **[BUG] Notifications get choppy when spammed**
 - **[BUG] Notifications are too small on laptop - need a different way of calculating the maximum width**
 - **[BUG] On first app launch, it opens on workspace 6 instead of 1**
 - **[BUG] Workspace 6 on TV always showing as having windows**

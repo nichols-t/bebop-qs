@@ -31,7 +31,7 @@ Scope {
         property var sectionVerticalSpaceHeight: screen.height * 0.01
         WlrLayershell.exclusionMode: ExclusionMode.Ignore
         WlrLayershell.keyboardFocus: WlrKeyboardFocus.Exclusive
-        
+
         // determines which (if any) detail screens are shown on the right
         property string showDetails: ""
 
@@ -83,46 +83,104 @@ Scope {
                 anchors.leftMargin: screen.width * 0.1
                 anchors.rightMargin: screen.width * 0.2
                 // Layout.row and Layout.column for where an element goes
-                SectionHeader { text: "SYSTEM STATISTICS" }
-                SectionStat { label: "OS"; value: SysInfo.os.osName; }
+                SectionHeader {
+                    text: "SYSTEM STATISTICS"
+                }
+                SectionStat {
+                    label: "OS"
+                    value: SysInfo.os.osName
+                }
 
                 SectionSpacer {}
                 SectionHeaderMouseArea {
-                    SectionHeader { text: "CENTRAL PROCESSING UNIT" }
-                    onClicked: { detailsLoader.sourceComponent = cpuDetails }
+                    SectionHeader {
+                        text: "CENTRAL PROCESSING UNIT"
+                    }
+                    onClicked: {
+                        detailsLoader.sourceComponent = cpuDetails;
+                    }
                 }
-                SectionStat { label: "USAGE"; value: SysInfo.cpuUsage.cpuText }
+                SectionStat {
+                    label: "USAGE"
+                    value: SysInfo.cpuUsage.cpuText
+                }
 
                 SectionSpacer {}
                 SectionHeaderMouseArea {
-                    SectionHeader { text: "RANDOM ACCESS MEMORY" }
-                    onClicked: { detailsLoader.sourceComponent = ramDetails }
+                    SectionHeader {
+                        text: "RANDOM ACCESS MEMORY"
+                    }
+                    onClicked: {
+                        detailsLoader.sourceComponent = ramDetails;
+                    }
                 }
-                SectionStat { label: "USAGE"; value: SysInfo.ramUsage.memText; }
+                SectionStat {
+                    label: "USAGE"
+                    value: SysInfo.ramUsage.memText
+                }
 
                 SectionSpacer {}
                 SectionHeaderMouseArea {
-                    SectionHeader { text: "GRAPHICS PROCESSING UNIT" }
-                    onClicked: { detailsLoader.sourceComponent = gpuDetails }
+                    SectionHeader {
+                        text: "GRAPHICS PROCESSING UNIT"
+                    }
+                    onClicked: {
+                        detailsLoader.sourceComponent = gpuDetails;
+                    }
                 }
-                SectionStat { label: "TEMP"; value: SysInfo.gpuUsage.gpuTempText; }
-                SectionStat { label: "MEM USAGE"; value: SysInfo.gpuUsage.gpuMemText; }
+                SectionStat {
+                    label: "TEMP"
+                    value: SysInfo.gpuUsage.gpuTempText
+                }
+                SectionStat {
+                    label: "MEM USAGE"
+                    value: SysInfo.gpuUsage.gpuMemText
+                }
 
                 SectionSpacer {}
                 SectionHeaderMouseArea {
-                    SectionHeader { text: "SOLID STATE DRIVE" }
-                    onClicked: { detailsLoader.sourceComponent = diskDetails }
+                    SectionHeader {
+                        text: "SOLID STATE DRIVE"
+                    }
+                    onClicked: {
+                        detailsLoader.sourceComponent = diskDetails;
+                    }
                 }
-                SectionStat { label: "USAGE"; value: SysInfo.diskUsage.diskText; }
-     
+                SectionStat {
+                    label: "USAGE"
+                    value: SysInfo.diskUsage.diskText
+                }
+
                 SectionSpacer {}
                 SectionHeaderMouseArea {
-                    SectionHeader { text: "POWER" }
-                    onClicked: { detailsLoader.sourceComponent = powerDetails; }
+                    SectionHeader {
+                        text: "POWER"
+                    }
+                    onClicked: {
+                        detailsLoader.sourceComponent = powerDetails;
+                    }
                 }
-                SectionStat{ label: "POWER STATE"; value: SysInfo.power.powerText }
+                SectionStat {
+                    label: "POWER STATE"
+                    value: SysInfo.power.powerText
+                }
+
+                SectionSpacer {}
+                SectionHeaderMouseArea {
+                    SectionHeader {
+                        text: "NETWORK"
+                    }
+                    onClicked: {
+                        detailsLoader.sourceComponent = networkDetails;
+                    }
+                }
+                SectionStat {
+                    label: 'NETWORK STATE'
+                    value: SysInfo.network.state
+                }
                 MultiEffect {
                     id: hoverBlur
+                    visible: source != null
                     // This logs a warning but I think it is actually correct for MultiEffect?
                     anchors.fill: source
                     blurEnabled: true
@@ -149,24 +207,29 @@ Scope {
             }
             Component {
                 id: cpuDetails
-                CpuDetails { }
+                CpuDetails {}
             }
             Component {
                 id: ramDetails
-                RamDetails { }
+                RamDetails {}
             }
             Component {
                 id: gpuDetails
-                GpuDetails { }
+                GpuDetails {}
             }
             Component {
                 id: diskDetails
-                DiskDetails { }
+                DiskDetails {}
             }
 
             Component {
                 id: powerDetails
-                PowerDetails { }
+                PowerDetails {}
+            }
+
+            Component {
+                id: networkDetails
+                NetworkDetails {}
             }
         }
     }
@@ -181,10 +244,10 @@ Scope {
         hoverEnabled: true
         margin: 20
         onEntered: {
-            hoverBlur.source = self
+            hoverBlur.source = self;
         }
         onExited: {
-            hoverBlur.source = null
+            hoverBlur.source = null;
         }
     }
 }

@@ -29,8 +29,11 @@ Rectangle {
 
         Repeater {
             id: repeater
-            // Hyprland.workspaces.values.length only shows this monitor
-            model: 6
+            // The way I use workspaces is 1-5 on primary monitor and 6 on secondary (TV).
+            // But if I change # on primary, or if I add more on TV for some reason, I want
+            // to show all of them. The actual # is the max ID; the Quickshell docs state that
+            // named workspaces have negative IDs so maybe I'll need to deal with that at some point.
+            model: Math.max(...Hyprland.workspaces.values.map((w) => w.id))
             WrapperMouseArea {
                 id: area
                 required property var modelData

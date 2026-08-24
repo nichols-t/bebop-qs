@@ -55,12 +55,6 @@ Rectangle {
             SequentialAnimation {
                 loops: Animation.Infinite
                 running: true
-                // Add some randomness to the speed
-                ScriptAction {
-                    script: {
-                        root.jumpDuration = 100 + Math.floor(Math.random() * 50)
-                    }
-                }
 
                 ParallelAnimation {
                     loops: 1

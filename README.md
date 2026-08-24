@@ -20,8 +20,6 @@ If you'd like to contribute please note the following:
 
 ## TODOs
 - **[ERGONOMICS] SysInfo**: Make "fallback" system for modules that allows `Config` to specify a list of how things should be read
-- **SystemInfo Screen**: 
-    - **[FEATURE] Add details section for network**
 - **All Screens**:
     - **[DESIGN] Shaders** to modify certain elements' appearance
     - **[DESIGN] Additional elements** to fill empty space
@@ -30,9 +28,6 @@ If you'd like to contribute please note the following:
 - **[ERGONOMICS] Theme Control**: A menu for editing theme colors, maybe
     - The `Theme` singleton I used for audio settings is probably useful here?
 - **[BUG] Notifications are too small on laptop - need a different way of calculating the maximum width**
-- **[BUG] On first app launch, it opens on workspace 6 instead of 1**
-- **[BUG] Workspace 6 on TV always showing as having windows**
-- **[FEATURE] Make workspaces work more dynamically with # of workspaces actually used**
 
 ## Improvement Ideas
 - **[FEATURE] Audio Settings Rate control (when Quickshell 0.31 is available)**

@@ -45,7 +45,12 @@ WrapperMouseArea {
 
                 BlurLine {
                     Layout.alignment: Qt.AlignRight
-                    rectHeight: image.hasImage ? notificationHeight * 1.5 : notificationHeight * 3
+                    rectHeight: {
+                        // TODO this feels kinda strange??
+                        let scale = image.hasImage ? 1.5 : 3;
+                        const textHeight = bodyText.height + applicationText.height;
+                        return Math.max(notificationHeight, textHeight) * scale;
+                    }
                     rectWidth: 2
                     z: 1
                     color: Config.notifications.lineColor
@@ -80,6 +85,7 @@ WrapperMouseArea {
                         }
 
                         Text {
+                            id: bodyText
                             Layout.preferredWidth: width
                             width: accentRect.width * 0.9
                             Layout.leftMargin: colLayout.itemsLeftMargin

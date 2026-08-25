@@ -38,7 +38,8 @@ Scope {
         margins.right: 0
         
 
-        property real notificationWidth: screen.width * 0.166
+        // TODO Can we get a better parameter than fixed magic 400?
+        property real notificationWidth: Math.max(screen.width * 0.166, 400)
         implicitWidth: notificationWidth
         implicitHeight: column.implicitHeight
         color: "transparent"

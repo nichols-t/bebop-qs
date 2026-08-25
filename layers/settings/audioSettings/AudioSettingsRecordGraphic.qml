@@ -177,7 +177,6 @@ Rectangle {
     }
 
     component RecordShadowCircle: Item {
-        // TODO for some reason, this renders above the form circle no matter what z I make it
         Rectangle {
             id: highlightCircle
             z: -1

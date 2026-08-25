@@ -22,8 +22,6 @@ If you'd like to contribute please note the following:
 - **[ERGONOMICS] SysInfo**: Make "fallback" system for modules that allows `Config` to specify a list of how things should be read
     - ???
 - **Use UPower info to show device stuff??**
-- **Crashing when using audio on laptop??**
-    - Only Youtube and some other sites, and seemingly  only once settings actually tries to open
 - **System Info text cut off on laptop???**
 - **All Screens**:
     - **[DESIGN] Shaders** to modify certain elements' appearance

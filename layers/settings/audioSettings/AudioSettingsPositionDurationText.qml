@@ -3,8 +3,6 @@ import Quickshell.Services.Mpris
 import "../../.."
 import "../../../utils"
 
-// TODO this doesn't play nicely with Twitch/livestreams because Twitch does support
-// position/range but sorta doens't actually??
 Item {
     id: root
     property var textWidth

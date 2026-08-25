@@ -6,15 +6,15 @@ import Quickshell.Services.Mpris
 
 import "../../.."
 
-WrapperRectangle {
-    id: playerSelectionRect
-    implicitWidth: cols.width * 0.9
-    Layout.alignment: Qt.AlignHCenter
+Rectangle {
+    id: root
     color: "transparent"
+    required property var spacing
+    required property var setPlayer
+    required property MprisPlayer currentPlayer
     ColumnLayout {
-        Layout.alignment: Qt.AlignHCenter
-        width: playerSelectionRect.width
-        spacing: cols.spacing * 0.3
+        anchors.fill: parent
+        spacing: root.spacing
         Text {
             visible: Mpris.players.values.length !== 0
             text: "NOW PLAYING"
@@ -34,7 +34,7 @@ WrapperRectangle {
                 cursorShape: Qt.PointingHandCursor
                 hoverEnabled: true
                 onClicked: {
-                    cols.player = player;
+                    root.setPlayer(player);
                     const playerIndex = Mpris.players.values.findIndex(p => p === player);
                     Theme.audioSettingsColorSet = Config.audioSettings.colorSets[playerIndex % Config.audioSettings.colorSets.length];
                 }
@@ -49,7 +49,7 @@ WrapperRectangle {
                     id: playerWrapper
                     color: Theme.audioSettingsColorSet.playerBackgroundColor
                     Layout.alignment: Qt.AlignLeft | Qt.AlignVCenter
-                    implicitWidth: playerSelectionRect.width
+                    implicitWidth: root.width
                     margin: implicitWidth * 0.01
                     RowLayout {
                         id: row
@@ -58,12 +58,15 @@ WrapperRectangle {
                             z: 1
                             AudioSettingsPlayerInfoText {
                                 text: player?.identity || 'UNKNOWN APP'
+                                maxWidth: root.width - iconWrapper.width
                             }
                             AudioSettingsPlayerInfoText {
                                 text: player?.trackTitle || 'UNKNOWN TRACK'
+                                maxWidth: root.width - iconWrapper.width
                             }
                             AudioSettingsPlayerInfoText {
                                 text: player?.trackArtist || 'UNKNOWN ARTIST'
+                                maxWidth: root.width - iconWrapper.width
                             }
                         }
 
@@ -75,7 +78,7 @@ WrapperRectangle {
                                     width: visible ? playerWrapper.width : 0
                                     height: visible ? playerWrapper.height : 0
                                     anchors.right: parent.right
-                                    anchors.rightMargin: -playerWrapper.margin
+                                    anchors.rightMargin:  playerWrapper.margin
                                     anchors.verticalCenter: parent.verticalCenter
                                     color: Theme.audioSettingsColorSet.playerInfoHoverColor
                                     //radius: 2
@@ -92,6 +95,7 @@ WrapperRectangle {
                                         }
                                     }
                                 }
+
                                 Image {
                                     id: recordSVG
                                     anchors.centerIn: parent
@@ -104,7 +108,7 @@ WrapperRectangle {
 
                                 MultiEffect {
                                     id: effect
-                                    opacity: cols.player === playerBase.player ? 1.0 : 0.0
+                                    opacity: root.currentPlayer === playerBase.player ? 1.0 : 0.0
                                     colorization: 1.0
                                     colorizationColor: Theme.audioSettingsColorSet.playerInfoActiveIconColor
                                     source: recordSVG

@@ -18,7 +18,6 @@ Rectangle {
         anchors.fill: parent
         anchors.top: parent.top
         spacing: 0
-        // TODO make a network image
         Image {
             id: diskImage
             Layout.alignment: Qt.AlignHCenter | Qt.AlignTop

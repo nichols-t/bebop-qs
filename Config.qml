@@ -134,7 +134,9 @@ Singleton {
         // Size of the text that shows the notification content
         "bodyTextSize": 12,
         // Height of the horizontal interior line
-        "horizontalLineHeight": 30
+        "horizontalLineHeight": 30,
+        // Minimum width for the notification cards
+        "minimumWidth": 400
     }
 
     readonly property var systemInfo: {

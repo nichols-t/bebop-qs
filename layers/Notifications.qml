@@ -36,10 +36,10 @@ Scope {
         screen: root.screen
         margins.top: Config.taskbar.taskbarHeight + 2
         margins.right: 0
-        
 
-        // TODO Can we get a better parameter than fixed magic 400?
-        property real notificationWidth: Math.max(screen.width * 0.166, 400)
+        // On some screens this is really small so set a min width so that users can control if the card
+        // is going to be tiny or not        
+        property real notificationWidth: Math.max(screen.width * 0.166, Config.notifications.minimumWidth)
         implicitWidth: notificationWidth
         implicitHeight: column.implicitHeight
         color: "transparent"

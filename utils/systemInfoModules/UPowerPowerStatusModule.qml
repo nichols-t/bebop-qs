@@ -27,7 +27,6 @@ PowerStatusModule {
 
     function read() {}
 
-    // TODO add to the type
     powerText: {
         if (hasBattery) {
             const str = pluggedIn ? 'CHARGE ' : '';

@@ -6,11 +6,12 @@ import Quickshell.Services.Mpris
 
 import "../../.."
 
-Rectangle {
+WrapperRectangle {
     id: root
     color: "transparent"
 
     required property MprisPlayer player
+    required property real seekHeight
 
     Timer {
         // only emit the signal when the position is actually changing.
@@ -24,11 +25,11 @@ Rectangle {
 
     ColumnLayout {
         width: root.width
-        // TODO copied this from base audio settings maybe I need to pass it down?
         spacing: root.width * 0.1 / 2
 
         AudioSettingsSeekSlider {
             player: root.player
+            implicitHeight: seekHeight
         }
 
         RowLayout {

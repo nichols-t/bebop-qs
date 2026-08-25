@@ -6,5 +6,6 @@ Text {
     color: Config.settings.menuTitleTextColor
     Layout.alignment: Qt.AlignCenter
     font.family: Config.fontBlocky.font.family
-    font.pointSize: Config.settings.menuTitleTextSize
+    font.pixelSize: Config.settings.menuTitleTextSize
+    fontSizeMode: Text.HorizontalFit
 }

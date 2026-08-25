@@ -29,7 +29,7 @@ SettingsSubMenu {
             // Must retain focus to close on Esc
             focus: true
 
-            property var sink: Pipewire.defaultAudioSink
+            property var sink: Pipewire.defaultAudioSink || null
             // Used for track information
             // https://quickshell.org/docs/v0.3.0/types/Quickshell.Services.Mpris/MprisPlayer/
             property var player: Mpris.players.values[0] || null
@@ -48,7 +48,7 @@ SettingsSubMenu {
 
             Loader {
                 id: audioInfoLoader
-                sourceComponent: cols.visible ? audioInfo : null
+                sourceComponent: cols.visible && !!Pipewire.defaultAudioSink ? audioInfo : null
                 asynchronous: false
                 height: cols.width * 0.6
                 Layout.alignment: Qt.AlignHCenter
@@ -144,8 +144,15 @@ SettingsSubMenu {
                 Layout.alignment: Qt.AlignLeft | Qt.AlignBottom
             }
 
-            AudioSettingsPlayerSelect {
-
+            Loader {
+                id: playerSelectLoader
+                asynchronous: false
+                sourceComponent: cols.visible ? playerSelect : null
+                Layout.alignment: Qt.AlignHCenter
+            }
+            Component {
+                id: playerSelect
+                AudioSettingsPlayerSelect {}
             }
         }
     }

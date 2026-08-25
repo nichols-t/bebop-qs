@@ -79,7 +79,7 @@ Scope {
             Loader {
                 id: contentLoader
                 Layout.fillWidth: true
-                sourceComponent: content
+                sourceComponent: root.shouldShow ? content : null
             }
 
             focus: true

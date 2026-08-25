@@ -23,6 +23,7 @@ If you'd like to contribute please note the following:
     - ???
 - **Use UPower info to show device stuff??**
 - **Crashing when using audio on laptop??**
+    - Only Youtube and some other sites, and seemingly  only once settings actually tries to open
 - **System Info text cut off on laptop???**
 - **All Screens**:
     - **[DESIGN] Shaders** to modify certain elements' appearance

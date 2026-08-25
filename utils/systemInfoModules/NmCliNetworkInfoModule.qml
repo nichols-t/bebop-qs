@@ -24,9 +24,12 @@ NetworkInfoModule {
         if (conns) {
             for (let i = 0; i < conns.length; i++) {
                 const conn = conns[i];
-                lines.push(`CONNECTION: ${conn.NAME}`);
-                lines.push(`    TYPE: ${conn.TYPE}`);
-                lines.push(`    DEVICE: ${conn.DEVICE}`);
+                console.log(JSON.stringify(conn));
+                if (conn.ACTIVE.toLowerCase() === 'yes') {
+                    lines.push(`CONNECTION: ${conn.NAME}`);
+                    lines.push(`    TYPE: ${conn.TYPE}`);
+                    lines.push(`    DEVICE: ${conn.DEVICE}`);
+                }
             }
         }
 
@@ -46,12 +49,13 @@ NetworkInfoModule {
                 // First line = col names second = values
                 const vals = data.split(' ').filter((v) => !!v);
                 const stat = vals[0].split(':')[0];
+                const val = vals.slice(1).join(' ');
 
                 if (!info) {
                     info = {}
                 }
 
-                info[stat] = vals[1]
+                info[stat] = val
             }
         }
         onExited: {
@@ -61,22 +65,23 @@ NetworkInfoModule {
 
     Process {
         running: true
-        command: ["nmcli", "-m", "multiline", "c"]
+        command: ["nmcli", "-m", "multiline", "-g", "all", "c"]
         stdout: SplitParser {
             id: connsParser
             property list<var> conns
             onRead: data => {
-                const vals = data.split(' ').filter((v) => !!v);
+                const vals = data.split(':').filter((v) => !!v);
                 const stat = vals[0].split(':')[0];
+                const val = vals.slice(1).join(':');
 
                 if (!conns) {
                     conns = [];
                 }
 
                 if (stat === 'NAME') {
-                    conns.push({ [stat]: vals[1] });
+                    conns.push({ [stat]: val });
                 } else {
-                    conns[conns.length - 1][stat] = vals[1]
+                    conns[conns.length - 1][stat] = val
                 }
             }
         }

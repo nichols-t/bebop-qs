@@ -24,7 +24,6 @@ NetworkInfoModule {
         if (conns) {
             for (let i = 0; i < conns.length; i++) {
                 const conn = conns[i];
-                console.log(JSON.stringify(conn));
                 if (conn.ACTIVE.toLowerCase() === 'yes') {
                     lines.push(`CONNECTION: ${conn.NAME}`);
                     lines.push(`    TYPE: ${conn.TYPE}`);

@@ -145,7 +145,7 @@ Singleton {
         // Color of the text on the left side that shows basic info and sections
         "textColor": "#fabb3f",
         // Size of the text on the right side menu
-        "textSize": 24,
+        "textSize": 22,
         // Size of the text that shows the details on the right side screen
         "detailsTextSize": 18,
         // Settings for the disk details info display

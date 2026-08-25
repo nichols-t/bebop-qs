@@ -91,7 +91,6 @@ Scope {
                     value: SysInfo.os.osName
                 }
 
-                SectionSpacer {}
                 SectionHeaderMouseArea {
                     SectionHeader {
                         text: "CENTRAL PROCESSING UNIT"
@@ -105,7 +104,6 @@ Scope {
                     value: SysInfo.cpuUsage.cpuText
                 }
 
-                SectionSpacer {}
                 SectionHeaderMouseArea {
                     SectionHeader {
                         text: "RANDOM ACCESS MEMORY"
@@ -119,7 +117,6 @@ Scope {
                     value: SysInfo.ramUsage.memText
                 }
 
-                SectionSpacer {}
                 SectionHeaderMouseArea {
                     SectionHeader {
                         text: "GRAPHICS PROCESSING UNIT"
@@ -137,7 +134,6 @@ Scope {
                     value: SysInfo.gpuUsage.gpuMemText
                 }
 
-                SectionSpacer {}
                 SectionHeaderMouseArea {
                     SectionHeader {
                         text: "SOLID STATE DRIVE"
@@ -151,7 +147,6 @@ Scope {
                     value: SysInfo.diskUsage.diskText
                 }
 
-                SectionSpacer {}
                 SectionHeaderMouseArea {
                     SectionHeader {
                         text: "POWER"
@@ -165,7 +160,6 @@ Scope {
                     value: SysInfo.power.powerText
                 }
 
-                SectionSpacer {}
                 SectionHeaderMouseArea {
                     SectionHeader {
                         text: "NETWORK"

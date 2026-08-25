@@ -21,12 +21,14 @@ If you'd like to contribute please note the following:
 ## TODOs
 - **[ERGONOMICS] SysInfo**: Make "fallback" system for modules that allows `Config` to specify a list of how things should be read
     - ???
+- **Use UPower info to show device stuff??**
+- **Crashing when using audio on laptop??**
+- **System Info text cut off on laptop???**
 - **All Screens**:
     - **[DESIGN] Shaders** to modify certain elements' appearance
     - **[DESIGN] Additional elements** to fill empty space
     - **[ERGONOMICS] Config blur layers** so things are less magic-numbery
     - **[OPTIMIZATION] Loaders**: Use loaders to make sure ongoing resource usage is minimized
-- **[BUG] Notifications are too small on laptop - need a different way of calculating the maximum width**
 - **Pass on TODOs, comments, etc for cleanup**
 
 ## Improvement Ideas

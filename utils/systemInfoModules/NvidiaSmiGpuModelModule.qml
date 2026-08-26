@@ -9,8 +9,12 @@ GpuModelModule {
     
     systemInfoDetails: {
         const lines = [];
-        lines.push(gpuName);
-        lines.push(`Driver: ${gpuDriver}`);
+        if (gpuName) {
+            lines.push(gpuName);
+        }
+        if (gpuDriver) {
+            lines.push(`Driver: ${gpuDriver}`);
+        }
 
         return lines;
     }
@@ -41,5 +45,21 @@ GpuModelModule {
         }
 
         property bool success: false
+    }
+
+    Process {
+        id: lsPciBackupProc
+        running: true
+        command: ['lspci']
+        stdout: SplitParser {
+            onRead: (data) => {
+                if (data.includes('VGA')) {
+                    const splits = data.trim().split('VGA compatible controller:');
+                    if (splits.length > 1) {
+                        root.gpuDriver = splits[1];
+                    }
+                }
+            }
+        }
     }
 }

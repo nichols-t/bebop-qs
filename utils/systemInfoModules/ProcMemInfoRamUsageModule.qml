@@ -21,8 +21,8 @@ RamUsageModule {
     systemInfoDetails: {
         const lines = [];
 
-        lines.push(`Memory Usage: ${memText}`);
-        lines.push(`Swap Usage: ${swapText}`)
+        (_memTotal > 0) && lines.push(`Memory Usage: ${memText}`);
+        (_swapTotal > 0) && lines.push(`Swap Usage: ${swapText}`)
         
         return lines;
     }

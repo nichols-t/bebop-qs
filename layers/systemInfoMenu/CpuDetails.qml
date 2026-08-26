@@ -7,6 +7,7 @@ import "../.."
 import "../../utils"
 
 Rectangle {
+    id: root
     anchors.fill: parent
     color: "transparent"
 
@@ -67,6 +68,7 @@ Rectangle {
                 DetailsInfoText {
                     required property var modelData
                     text: modelData
+                    maxWidth: root.width * 0.8
                 }
             }
         }

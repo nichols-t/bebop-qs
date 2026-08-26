@@ -43,35 +43,24 @@ PowerStatusModule {
             lines.push(`No UPower information available (probably on AC!)`);
         }
 
-        for (const device in UPower.devices.values.filter((d) => d.powerSupply)) {
+        const devicesToShow = UPower.devices.values.filter((d) => d.ready && d.powerSupply && d.state !== UPowerDeviceState.Unknown);
+        for (const device of devicesToShow) {
             // TODO is it valid for AC power
-            lines.push(`Charge: ${device.percentage} (${device.energy} W/h of ${device.energyCapacity} W/h)`);
-
-            let type = 'Unknown';
-            if (device.type === UPowerDeviceType.Battery) {
-                type = 'Battery';
-            } else if (device.type === UPowerDeviceType.LinePower) {
-                type = 'AC';
-            }
-            lines.push(`Type: ${type}`);
-
-            let estRemaining = 'Charging';
+            const chargePercent = (device.percentage * 100).toFixed(2)
+            lines.push(`Charge: ${chargePercent} (${device.energy} W/h of ${device.energyCapacity} W/h)`);
+            lines.push(`Change: ${device.changeRate} W`);
             if (device.timeToEmpty > 0) {
-                estRemaining = device.timeToEmpty;
-                lines.push(`Time-to-empty (est): ${Time.toHH_MM_SS(estRemaining)}`);
+                lines.push(`Time-to-empty (est): ${Time.toHH_MM_SS(device.timeToEmpty)}`);
             }
-
             if (device.timeToFull > 0) {
                 lines.push(`Time-to-full (est): ${Time.toHH_MM_SS(device.timeToFull)}`);
             }
-
             if (device.healthSupported) {
                 lines.push(`Health: ${device.healthPercentage}%`);
             }
-
-            lines.push(`Change: ${device.changeRate} W`);
+            lines.push(`Type: ${UPowerDeviceType.toString(device.type)}`);
+            lines.push(`State: ${UPowerDeviceState.toString(device.state)}`);
         }
-
 
         return lines;
     }

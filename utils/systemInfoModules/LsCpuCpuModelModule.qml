@@ -9,14 +9,14 @@ CpuModelModule {
 
     systemInfoDetails: {
         const lines = [];
-        lines.push(cpuName);
-        lines.push(`Arch: ${cpuArch}`);
-        lines.push(`Max Speed: ${cpuMhz.toFixed(0)} Mhz`);
-        lines.push(`Address Sizes: ${_cpuAddrSizes}`);
-        lines.push(`Byte Order: ${_byteOrder}`);
-        lines.push(`Vendor ID: ${_vendorId}`);
-        lines.push(`Cores: ${_cores}`);
-        lines.push(`Threads/Core: ${_threadsPerCore}`);
+        cpuName && lines.push(cpuName);
+        cpuArch && lines.push(`Arch: ${cpuArch}`);
+        cpuMhz && lines.push(`Max Speed: ${cpuMhz.toFixed(0)} Mhz`);
+        _cpuAddrSizes && lines.push(`Address Sizes: ${_cpuAddrSizes}`);
+        _byteOrder && lines.push(`Byte Order: ${_byteOrder}`);
+        _vendorId && lines.push(`Vendor ID: ${_vendorId}`);
+        _cores && lines.push(`Cores: ${_cores}`);
+        _threadsPerCore && lines.push(`Threads/Core: ${_threadsPerCore}`);
 
         return lines;
     }

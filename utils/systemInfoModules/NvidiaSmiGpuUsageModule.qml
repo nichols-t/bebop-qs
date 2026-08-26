@@ -22,9 +22,14 @@ GpuUsageModule {
 
     systemInfoDetails: {
         const lines = [];
-        lines.push(`Temperature: ${gpuTempText}`);
-        lines.push(`Power Usage: ${gpuPower}`);
-        lines.push(`VRAM Usage: ${gpuMemText} (${(gpuMemUsage * 100).toFixed(2)}%)`);
+        (_gpuTemp > 0) && lines.push(`Temperature: ${gpuTempText}`);
+        
+        if (gpuPower) {
+            lines.push(`Power Usage: ${gpuPower}`);
+        }
+        if (_gpuMemTotal > 0) {
+            lines.push(`VRAM Usage: ${gpuMemText} (${(gpuMemUsage * 100).toFixed(2)}%)`);
+        }
 
         return lines;
     }

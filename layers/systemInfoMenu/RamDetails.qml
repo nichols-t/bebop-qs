@@ -9,6 +9,7 @@ import "../../utils"
 // NOTE: NEED TO CHECK "FLATTEN CLIP" IN INKSCAPE FOR IT TO RENDER HOLES PROPERLY!!!
 // AGH!!!
 Rectangle {
+    id: root
     anchors.fill: parent
     color: "transparent"
 
@@ -159,6 +160,7 @@ Rectangle {
             DetailsInfoText {
                 required property var modelData
                 text: modelData
+                maxWidth: root.width * 0.8
             }
         }
     }

@@ -18,7 +18,7 @@ DiskUsageModule {
 
     systemInfoDetails: {
         const lines = [];
-        lines.push(`Used: ${diskText}`)
+        diskText && lines.push(`Used: ${diskText}`)
 
         for (let i = 0; i < blockDevices.length; i++) {
             const blkDev = blockDevices[i]

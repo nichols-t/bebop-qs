@@ -4,7 +4,11 @@
 
 A Cowboy Bebop title sequence inspired Quickshell.
 
-<img width="3840" height="2160" alt="image" src="https://github.com/user-attachments/assets/7e19db16-ad04-4192-a6a1-fcb5c241018a" />
+
+
+https://github.com/user-attachments/assets/fac7f30b-ae01-46a7-a834-b02e6df6534a
+
+
 
 ## Using
 1. Use this repo as your quickshell directory

@@ -5,9 +5,7 @@
 A Cowboy Bebop title sequence inspired Quickshell.
 
 
-
-https://github.com/user-attachments/assets/fac7f30b-ae01-46a7-a834-b02e6df6534a
-
+https://github.com/user-attachments/assets/e1b1cf52-3f87-4895-87bc-8731d256383f
 
 
 ## Using
@@ -53,4 +51,5 @@ If you'd like to contribute please note the following:
 For particular "how do I do *xyz* in quickshell, I tended to look at
 - [Linux Antiquity](https://github.com/diinki/linux-antiquity/tree/main/configs/quickshell)
 - [Persona 3 Quickshell](https://github.com/Yujonpradhananga/Persona-Quickshell)
+
 For examples. So thanks to the creators of these projects!

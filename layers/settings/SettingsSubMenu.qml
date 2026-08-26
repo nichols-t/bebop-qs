@@ -35,7 +35,7 @@ Scope {
         visible: shouldShow
         screen: root.screen
 
-        color: Config.settings.backgroundColor
+        color: "transparent"
         anchors {
             top: true
             bottom: true
@@ -59,7 +59,7 @@ Scope {
         WlrLayershell.exclusionMode: ExclusionMode.Ignore
         WlrLayershell.keyboardFocus: WlrKeyboardFocus.Exclusive
 
-        implicitWidth: screen.width * 0.3
+        implicitWidth: screen.width
         Behavior on margins.right {
             SequentialAnimation {
                 NumberAnimation {
@@ -84,29 +84,36 @@ Scope {
             panel.margins.right = -panel.width;
         }
 
-        ColumnLayout {
+        Rectangle {
             anchors.top: parent.top
-            anchors.horizontalCenter: parent.horizontalCenter
-            width: parent.width
-            SettingsMenuTitleText {
-                Layout.alignment: Qt.AlignTop | Qt.AlignHCenter
-                text: root.title
-            }
+            anchors.right: parent.right
+            height: parent.height
+            width: parent.width * 0.3
+            color: Config.settings.backgroundColor
+            ColumnLayout {
+                anchors.top: parent.top
+                width: screen.width * 0.3
+                SettingsMenuTitleText {
+                    Layout.alignment: Qt.AlignTop | Qt.AlignHCenter
+                    text: root.title
+                }
 
-            Loader {
-                id: contentLoader
-                Layout.fillWidth: true
-                sourceComponent: root.shouldShow ? content : null
-            }
+                Loader {
+                    id: contentLoader
+                    Layout.fillWidth: true
+                    sourceComponent: root.shouldShow ? content : null
+                }
 
-            focus: true
+                focus: true
 
-            Keys.onPressed: event => {
-                if (event.key === Qt.Key_Escape) {
-                    event.accepted = true;
-                    panel.close();
+                Keys.onPressed: event => {
+                    if (event.key === Qt.Key_Escape) {
+                        event.accepted = true;
+                        panel.close();
+                    }
                 }
             }
         }
+
     }
 }

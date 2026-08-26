@@ -19,16 +19,13 @@ If you'd like to contribute please note the following:
     1. This being said I'm still open to ideas! Particularly in order to make this more compatible with different systems
 
 ## TODOs
-- **All Screens**:
-    - **[DESIGN] Shaders** to modify certain elements' appearance
-    - **[DESIGN] Additional elements** to fill empty space
-    - **[ERGONOMICS] Config blur layers** so things are less magic-numbery
-    - **[OPTIMIZATION] Loaders**: Use loaders to make sure ongoing resource usage is minimized
 - **Pass on TODOs, comments, etc for cleanup**
 
 ## Improvement Ideas
+- **[OPTIMIZATION] Loaders**: Use loaders to make sure ongoing resource usage is minimized
 - **[ERGONOMICS] Theme Control**: A menu for editing theme colors, maybe
     - The `Theme` singleton I used for audio settings is probably useful here?
+    - **[ERGONOMICS] Config blur layers** so things are less magic-numbery
 - **[FEATURE] Audio Settings Rate control (when Quickshell 0.31 is available)**
 - **[FEATURE] Network Settings Control**: Add controls for connect/disconnect/etc. to network settings
 - **[FEATURE] Bluetooth Settings Control**: Adds controls for bluetooth pairing/dc/etc. to bluetooth settings
@@ -43,6 +40,8 @@ If you'd like to contribute please note the following:
 
 ## Random Notes
 - Must check "Flatten Clip" in Inkscape for holes to render properly when exported
+- When using `Loader`s, make sure to test re-opening after loading the first time
+    - had a nasty freeze in audio settings come up from this
 
 ## Acknowledgements, Inspirations
 - Cowboy Bebop, obviously

@@ -9,24 +9,10 @@ import Quickshell.Hyprland
 import "../"
 import "./settings"
 
-Scope {
+SettingsSubMenu {
     id: root
-    required property var screen
-    property bool shouldShow: false
 
-    function show() {
-        shouldShow = true;
-        panel.show();
-    }
-
-    function close() {
-        shouldShow = false;
-    }
-
-    function beginClose() {
-        panel.close();
-    }
-
+    title: "SETTINGS"
     property SystemInfo systemInfo
     property ShutdownMenu shutdownMenu
     property AudioSettings audioSettings
@@ -34,65 +20,17 @@ Scope {
     property NetworkSettings networkSettings
     property ThemeSettings themeSettings
 
-    PanelWindow {
-        id: panel
-        visible: shouldShow
-        screen: root.screen
-
-        color: Config.settings.backgroundColor
-        anchors {
-            top: true
-            bottom: true
-            right: true
-        }
-
-        margins.right: root.shouldShow ? 0 : -width
-
-        WlrLayershell.exclusionMode: ExclusionMode.Ignore
-        WlrLayershell.keyboardFocus: WlrKeyboardFocus.Exclusive
-
-        implicitWidth: screen.width * 0.3
-        Behavior on margins.right {
-            SequentialAnimation {
-                NumberAnimation {
-                    duration: 100
-                }
-                ScriptAction {
-                    script: {
-                        if (panel.margins.right < 0) {
-                            root.close();
-                        }
-                    }
-                }
-            }
-        }
-
-        function show() {
-            margins.right = 0;
-        }
-
-        function close() {
-            // This should trigger an animation that reset root.onClose when it is done
-            panel.margins.right = -panel.width;
-        }
-
-        HyprlandFocusGrab {
-            windows: [cols]
-        }
-
+    content: Component {
         ColumnLayout {
             id: cols
             anchors.top: parent.top
-
-            SettingsMenuTitleText {
-                text: "SETTINGS"
-            }
-
-            Item {}
+            anchors.horizontalCenter: parent.horizontalCenter
+            
+            focus: true
 
             SettingsMenuButton {
                 text: "SYSTEM INFO"
-
+                Layout.fillWidth: true
                 onClicked: () => {
                     root.systemInfo.shouldShow = true;
                 }
@@ -100,7 +38,7 @@ Scope {
 
             SettingsMenuButton {
                 text: "AUDIO"
-
+                Layout.fillWidth: true
                 onClicked: () => {
                     root.audioSettings.show();
                 }
@@ -108,7 +46,7 @@ Scope {
 
             SettingsMenuButton {
                 text: "BLUETOOTH"
-
+                Layout.fillWidth: true
                 onClicked: () => {
                     root.bluetoothSettings.show();
                 }
@@ -116,7 +54,7 @@ Scope {
 
             SettingsMenuButton {
                 text: "NETWORK"
-
+                Layout.fillWidth: true
                 onClicked: () => {
                     root.networkSettings.show();
                 }
@@ -124,7 +62,7 @@ Scope {
 
             SettingsMenuButton {
                 text: "THEME"
-
+                Layout.fillWidth: true
                 onClicked: () => {
                     root.themeSettings.show();
                 }
@@ -132,10 +70,10 @@ Scope {
 
             SettingsMenuButton {
                 text: "NIXOS CONFIGS"
-
+                Layout.fillWidth: true
                 onClicked: () => {
                     nixCfgsProcess.startDetached();
-                    root.beginClose();
+                    root.close();
                 }
             }
 
@@ -147,18 +85,9 @@ Scope {
 
             SettingsMenuButton {
                 text: "POWER"
-
+                Layout.fillWidth: true
                 onClicked: () => {
-                    shutdownMenu.shouldShow = true;
-                }
-            }
-
-            focus: true
-
-            Keys.onPressed: event => {
-                if (event.key === Qt.Key_Escape) {
-                    event.accepted = true;
-                    root.beginClose();
+                    root.shutdownMenu.shouldShow = true;
                 }
             }
         }

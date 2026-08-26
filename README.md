@@ -19,10 +19,6 @@ If you'd like to contribute please note the following:
     1. This being said I'm still open to ideas! Particularly in order to make this more compatible with different systems
 
 ## TODOs
-- **[ERGONOMICS] SysInfo**: Make "fallback" system for modules that allows `Config` to specify a list of how things should be read
-    - ???
-- **Use UPower info to show device stuff??**
-- **System Info text cut off on laptop???**
 - **All Screens**:
     - **[DESIGN] Shaders** to modify certain elements' appearance
     - **[DESIGN] Additional elements** to fill empty space

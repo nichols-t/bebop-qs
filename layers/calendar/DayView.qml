@@ -36,6 +36,13 @@ Scope {
         implicitWidth: root.width + 1 // saw a weird glitch on the left that showed beneath so add 1 just in case
         implicitHeight: root.height
 
+        Component.onCompleted: {
+            if (this.WlrLayershell != null) {
+                this.WlrLayershell.layer = WlrLayer.Overlay;
+                this.WlrLayershell.namespace = "calendar";
+            }
+        }
+
         ColumnLayout {
             anchors.left: parent.left
             anchors.right: parent.right

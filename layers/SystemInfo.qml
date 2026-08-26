@@ -47,7 +47,7 @@ Scope {
 
         Component.onCompleted: {
             if (this.WlrLayershell != null) {
-                this.WlrLayershell.layer = WlrLayer.Top;
+                this.WlrLayershell.layer = WlrLayer.Overlay;
                 this.WlrLayershell.namespace = "systemInfo";
             }
         }

@@ -5,16 +5,14 @@ import QtQuick
 WrapperMouseArea {
     id: root
     cursorShape: Qt.PointingHandCursor
-    Layout.fillWidth: true
-    Layout.alignment: Qt.AlignRight
-    implicitWidth: panel.implicitWidth
 
     required property string text
 
     SettingsMenuText {
         id: text
+        anchors.centerIn: parent
         text: root.text
-        implicitWidth: panel.implicitWidth
+        implicitWidth: root.width
     }
 
     hoverEnabled: true

@@ -1,6 +1,7 @@
 import Quickshell
 import Quickshell.Io
 import Quickshell.Wayland
+import Quickshell.Hyprland
 import Quickshell.Widgets
 import QtQuick
 import QtQuick.Layouts
@@ -25,6 +26,10 @@ Scope {
 
     property Component content
 
+    HyprlandFocusGrab {
+        windows: [panel]
+    }
+
     PanelWindow {
         id: panel
         visible: shouldShow
@@ -35,6 +40,18 @@ Scope {
             top: true
             bottom: true
             right: true
+        }
+
+        Component.onCompleted: {
+            if (this.WlrLayershell != null) {
+                this.WlrLayershell.layer = WlrLayer.Top;
+                this.WlrLayershell.namespace = "settings";
+            }
+        }
+
+        HyprlandFocusGrab {
+            id: grab
+            windows: [panel]
         }
 
         margins.right: root.shouldShow ? 0 : -width

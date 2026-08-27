@@ -92,11 +92,6 @@ Scope {
                 shouldShow: false
                 screen: perMonitor.modelData
             }
-            ThemeSettings {
-                id: themeSettings
-                shouldShow: false
-                screen: perMonitor.modelData
-            }
             Settings {
                 id: settings
                 shouldShow: false
@@ -106,7 +101,6 @@ Scope {
                 audioSettings: audioSettings
                 bluetoothSettings: bluetoothSettings
                 networkSettings: networkSettings
-                themeSettings: themeSettings
             }
             SystemInfo {
                 id: systemInfo

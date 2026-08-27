@@ -28,4 +28,15 @@ UserModule {
             success = code === 0;
         }
     }
+
+    Process {
+        id: homePathProc
+        running: true
+        command: ["realpath", "$HOME"]
+        stdout: SplitParser {
+            onRead: data => {
+                root.homePath = data.split('$HOME')[0].trim()
+            }
+        }
+    }
 }

@@ -18,7 +18,6 @@ SettingsSubMenu {
     property AudioSettings audioSettings
     property BluetoothSettings bluetoothSettings
     property NetworkSettings networkSettings
-    property ThemeSettings themeSettings
 
     content: Component {
         ColumnLayout {
@@ -57,14 +56,6 @@ SettingsSubMenu {
                 Layout.fillWidth: true
                 onClicked: () => {
                     root.networkSettings.show();
-                }
-            }
-
-            SettingsMenuButton {
-                text: "THEME"
-                Layout.fillWidth: true
-                onClicked: () => {
-                    root.themeSettings.show();
                 }
             }
 

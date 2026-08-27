@@ -27,6 +27,7 @@ If you'd like to contribute please note the following:
 - **[OPTIMIZATION] Loaders**: Use loaders to make sure ongoing resource usage is minimized
 - **[ERGONOMICS] Theme Control**: A menu for editing theme colors, maybe
     - The `Theme` singleton I used for audio settings is probably useful here?
+    - Tried using some `Settings` stuff but it's not working for me, so maybe some other time
     - **[ERGONOMICS] Config blur layers** so things are less magic-numbery
 - **[FEATURE] Audio Settings Rate control (when Quickshell 0.31 is available)**
 - **[FEATURE] Network Settings Control**: Add controls for connect/disconnect/etc. to network settings

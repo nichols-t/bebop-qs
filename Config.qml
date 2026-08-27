@@ -45,7 +45,6 @@ Singleton {
         "rebootColor": "#d6c23d",
         // The color used for the Shutdown option
         "shutdownColor": "#46009b"
-
     }
 
     readonly property var lockScreen: {

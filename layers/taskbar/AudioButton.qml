@@ -41,7 +41,6 @@ WrapperMouseArea {
             implicitWidth: icon.width * 1.5
             anchors.right: parent.right
             anchors.rightMargin: 2
-
             Image {
                 id: icon
                 anchors.centerIn: parent

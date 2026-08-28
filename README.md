@@ -21,19 +21,28 @@ If you'd like to contribute please note the following:
     1. This being said I'm still open to ideas! Particularly in order to make this more compatible with different systems
 
 ## TODOs
-- **Pass on TODOs, comments, etc for cleanup**
+- **[GENERAL] Pass on TODOs, comments, etc for cleanup**
+    - Check for bad practices, better opportunities for abstraction, etc.
+- **[DESIGN] "Blur Layers" to help control resource usage/clamp things/uniform look**
+    - This means I need to decide whether or not I actually want blur as well
+- **[DESIGN] Make different colors for different system info details screens**
+- **[DESIGN] Add flavor text around lock screen background**
+- **[DESIGN] Tweak and unify color palettes better**
+    - This could involve some math so that I can set a more limited palette and then lighten/darken it
+- **[DESIGN] Consider hover effect for icons**
+    - Colorize with a themed color?
+- **[DESIGN] Consider alternate ideas for notification design**
+    - I'm not super satisfied with what I landed on for these
+- **[DESIGN] Reconsider icon designs for BT/Network and "bebopify" if possible**
+    - Check title sequence again, see if this can help inform the designs a little more, or if the basic ones I have are good enough.
 
 ## Improvement Ideas
-- **[DESIGN] Make different colors for system info details screens**
-- **[OPTIMIZATION] Loaders**: Use loaders to make sure ongoing resource usage is minimized
-- **[ERGONOMICS] Theme Control**: A menu for editing theme colors, maybe
-    - The `Theme` singleton I used for audio settings is probably useful here?
-    - Tried using some `Settings` stuff but it's not working for me, so maybe some other time
-    - **[ERGONOMICS] Config blur layers** so things are less magic-numbery
 - **[FEATURE] Audio Settings Rate control (when Quickshell 0.31 is available)**
 - **[FEATURE] Network Settings Control**: Add controls for connect/disconnect/etc. to network settings
 - **[FEATURE] Bluetooth Settings Control**: Adds controls for bluetooth pairing/dc/etc. to bluetooth settings
-- **[DESIGN] Tweak shutdown menu `textErosionNoise` shader**
+- **[ERGONOMICS] Theme Control**: A menu for editing theme colors, maybe
+    - The `Theme` singleton I used for audio settings is probably useful here?
+    - Tried using some `Settings` stuff but it's not working for me, so maybe some other time
 - **[DESIGN] Improve randomness in app launcher font size**
     - Could be a "bias" instead of uniform random
 - **[FEATURE] Lock Screen**: Add support for fingerprint login via PAM.
@@ -41,6 +50,7 @@ If you'd like to contribute please note the following:
 - **[ERGONOMICS] Shutdown Menu**:
     - Consider how clickable space is laid out for each item and possibly adjust it
         - Delaunay Triangulation (Voronoi) (see [this implementation](https://github.com/mapbox/delaunator)) would be an interesting thing for this
+- **[FEATURE] VPN Detector/icon for network**
 
 ## Random Notes
 - Must check "Flatten Clip" in Inkscape for holes to render properly when exported

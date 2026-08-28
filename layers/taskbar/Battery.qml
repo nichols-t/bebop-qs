@@ -9,6 +9,7 @@ import "../.."
 WrapperRectangle {
     id: root
     color: Config.taskbar.battery.backgroundColor
+    visible: SysInfo.power.hasBattery
 
     Item {
         implicitHeight: Config.taskbar.taskbarHeight

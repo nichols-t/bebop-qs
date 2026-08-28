@@ -34,7 +34,7 @@ SettingsSubMenu {
 
                 WrapperMouseArea {
                     required property var modelData
-                    Layout.alignment: Qt.AlignCenter
+                    Layout.alignment: Qt.AlignCenter | Qt.AlignTop
                     cursorShape: Qt.PointingHandCursor
                     onClicked: {
                         if (modelData.paired) {

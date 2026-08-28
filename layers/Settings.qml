@@ -23,13 +23,18 @@ SettingsSubMenu {
     content: Component {
         ColumnLayout {
             id: cols
-            anchors.top: parent.top
             anchors.horizontalCenter: parent.horizontalCenter
-            
+            anchors.fill: parent
+
             focus: true
 
+            Item {
+                implicitHeight: root.screen.height * 0.05
+                Layout.fillHeight: true
+            }
             SettingsMenuButton {
                 text: "SYSTEM INFO"
+                Layout.fillHeight: true
                 Layout.fillWidth: true
                 onClicked: () => {
                     root.systemInfo.shouldShow = true;
@@ -38,6 +43,7 @@ SettingsSubMenu {
 
             SettingsMenuButton {
                 text: "AUDIO"
+                Layout.fillHeight: true
                 Layout.fillWidth: true
                 onClicked: () => {
                     root.audioSettings.show();
@@ -47,6 +53,7 @@ SettingsSubMenu {
             SettingsMenuButton {
                 visible: Bluetooth.defaultAdapter != null
                 text: "BLUETOOTH"
+                Layout.fillHeight: true
                 Layout.fillWidth: true
                 onClicked: () => {
                     root.bluetoothSettings.show();
@@ -55,6 +62,7 @@ SettingsSubMenu {
 
             SettingsMenuButton {
                 text: "NETWORK"
+                Layout.fillHeight: true
                 Layout.fillWidth: true
                 onClicked: () => {
                     root.networkSettings.show();
@@ -63,6 +71,7 @@ SettingsSubMenu {
 
             SettingsMenuButton {
                 text: "NIXOS CONFIGS"
+                Layout.fillHeight: true
                 Layout.fillWidth: true
                 onClicked: () => {
                     nixCfgsProcess.startDetached();
@@ -78,11 +87,32 @@ SettingsSubMenu {
 
             SettingsMenuButton {
                 text: "POWER"
+                Layout.fillHeight: true
                 Layout.fillWidth: true
                 onClicked: () => {
                     root.shutdownMenu.shouldShow = true;
                 }
             }
+
+            Item {
+                implicitHeight: root.screen.height / 2
+                Layout.fillHeight: true
+            }
+
+            // TODO fill it with some description or something maybe
+            // WrapperRectangle {
+            //     Layout.fillWidth: true
+            //     Layout.alignment: Qt.AlignBottom
+            //     implicitHeight: root.screen.height / 2
+            //     color: "transparent"
+            //     Text {
+            //         text: "A ASDFASD"
+            //         horizontalAlignment: Text.AlignHCenter
+            //         verticalAlignment: Text.AlignVCenter
+            //         font.family: Config.fontBlocky.font.family
+            //         font.pointSize: root.screen.height * 0.01
+            //     }
+            // }
         }
     }
 }

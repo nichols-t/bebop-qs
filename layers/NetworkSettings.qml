@@ -30,7 +30,7 @@ SettingsSubMenu {
                 model: Networking.devices
 
                 NetworkDeviceEntry {
-                    Layout.alignment: Qt.AlignHCenter
+                    Layout.alignment: Qt.AlignHCenter | Qt.AlignTop
                     required property var modelData
                     networkDevice: modelData
                     implicitWidth: cols.width * 0.9

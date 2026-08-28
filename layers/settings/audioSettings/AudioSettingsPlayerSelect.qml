@@ -13,7 +13,8 @@ Rectangle {
     required property var setPlayer
     required property MprisPlayer currentPlayer
     ColumnLayout {
-        anchors.fill: parent
+        anchors.left: parent.left
+        anchors.right: parent.right
         spacing: root.spacing
         Text {
             visible: Mpris.players.values.length !== 0
@@ -38,10 +39,10 @@ Rectangle {
                     Theme.audioSettingsColorSet = Config.audioSettings.colorSets[playerIndex % Config.audioSettings.colorSets.length];
                 }
                 preventStealing: true
+                Layout.alignment: Qt.AlignLeft | Qt.AlignTop
                 WrapperRectangle {
                     id: playerWrapper
                     color: Theme.audioSettingsColorSet.playerBackgroundColor
-                    Layout.alignment: Qt.AlignLeft | Qt.AlignVCenter
                     implicitWidth: root.width
                     margin: implicitWidth * 0.01
                     RowLayout {

@@ -6,7 +6,7 @@ import Quickshell.Services.Mpris
 
 import "../../.."
 
-WrapperRectangle {
+Rectangle {
     id: root
     color: "transparent"
 
@@ -97,7 +97,7 @@ WrapperRectangle {
                 layoutAlignment: Qt.AlignLeft
                 implicitHeight: root.height
                 implicitWidth: root.width * 0.25
-                text: "SHUFFLE"
+                text: "SHUFFLE "
                 enabled: root.player?.loopSupported || false
                 onClicked: {
                     if (root.player) {

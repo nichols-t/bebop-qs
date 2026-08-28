@@ -5,6 +5,7 @@ import QtQuick
 WrapperMouseArea {
     id: root
     cursorShape: Qt.PointingHandCursor
+    hoverEnabled: true
 
     required property string text
 
@@ -16,5 +17,4 @@ WrapperMouseArea {
         implicitWidth: root.width
     }
 
-    hoverEnabled: true
 }

@@ -14,6 +14,7 @@ Scope {
     required property var screen
     required property string title
     property bool shouldShow: false
+    property bool showAccentRect: false
 
     function show() {
         shouldShow = true;
@@ -87,13 +88,16 @@ Scope {
         Rectangle {
             anchors.top: parent.top
             anchors.right: parent.right
-            height: parent.height
+            anchors.bottom: parent.bottom
             width: parent.width * 0.3
             color: Config.settings.backgroundColor
             ColumnLayout {
+                id: ccc
                 anchors.top: parent.top
+                anchors.bottom: parent.bottom
                 width: screen.width * 0.3
                 SettingsMenuTitleText {
+                    id: mm
                     Layout.alignment: Qt.AlignTop | Qt.AlignHCenter
                     text: root.title
                 }
@@ -101,6 +105,8 @@ Scope {
                 Loader {
                     id: contentLoader
                     Layout.fillWidth: true
+                    Layout.fillHeight: true
+                    Layout.alignment: Qt.AlignTop | Qt.AlignHCenter
                     sourceComponent: root.shouldShow ? content : null
                 }
 

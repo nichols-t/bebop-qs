@@ -20,9 +20,9 @@ SettingsSubMenu {
         ColumnLayout {
             id: cols
             anchors.top: parent.top
+            anchors.bottom: parent.bottom
             anchors.horizontalCenter: parent.horizontalCenter
             property real itemsMargin: width * 0.1 / 2
-            anchors.topMargin: itemsMargin
             width: parent.width * 0.9
             spacing: itemsMargin
 
@@ -49,7 +49,7 @@ SettingsSubMenu {
             Rectangle {
                 id: displayRect
                 height: cols.width * 0.6
-                Layout.alignment: Qt.AlignHCenter
+                Layout.alignment: Qt.AlignHCenter | Qt.AlignTop
                 implicitWidth: cols.width * 0.9
                 color: Theme.audioSettingsColorSet.recordBackgroundColor
                 clip: true
@@ -109,7 +109,7 @@ SettingsSubMenu {
 
             AudioSettingsTrackControl {
                 id: trackControl
-                Layout.alignment: Qt.AlignHCenter
+                Layout.alignment: Qt.AlignHCenter | Qt.AlignTop
                 player: cols.player
                 implicitHeight: cols.width * 0.1
                 implicitWidth: cols.width * 0.9
@@ -117,13 +117,14 @@ SettingsSubMenu {
                 // For some reason the seek slider doesn't cause height to be recalculated
                 // and also the height of this control doesn't seem to push stuff beneath it down
                 // so we manually throw a margin here
-                Layout.bottomMargin: (height + seekHeight) * 1.3
+                Layout.bottomMargin: (height + seekHeight) * 1.4
             }
 
             AudioSettingsPlayerSelect {
-                Layout.alignment: Qt.AlignHCenter | Qt.AlignBottom
+                Layout.alignment: Qt.AlignHCenter | Qt.AlignTop
                 width: cols.width
-                spacing: cols.spacing * 0.3
+                Layout.fillHeight: true
+                spacing: width * 0.01
                 currentPlayer: cols.player
                 setPlayer: player => {
                     cols.player = player;

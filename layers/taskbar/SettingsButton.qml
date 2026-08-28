@@ -7,7 +7,7 @@ import ".."
 import "../.."
 
 WrapperMouseArea {
-    id: mouseArea
+    id: root
     cursorShape: Qt.PointingHandCursor
     property Settings settings
 

@@ -266,8 +266,6 @@ Scope {
         }
 
         Item {
-            // Most positioning properties set here
-            property bool hovered: false
             y: myself.yOffset
             x: myself.xOffset
             z: 1
@@ -294,6 +292,7 @@ Scope {
                 visible: false
 
             }
+
             MultiEffect {
                 blurEnabled: true
                 blur: 1.0
@@ -309,6 +308,7 @@ Scope {
             }
 
             MouseArea {
+                id: mouseArea
                 anchors.fill: parent
                 cursorShape: Qt.PointingHandCursor
                 onClicked: {
@@ -316,11 +316,9 @@ Scope {
                 }
                 hoverEnabled: true
                 onEntered: {
-                    parent.hovered = true;
                     itemsContainer.selectedBtnItem = myself;
                 }
                 onExited: {
-                    parent.hovered = false;
                     // Do NOT clear the selectedButton text, to enforce
                     // the invariant that "some menu item is always selected"
                 }

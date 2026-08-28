@@ -30,19 +30,12 @@ Rectangle {
                 required property MprisPlayer modelData
                 required property int index
                 property MprisPlayer player: modelData
-                property bool hovered: false
                 cursorShape: Qt.PointingHandCursor
                 hoverEnabled: true
                 onClicked: {
                     root.setPlayer(player);
                     const playerIndex = Mpris.players.values.findIndex(p => p === player);
                     Theme.audioSettingsColorSet = Config.audioSettings.colorSets[playerIndex % Config.audioSettings.colorSets.length];
-                }
-                onEntered: {
-                    hovered = true;
-                }
-                onExited: {
-                    hovered = false;
                 }
                 preventStealing: true
                 WrapperRectangle {
@@ -81,9 +74,7 @@ Rectangle {
                                     anchors.rightMargin:  playerWrapper.margin
                                     anchors.verticalCenter: parent.verticalCenter
                                     color: Theme.audioSettingsColorSet.playerInfoHoverColor
-                                    //radius: 2
-                                    //border.width: 2
-                                    visible: hovered
+                                    visible: playerBase.containsMouse
                                     Behavior on width {
                                         NumberAnimation {
                                             duration: 100

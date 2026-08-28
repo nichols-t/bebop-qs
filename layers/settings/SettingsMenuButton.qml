@@ -12,14 +12,9 @@ WrapperMouseArea {
         id: text
         anchors.centerIn: parent
         text: root.text
+        hovered: root.containsMouse
         implicitWidth: root.width
     }
 
     hoverEnabled: true
-    onEntered: {
-        text.hovered = true;        
-    }
-    onExited: {
-        text.hovered = false;
-    }
 }

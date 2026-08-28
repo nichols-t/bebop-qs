@@ -56,13 +56,9 @@ Rectangle {
             root.onClicked(dateLookupText, root.theIndex, root.color);
         }
         onEntered: {
-            backgroundMouseArea.enabled = false;
-            backgroundMouseArea.visible = false;
             dayText.font.underline = true;
         }
         onExited: {
-            backgroundMouseArea.enabled = true;
-            backgroundMouseArea.visible = true;
             dayText.font.underline = false;
         }
     }

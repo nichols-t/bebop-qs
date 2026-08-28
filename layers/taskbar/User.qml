@@ -37,7 +37,7 @@ WrapperMouseArea {
                 font.pointSize: Config.taskbar.fontSize
                 font.bold: root.containsMouse
                 font.italic: root.containsMouse
-                font.underline: root.containsMouse
+                font.letterSpacing : root.containsMouse ? 2 : 0
                 Layout.alignment: Qt.AlignLeft
                 color: Config.taskbar.clock.textColor
             }

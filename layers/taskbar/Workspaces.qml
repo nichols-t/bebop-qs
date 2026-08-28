@@ -46,12 +46,6 @@ Rectangle {
                 // onClicked: Hyprland.dispatch("workspace " + (parent.index + 1))
                 hoverEnabled: true
                 cursorShape: Qt.PointingHandCursor
-                onEntered: {
-                    wsButton.isHovered = true;
-                }
-                onExited: {
-                    wsButton.isHovered = false;
-                }
 
                 Item {
                     implicitWidth: wsButton.width
@@ -82,7 +76,7 @@ Rectangle {
                         border.color: Config.taskbar.workspaces.borderColor
                         z: area.isActive ? 3 : 2
 
-                        property bool isHovered: false
+                        property bool isHovered: area.containsMouse
                         // Creates a shape that is the right size for bounds of a regular hexagon
                         height: Config.taskbar.taskbarHeight
                         width: Config.taskbar.taskbarHeight * 1.3

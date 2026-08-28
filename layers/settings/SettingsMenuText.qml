@@ -18,9 +18,9 @@ Rectangle {
         font.pointSize: Config.settings.menuTextSize
         font.bold: false
         font.italic: root.hovered
-        font.underline: root.hovered
         width: root.implicitWidth
-        font.letterSpacing: 2
+        //font.letterSpacing: 2
+        font.letterSpacing: root.hovered ? 4 : 2
     }
 
     MultiEffect {

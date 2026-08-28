@@ -141,16 +141,6 @@ Scope {
                 blur: 1
                 blurMax: 2
             }
-
-            // Additional failsafe to let you close menu via mouse
-            MouseArea {
-                id: backgroundMouseArea
-                enabled: !dayView.shouldShow
-                anchors.fill: parent
-                onClicked: {
-                    root.shouldShow = false;
-                }
-            }
         }
     }
 }

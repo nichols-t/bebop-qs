@@ -24,6 +24,7 @@ If you'd like to contribute please note the following:
 - **Pass on TODOs, comments, etc for cleanup**
 
 ## Improvement Ideas
+- **[DESIGN] Make different colors for system info details screens**
 - **[OPTIMIZATION] Loaders**: Use loaders to make sure ongoing resource usage is minimized
 - **[ERGONOMICS] Theme Control**: A menu for editing theme colors, maybe
     - The `Theme` singleton I used for audio settings is probably useful here?

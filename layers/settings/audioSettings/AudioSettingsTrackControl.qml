@@ -175,13 +175,6 @@ WrapperRectangle {
         property alias text: btnText.text
         property var layoutAlignment
         hoverEnabled: true
-        property bool isHovered: false
-        onEntered: {
-            isHovered = true;
-        }
-        onExited: {
-            isHovered = false;
-        }
         Rectangle {
             id: btnRect
             Layout.alignment: layoutAlignment
@@ -194,7 +187,7 @@ WrapperRectangle {
             }
             Rectangle {
                 anchors.centerIn: parent
-                width: isHovered ? parent.width : 0
+                width: self.containsMouse ? parent.width : 0
                 height: btnText.height * 1.1
                 color: Theme.audioSettingsColorSet.trackControlHoverRectColor
                 border.width: 2
@@ -220,7 +213,8 @@ WrapperRectangle {
             Text {
                 id: btnText
                 z: 1
-                font.underline: self.isHovered
+                font.italic: self.containsMouse
+                font.letterSpacing: self.containsMouse ? 2 : 0
                 anchors.centerIn: parent
                 color: {
                     if (self.enabled) {

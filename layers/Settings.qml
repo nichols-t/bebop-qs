@@ -1,6 +1,7 @@
 import Quickshell
 import Quickshell.Io
 import Quickshell.Wayland
+import Quickshell.Bluetooth
 import Quickshell.Widgets
 import QtQuick
 import QtQuick.Layouts
@@ -44,6 +45,7 @@ SettingsSubMenu {
             }
 
             SettingsMenuButton {
+                visible: Bluetooth.defaultAdapter != null
                 text: "BLUETOOTH"
                 Layout.fillWidth: true
                 onClicked: () => {

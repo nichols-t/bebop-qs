@@ -9,6 +9,7 @@ import "../.."
 
 WrapperMouseArea {
     id: root
+    visible: hasBluetooth
     property BluetoothSettings bluetoothSettings
     cursorShape: Qt.PointingHandCursor
 
